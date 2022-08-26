@@ -1,0 +1,1046 @@
+<div id="main_content">
+  <app-sidebar></app-sidebar>
+  <div class="page">
+    <app-header></app-header>
+
+    <div class="section-body mt-3">
+      <div class="container-fluid">
+        <div class="col-lg-12">
+          <div class="nav-container">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item" *ngIf="role === 'Admin'">
+                  <a (click)=" adminDashboard()">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item" *ngIf="role === 'superadmin'">
+                  <a (click)="dashboard()">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  Company
+                </li>
+                
+              </ol>
+
+            </nav>
+            <button
+              *ngIf="!viewCompany"
+              class="addButton1 btn btn-primary button-back"
+              (click)="dashboard()"
+            >
+              <span class="css-button-icon"
+                ><i class="fa fa-arrow-left" aria-hidden="true"></i
+              ></span>
+            </button>
+            <!-- <button
+            *ngIf="!viewCompany"
+            class="addButton1 btn btn-primary button-back"
+            (click)="adminDashboard()"
+          >
+            <span class="css-button-icon"
+              ><i class="fa fa-arrow-left" aria-hidden="true"></i
+            ></span>
+          </button> -->
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-12">
+            <div *ngIf="!viewCompany">
+              <div class="row">
+                <div class="col-8">
+                  <div class="mb-4">
+                    <h4>Company Master</h4>
+                  </div>
+                </div>
+                <div class="col-4" *ngIf="role==='SuperAdmin'">
+                  <button
+                    class="addButton1 float-right btn btn-primary"
+                    (click)="showCompanyForm()"
+                  >
+                    <span class="css-button-icon"
+                      ><i class="fa fa-plus" aria-hidden="true"></i
+                    ></span>
+                    <span class="css-button-text">Add</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="viewCompany">
+              <div class="row">
+                <div class="col-8">
+                  <div class="mb-4">
+                    <h4>Company Form</h4>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <button
+                    class="addButton1 float-right btn btn-primary"
+                    (click)="showCompanyList()"
+                  >
+                    <span class="css-button-icon"
+                      ><i class="fa fa-arrow-left" aria-hidden="true"></i
+                    ></span>
+                    <span class="css-button-text">Back</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix row-deck" *ngIf="!viewCompany">
+          <div
+            class="col-md-12 text-center"
+            *ngIf="spinner"
+            style="display: block"
+          >
+            <!-- <sa-spinner-circular></sa-spinner-circular> -->
+            <i class="fa fa-spinner fa-spin fa-2x"></i>
+          </div>
+          <div class="col-md-6" *ngFor="let item of companyData">
+            <div class="card userMain">
+              <div class="card-header card-header1">
+                <h3 class="card-title">{{ item.company_name }}</h3>
+              </div>
+              <div class="card-body card-body1">
+                <img
+                  class="col-md-6 img1"
+                  src="{{ imagePath }}{{ item.company_logo }}"
+                  onerror="this.src='assets/images/noimage.png'"
+                  alt="alternative"
+                />
+              </div>
+              <div class="card-footer card-footer1">
+                <div class="">
+                  <div class="pmd-btn-fill btn-group btn-group1">
+                    <button
+                      (click)="edit(item)"
+                      class="
+                        btn
+                        btn1
+                        pmd-ripple-effect
+                        btn-outline-dark
+                        border-right
+                      "
+                      type="button"
+                    >
+                      <span class="css-button-icon span1"
+                        ><i
+                          class="fa fa-plus-circle"
+                          aria-hidden="true"
+                        ></i></span
+                      >Modify
+                    </button>
+                    <button
+                      *ngIf="role === 'SuperAdmin'"
+                      (click)="employee(item)"
+                      type="button"
+                      class="btn btn1 pmd-ripple-effect btn-outline-dark"
+                    >
+                      <span class="css-button-icon span1"
+                        ><i class="fa fa-eye" aria-hidden="true"></i></span
+                      >Employees
+                    </button>
+                    <button
+                      *ngIf="role !== 'SuperAdmin'"
+                      (click)="customer(item)"
+                      type="button"
+                      class="btn btn1 pmd-ripple-effect btn-outline-dark"
+                    >
+                      <span class="css-button-icon span1"
+                        ><i class="fa fa-eye" aria-hidden="true"></i></span
+                      >Customer
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix row-deck" *ngIf="viewCompany">
+          <div class="col-xl-12 col-lg-12">
+            <div class="card">
+              <div class="card-body">
+                <form
+                  [formGroup]="companyForm"
+                  (ngSubmit)="submit()"
+                  id="contact-form"
+                  method="post"
+                  action=""
+                  role="form"
+                >
+                  <div class="messages"></div>
+                  <div class="controls">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_name">Company Name <span style="color:red;">*</span></label>
+                          <input
+                            formControlName="company_name"
+                            type="text"
+                            name="com_name"
+                            class="form-control"
+                            placeholder=""
+                            required
+                            [ngClass]="{
+                              'is-invalid': submitted && f.company_name.errors
+                            }"
+                            required
+                          />
+                          <div
+                            *ngIf="submitted && f.company_name.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.company_name.errors.required">
+                              Company Name is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_logo">Company Logo</label>
+                          <input
+                            (change)="onFileChange($event)"
+                            type="file"
+                            name="logo"
+                            class="form-control"
+                            placeholder=""
+                            required
+                            data-error="logo is required."
+                          />
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_cont">Company Contact Detail<span style="color:red;">*</span></label>
+                          <input
+                            formControlName="company_contact_details"
+                            type="number"
+                            name="compa_contact"
+                            class="form-control"
+                            pattern="[0-9][0-9]{9}"
+                            placeholder=""
+                            required
+                            [ngClass]="{
+                              'is-invalid':
+                                submitted && f.company_contact_details.errors
+                            }"
+                            required
+                          />
+                          <div
+                            *ngIf="
+                              submitted && f.company_contact_details.errors
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="f.company_contact_details.errors.required"
+                            >
+                              Contact Detail is required
+                            </div>
+                            <div
+                              *ngIf="f.company_contact_details.errors.pattern"
+                            >
+                              Please Enter 10 Digit Number
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_cont">Company Email Id <span style="color:red;">*</span></label>
+                          <input
+                            formControlName="company_email_id"
+                            type="email"
+                            name="compa_email"
+                            class="form-control"
+                            placeholder=""
+                            required
+                            [ngClass]="{
+                              'is-invalid':
+                                submitted && f.company_email_id.errors
+                            }"
+                            required
+                          />
+                          <div
+                            *ngIf="submitted && f.company_email_id.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.company_email_id.errors.required">
+                              Email Id is required
+                            </div>
+                            <div *ngIf="f.company_email_id.errors.email">
+                              Email must be valid
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_name">Company Legal Name <span style="color:red;">*</span></label>
+                          <input
+                            formControlName="company_legal_name"
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            placeholder=""
+                            [ngClass]="{
+                              'is-invalid':
+                                submitted && f.company_legal_name.errors
+                            }"
+                            required
+                          />
+                          <div
+                            *ngIf="submitted && f.company_legal_name.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.company_legal_name.errors.required">
+                              Company Legal Name is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_logo">Company Website <span style="color:red;">*</span></label>
+                          <input
+                            formControlName="company_website"
+                            type="text"
+                            name="companywebsite"
+                            class="form-control"
+                            placeholder=""
+                            [ngClass]="{
+                              'is-invalid':
+                                submitted && f.company_website.errors
+                            }"
+                            required
+                          />
+                          <div
+                            *ngIf="submitted && f.company_website.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.company_website.errors.required">
+                              Company Website is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_cont">Type Of Business <span style="color:red;">*</span></label>
+                          <p-dropdown
+                            formControlName="type_of_business"
+                            [options]="typeOfBusiness"
+                            name="test"
+                            appendTo="body"
+                            [style]="{
+                              overflow: 'visible',
+                              width: '100%'
+                            }"
+                          >
+                          </p-dropdown>
+                          <div
+                            [ngClass]="{
+                              'is-invalid2':
+                                submitted && f.type_of_business.errors
+                            }"
+                            *ngIf="submitted && f.type_of_business.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.type_of_business.errors.required">
+                              Type Of Business is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_name">Date of Incorporation <span style="color:red;">*</span></label>
+                          <p-calendar
+                            [yearNavigator]="true"
+                            yearRange="1900:2030"
+                            formControlName="date_of_incorporation"
+                            [inputStyle]="{ width: '90%' }"
+                            [style]="{ width: '100%' }"
+                            [showIcon]="true"
+                            inputId="icon3"
+                          ></p-calendar>
+                          <div
+                            [ngClass]="{
+                              'is-invalid2':
+                                submitted && f.date_of_incorporation.errors
+                            }"
+                            *ngIf="submitted && f.date_of_incorporation.errors"
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="f.date_of_incorporation.errors.required"
+                            >
+                              Date of Incorporation is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_logo"
+                            >Company Identification Number <span style="color:red;">*</span></label
+                          >
+                          <input
+                            formControlName="company_identification_number"
+                            type="text"
+                            name="email"
+                            class="form-control"
+                            placeholder=""
+                            [ngClass]="{
+                              'is-invalid':
+                                submitted &&
+                                f.company_identification_number.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="
+                              submitted &&
+                              f.company_identification_number.errors
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="
+                                f.company_identification_number.errors.required
+                              "
+                            >
+                              Company Identification Number is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_name">Office Address Line 1 <span style="color:red;">*</span></label>
+                          <input
+                            formControlName="office_address_line1"
+                            type="text"
+                            name="email"
+                            class="form-control"
+                            placeholder=""
+                            [ngClass]="{
+                              'is-invalid':
+                                submitted && f.office_address_line1.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="submitted && f.office_address_line1.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.office_address_line1.errors.required">
+                              Office Address Line 1 is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_logo">Office Address Line 2 </label>
+                          <input
+                            formControlName="office_address_line2"
+                            type="text"
+                            name="email"
+                            class="form-control"
+                            placeholder=""
+                          />
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_cont">City<span style="color:red;">*</span></label>
+                          <input
+                            formControlName="city"
+                            type="text"
+                            name="city"
+                            class="form-control"
+                            placeholder=""
+                            [ngClass]="{
+                              'is-invalid': submitted && f.city.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="submitted && f.city.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.city.errors.required">
+                              City is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_name">State <span style="color:red;">*</span></label>
+                          <input
+                            formControlName="state"
+                            type="text"
+                            name="state"
+                            class="form-control"
+                            placeholder=""
+                            [ngClass]="{
+                              'is-invalid': submitted && f.state.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="submitted && f.state.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.state.errors.required">
+                              State is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_logo">Pincode<span style="color:red;">*</span></label>
+                          <input
+                            formControlName="pincode"
+                            type="number"
+                            name="pincode"
+                            class="form-control"
+                            pattern="[0-9][0-9]{5}"
+                            placeholder=""
+                            [ngClass]="{
+                              'is-invalid': submitted && f.pincode.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="submitted && f.pincode.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.pincode.errors.required">
+                              Pin Code is required
+                            </div>
+                            <div *ngIf="f.pincode.errors.pattern">
+                              Please Enter 6 Digit Number
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_cont">PAN <span style="color:red;">*</span></label>
+                          <input
+                            formControlName="pan"
+                            type="tel"
+                            name="compa_contact"
+                            class="form-control"
+                            pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
+                            maxlength="10"
+                            placeholder=""
+                            [ngClass]="{
+                              'is-invalid': submitted && f.pan.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="submitted && f.pan.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.pan.errors.required">
+                              PAN is required
+                            </div>
+                            <div *ngIf="f.pan.errors.pattern">
+                              Please Enter 10 Digit Number (Ex:AAAPL1234C)
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_name">TAN <span style="color:red;">*</span></label>
+                          <input
+                            formControlName="tan"
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            pattern="[A-Z]{4}[0-9]{5}[A-Z]{1}"
+                            maxlength="10"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.tan.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="submitted && f.tan.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.tan.errors.required">
+                              TAN is required
+                            </div>
+                            <div *ngIf="f.tan.errors.pattern">
+                              Please Enter 10 Digit Number (Ex:PDES03028F)
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_logo"> TAN Circle Number <span style="color:red;">*</span></label>
+                          <input
+                            formControlName="tan_circle_number"
+                            type="text"
+                            name="email"
+                            class="form-control"
+                            placeholder=""
+                            [ngClass]="{
+                              'is-invalid':
+                                submitted && f.tan_circle_number.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="submitted && f.tan_circle_number.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.tan_circle_number.errors.required">
+                              TAN Circle Number is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_name">City Location</label>
+                          <input
+                            formControlName="cit_location"
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            placeholder=""
+                            [ngClass]="{
+                              'is-invalid': submitted && f.cit_location.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="submitted && f.cit_location.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.cit_location.errors.required">
+                              City Location is required
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_logo">Form 16 Signatory </label>
+                          <input
+                            formControlName="form_16_signatory"
+                            type="text"
+                            name="email"
+                            class="form-control"
+                            placeholder=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_cont">GST Number</label>
+                          <input
+                            formControlName="gst_number"
+                            type="tel"
+                            name="compa_contact"
+                            class="form-control"
+                            maxlength="15"
+                            placeholder=""
+                            [ngClass]="{
+                              'is-invalid': submitted && f.gst_number.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="submitted && f.gst_number.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.gst_number.errors.required">
+                              GST Number is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_cont">PF Number <span style="color:red;">*</span></label>
+                          <input
+                            formControlName="pf_number"
+                            type="number"
+                            name="compa_contact"
+                            class="form-control"
+                            placeholder=""
+                            maxlength="12"
+                            pattern="[0-9]{12}"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.pf_number.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="submitted && f.pf_number.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.pf_number.errors.required">
+                              PF Number is required
+                            </div>
+                            <div *ngIf="f.pf_number.errors.pattern">
+                              Please Enter 12 Digit Number (Ex:101124664432)
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_name">PF Registration Date <span style="color:red;">*</span></label>
+                          <p-calendar
+                            [yearNavigator]="true"
+                            yearRange="1900:2030"
+                            formControlName="pf_registration_date"
+                            [inputStyle]="{ width: '90%' }"
+                            [style]="{ width: '100%' }"
+                            [showIcon]="true"
+                            inputId="icon4"
+                          ></p-calendar>
+                          <div
+                            [ngClass]="{
+                              'is-invalid2':
+                                submitted && f.pf_registration_date.errors
+                            }"
+                            *ngIf="submitted && f.pf_registration_date.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.pf_registration_date.errors.required">
+                              PF Registration Date is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_logo">PF Signatory</label>
+                          <input
+                            formControlName="pf_signatory"
+                            type="text"
+                            name="email"
+                            class="form-control"
+                            placeholder=""
+                          />
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_cont">PF Signatory Designation</label>
+                          <input
+                            formControlName="pf_signatory_designation"
+                            type="tel"
+                            name="compa_contact"
+                            class="form-control"
+                            placeholder=""
+                          />
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_name">PF Signatory Father</label>
+                          <input
+                            formControlName="pf_signatory_father"
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            placeholder=""
+                            [ngClass]="{
+                              'is-invalid':
+                                submitted && f.pf_signatory_father.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="submitted && f.pf_signatory_father.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.pf_signatory_father.errors.required">
+                              PF Signatory Father is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_logo">ESI Number <span style="color:red;">*</span></label>
+                          <input
+                            formControlName="esi_number"
+                            type="text"
+                            name="email"
+                            class="form-control"
+                            pattern="[0-9]{17}"
+                            placeholder=""
+                            [ngClass]="{
+                              'is-invalid': submitted && f.esi_number.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="submitted && f.esi_number.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.esi_number.errors.required">
+                              ESI Number is required
+                            </div>
+                            <div *ngIf="f.esi_number.errors.pattern">
+                              Please Enter 17 Digit Number
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_cont">ESI Registration Date <span style="color:red;">*</span></label>
+                          <p-calendar
+                            [yearNavigator]="true"
+                            yearRange="1900:2030"
+                            formControlName="esi_registration_date"
+                            [inputStyle]="{ width: '90%' }"
+                            [style]="{ width: '100%' }"
+                            [showIcon]="true"
+                            inputId="icon1"
+                          ></p-calendar>
+                          <div
+                            [ngClass]="{
+                              'is-invalid2':
+                                submitted && f.esi_registration_date.errors
+                            }"
+                            *ngIf="submitted && f.esi_registration_date.errors"
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="f.esi_registration_date.errors.required"
+                            >
+                              ESI Registration Date is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_name"
+                            >ESI Signatory Designation <span style="color:red;">*</span></label
+                          >
+                          <input
+                            formControlName="esi_signatory_designation"
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            placeholder=""
+                            [ngClass]="{
+                              'is-invalid':
+                                submitted && f.esi_signatory_designation.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="
+                              submitted && f.esi_signatory_designation.errors
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="
+                                f.esi_signatory_designation.errors.required
+                              "
+                            >
+                              ESI Signatory Designation is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_logo">ESI Signatory </label>
+                          <input
+                            formControlName="esi_signatory"
+                            type="text"
+                            name="email"
+                            class="form-control"
+                            placeholder=""
+                            required
+                            data-error="Name is required."
+                          />
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_cont">ESI Signatory Father</label>
+                          <input
+                            formControlName="esi_signatory_father"
+                            type="tel"
+                            name="compa_contact"
+                            class="form-control"
+                            placeholder=""
+                          />
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_name">PT Registration Date <span style="color:red;">*</span></label>
+                          <p-calendar
+                            [yearNavigator]="true"
+                            yearRange="1900:2030"
+                            formControlName="pt_registration_date"
+                            [inputStyle]="{ width: '90%' }"
+                            [style]="{ width: '100%' }"
+                            [showIcon]="true"
+                            inputId="icon2"
+                          ></p-calendar>
+                          <div
+                            [ngClass]="{
+                              'is-invalid2':
+                                submitted && f.pt_registration_date.errors
+                            }"
+                            *ngIf="submitted && f.pt_registration_date.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.pt_registration_date.errors.required">
+                              PT Registration Date is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_logo">PT Number <span style="color:red;">*</span></label>
+                          <input
+                            formControlName="pt_number"
+                            type="text"
+                            name="email"
+                            class="form-control"
+                            placeholder=""
+                            [ngClass]="{
+                              'is-invalid': submitted && f.pt_number.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="submitted && f.pt_number.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.pt_number.errors.required">
+                              PT Number is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_cont">PT Signatory </label>
+                          <input
+                            formControlName="pt_signatory"
+                            type="tel"
+                            name="compa_contact"
+                            class="form-control"
+                            placeholder=""
+                          />
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="com_logo">Employee ID</label>
+                          <div class="mt-2">
+                            <div class="form-check-inline">
+                              <input (click)="showEmployeeId()" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                              <label class="form-check-label" for="flexRadioDefault1">
+                                Automatic
+                              </label>
+                            </div>
+                            <div class="form-check-inline">
+                              <input (click)="hideEmployeeId()" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                              <label class="form-check-label" for="flexRadioDefault2">
+                                Manual
+                              </label>
+                            </div>
+                            <!-- <div class="form-check-inline">
+                              <label class="form-check-label" for="radio1">
+                                <input
+                                  (click)="showEmployeeId()"
+                                  type="radio"
+                                  class="form-check-input"
+                                  id="radio1"
+                                  name="emp_prefix1"
+                                  value=""
+                                  checked
+                                />Automatic
+                              </label>
+                            </div>
+                            <div class="form-check-inline">
+                              <label class="form-check-label" for="radio2">
+                                <input
+                                  (click)="hideEmployeeId()"
+                                  type="radio"
+                                  class="form-check-input"
+                                  id="radio2"
+                                  name="emp_prefix"
+                                  value=""
+                                  
+                                />Manual
+                              </label>
+                            </div> -->
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4" *ngIf="employeeId">
+                        <div class="form-group">
+                          <label for="com_cont">Employee Prefix</label>
+                          <input
+                            formControlName="emp_prefix"
+                            type="tel"
+                            name="emp_prefix"
+                            class="form-control"
+                            placeholder=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="col-md-12">
+                    <button
+                      type="submit"
+                      class="btn btn-success saveButton"
+                      [disabled]="spinner"
+                    >
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary cancleButton float-right"
+                      (click)="showCompanyList()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

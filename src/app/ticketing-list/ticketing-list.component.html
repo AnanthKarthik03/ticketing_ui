@@ -1,0 +1,2161 @@
+<div id="main_content">
+  <app-project-sidebar></app-project-sidebar>
+  <div class="page">
+    <app-header></app-header>
+
+    <div class="section-body mt-3">
+      <div class="container-fluid">
+        <div class="col-lg-12">
+          <div class="nav-container">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item" *ngIf="role === 'Admin'">
+                  <a (click)="company()">{{ companyName }}</a>
+                </li>
+                <li class="breadcrumb-item" *ngIf="role === 'Pm'">
+                  <a>{{ companyName }}</a>
+                </li>
+                <li class="breadcrumb-item" *ngIf="role === 'Admin'">
+                  <a (click)="customer()">{{ customerName }}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  <a (click)="project()">{{ projectName }}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  Ticketing List
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="col-lg-12">
+          <div class="row clearfix">
+            <div class="col-lg-12">
+              <div>
+                <div class="row">
+                  <div class="col-7">
+                    <div class="mb-4">
+                      <h4>Ticketing List</h4>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <p-dropdown
+                      (onChange)="filterByEmployee($event.value)"
+                      [options]="empFilter"
+                      name="test"
+                      appendTo="body"
+                      [style]="{
+                        overflow: 'visible',
+                        width: '100%'
+                      }"
+                    >
+                    </p-dropdown>
+                  </div>
+
+                  <div class="col-2" *ngIf="ticketAdd === '0'">
+                    <button
+                      class="addButton1 float-right btn btn-primary"
+                      (click)="ticketingAdd()"
+                    >
+                      <span class="css-button-icon"
+                        ><i class="fa fa-plus" aria-hidden="true"></i
+                      ></span>
+                      <span class="css-button-text">Add</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0 border-bottom-0 border-end-0 border-start-lg
+                  card-border1
+                "
+              >
+                <div class="card-body card-paddingcustom cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title font_size">Open</h3></span
+                      >
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <h5
+                        class="
+                          number
+                          mb-2
+                          counter
+                          text-center
+                          card-font1
+                          count_size
+                        "
+                      >
+                        {{ openData.length }}
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0 border-bottom-0 border-end-0 border-start-lg
+                  card-border2
+                "
+              >
+                <div class="card-body card-paddingcustom cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title font_size">In Progress</h3></span
+                      >
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <h5
+                        class="
+                          number
+                          mb-2
+                          counter
+                          text-center
+                          card-font2
+                          count_size
+                        "
+                      >
+                        {{ InPorgressData.length }}
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0 border-bottom-0 border-end-0 border-start-lg
+                  card-border3
+                "
+              >
+                <div class="card-body card-paddingcustom cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title font_size">Hold</h3></span
+                      >
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <h5
+                        class="
+                          number
+                          mb-2
+                          counter
+                          text-center
+                          card-font3
+                          count_size
+                        "
+                      >
+                        {{ hold.length }}
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0 border-bottom-0 border-end-0 border-start-lg
+                  card-border4
+                "
+              >
+                <div class="card-body card-paddingcustom cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title font_size">Closed</h3></span
+                      >
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <h5
+                        class="
+                          number
+                          mb-2
+                          counter
+                          text-center
+                          card-font4
+                          count_size
+                        "
+                      >
+                        {{ closed.length }}
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0 border-bottom-0 border-end-0 border-start-lg
+                  card-border5
+                "
+              >
+                <div class="card-body card-paddingcustom cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title font_size">
+                          Awaiting Information
+                        </h3></span
+                      >
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <h5
+                        class="
+                          number
+                          mb-2
+                          counter
+                          text-center
+                          card-font5
+                          count_size
+                        "
+                      >
+                        {{ waitingForCustomer.length }}
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0 border-bottom-0 border-end-0 border-start-lg
+                  card-border6
+                "
+              >
+                <div class="card-body card-paddingcustom cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title font_size">Resolved</h3></span
+                      >
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <h5
+                        class="
+                          number
+                          mb-2
+                          counter
+                          text-center
+                          card-font6
+                          count_size
+                        "
+                      >
+                        {{ resolved.length }}
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0 border-bottom-0 border-end-0 border-start-lg
+                  card-border7
+                "
+              >
+                <div class="card-body card-paddingcustom cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title font_size">Approved</h3></span
+                      >
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <h5
+                        class="
+                          number
+                          mb-2
+                          counter
+                          text-center
+                          card-font7
+                          count_size
+                        "
+                      >
+                        {{ approved.length }}
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0 border-bottom-0 border-end-0 border-start-lg
+                  card-border8
+                "
+              >
+                <div class="card-body card-paddingcustom cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title font_size">Reopen</h3></span
+                      >
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <h5
+                        class="
+                          number
+                          mb-2
+                          counter
+                          text-center
+                          card-font8
+                          count_size
+                        "
+                      >
+                        {{ reOpen.length }}
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-body mt-3" id="ticketing">
+      <div class="container-fluid container-padd">
+        <div class="col-lg-12 horizontal-scrollable">
+          <div class="row">
+            <div class="col">
+              <div class="card all-card">
+                <div id="header-border1" class="card-header all-header">
+                  <h6 class="text-center mb-0">Open</h6>
+                </div>
+                <div style="clear: both"></div>
+                <div
+                  id="example-1"
+                  class="
+                    card
+                    example-1
+                    square
+                    scrollbar-dusty-grass
+                    square
+                    thin
+                  "
+                >
+                  <div class="card-body card-body-list">
+                    <div
+                      *ngFor="let item of openData"
+                      class="card card-body-white"
+                      data-toggle="modal"
+                      data-target="#modal-fullscreen"
+                    >
+                      <div
+                        class="card-body card-resize"
+                        (click)="viewTicket(item)"
+                      >
+                        <!-- Open -->
+                        <div class="card-header space bg-transparent p-0">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h6>
+                                <b
+                                  class="ticket-font"
+                                  style="font-size: 1rem !important"
+                                  >T.No : {{ item.ticket_no }}</b
+                                >
+                              </h6>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-6">
+                              <span class="assigne text-wrap font-weight-bold"
+                                >By : {{ item.assigned_by_name }}</span
+                              >
+                            </div>
+                            <div class="col-md-6">
+                              <div class="">
+                                <span
+                                  class="
+                                    assigne
+                                    text-wrap
+                                    font-weight-bold
+                                    float-right
+                                  "
+                                  >To : {{ item.assigned_to_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body desc-p">
+                          <p class="card-text text-wrap">
+                            {{ item.ticket_desc }}
+                          </p>
+                        </div>
+                        <div class="card-footer bg-transparent p-0 footer-bt">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p class="card-text ticket-font">
+                                Raised :
+                                {{ item.name }}
+
+                                {{ item.created_at | date: "short" }}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="openData.length === 0"
+                      style="text-align: center; font-size: 14px"
+                    >
+                      <span>No Tickets Found</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card all-card">
+                <div id="header-border2" class="card-header all-header">
+                  <h6 class="text-center mb-0">In-Progress</h6>
+                </div>
+                <div style="clear: both"></div>
+                <div
+                  id="example-1"
+                  class="
+                    card
+                    example-1
+                    square
+                    scrollbar-dusty-grass
+                    square
+                    thin
+                  "
+                >
+                  <div class="card-body card-body-list">
+                    <!-- <button class="add-bugs">
+                        <span class="mr-2">
+                          <i class="fa fa-plus-circle"></i>
+                        </span>
+                        <span><b>Add</b></span>
+                      </button> -->
+                    <div
+                      *ngFor="let item of InPorgressData"
+                      class="card card-body-white"
+                      data-toggle="modal"
+                      data-target="#modal-fullscreen"
+                    >
+                      <div
+                        class="card-body card-resize"
+                        (click)="viewTicket(item)"
+                      >
+                        <!-- <div class="card-header space bg-transparent p-0">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <b class="ticket-font"
+                                  >Tno. : {{ item.ticket_no }}</b
+                                >
+                              </div>
+                              <div class="col-md-6">
+                                <span class="assigne text-wrap font-weight-bold"
+                                  >By : {{ item.assigned_by_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body desc-p">
+                            <p class="card-text text-wrap">
+                              {{ item.ticket_desc }}
+                            </p>
+                          </div>
+                          <div class="card-footer bg-transparent p-0 footer-bt">
+                            <div class="row">
+                              <div class="col-md-7">
+                                <p class="card-text ticket-font">
+                                  {{ item.name }}
+
+                                  {{ item.created_at | date: "short" }}
+                                </p>
+                              </div>
+                              <div class="col-md-5">
+                                <span class="assigne text-wrap font-weight-bold"
+                                  >To : {{ item.assigned_to_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div> -->
+                        <!-- In-Progress -->
+                        <div class="card-header space bg-transparent p-0">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h6>
+                                <b
+                                  class="ticket-font"
+                                  style="font-size: 1rem !important"
+                                  >T.No : {{ item.ticket_no }}</b
+                                >
+                              </h6>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-6">
+                              <span class="assigne text-wrap font-weight-bold"
+                                >By : {{ item.assigned_by_name }}</span
+                              >
+                            </div>
+                            <div class="col-md-6">
+                              <div class="">
+                                <span
+                                  class="
+                                    assigne
+                                    text-wrap
+                                    font-weight-bold
+                                    float-right
+                                  "
+                                  >To : {{ item.assigned_to_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body desc-p">
+                          <p class="card-text text-wrap">
+                            {{ item.ticket_desc }}
+                          </p>
+                        </div>
+                        <div class="card-footer bg-transparent p-0 footer-bt">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p class="card-text ticket-font">
+                                Raised :
+                                {{ item.name }}
+
+                                {{ item.created_at | date: "short" }}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="InPorgressData.length === 0"
+                      style="text-align: center; font-size: 14px"
+                    >
+                      <span>No Tickets Found</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card all-card">
+                <div id="header-border3" class="card-header all-header">
+                  <h6 class="text-center mb-0">Awaiting Information</h6>
+                </div>
+                <div style="clear: both"></div>
+                <div
+                  id="example-1"
+                  class="
+                    card
+                    example-1
+                    square
+                    scrollbar-dusty-grass
+                    square
+                    thin
+                  "
+                >
+                  <div class="card-body card-body-list">
+                    <!-- <button class="add-bugs">
+                        <span class="mr-2">
+                          <i class="fa fa-plus-circle"></i>
+                        </span>
+                        <span><b>Add</b></span>
+                      </button> -->
+                    <div
+                      *ngFor="let item of waitingForCustomer"
+                      class="card card-body-white"
+                      data-toggle="modal"
+                      data-target="#modal-fullscreen"
+                    >
+                      <div
+                        class="card-body card-resize"
+                        (click)="viewTicket(item)"
+                      >
+                        <!-- <div class="card-header space bg-transparent p-0">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <b class="ticket-font"
+                                  >Tno. : {{ item.ticket_no }}</b
+                                >
+                              </div>
+                              <div class="col-md-6">
+                                <span class="assigne text-wrap font-weight-bold"
+                                  >By : {{ item.assigned_by_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body desc-p">
+                            <p class="card-text text-wrap">
+                              {{ item.ticket_desc }}
+                            </p>
+                          </div>
+                          <div class="card-footer bg-transparent p-0 footer-bt">
+                            <div class="row">
+                              <div class="col-md-7">
+                                <p class="card-text ticket-font">
+                                  {{ item.name }}
+
+                                  {{ item.created_at | date: "short" }}
+                                </p>
+                              </div>
+                              <div class="col-md-5">
+                                <span class="assigne text-wrap font-weight-bold"
+                                  >To : {{ item.assigned_to_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div> -->
+                        <div class="card-header space bg-transparent p-0">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h6>
+                                <b
+                                  class="ticket-font"
+                                  style="font-size: 1rem !important"
+                                  >T.No : {{ item.ticket_no }}</b
+                                >
+                              </h6>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-6">
+                              <span class="assigne text-wrap font-weight-bold"
+                                >By : {{ item.assigned_by_name }}</span
+                              >
+                            </div>
+                            <div class="col-md-6">
+                              <div class="">
+                                <span
+                                  class="
+                                    assigne
+                                    text-wrap
+                                    font-weight-bold
+                                    float-right
+                                  "
+                                  >To : {{ item.assigned_to_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body desc-p">
+                          <p class="card-text text-wrap">
+                            {{ item.ticket_desc }}
+                          </p>
+                        </div>
+                        <div class="card-footer bg-transparent p-0 footer-bt">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p class="card-text ticket-font">
+                                Raised :
+                                {{ item.name }}
+
+                                {{ item.created_at | date: "short" }}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="waitingForCustomer.length === 0"
+                      style="text-align: center; font-size: 14px"
+                    >
+                      <span>No Tickets Found</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card all-card">
+                <div id="header-border4" class="card-header all-header">
+                  <h6 class="text-center mb-0">Resolved</h6>
+                </div>
+                <div style="clear: both"></div>
+                <div
+                  id="example-1"
+                  class="
+                    card
+                    example-1
+                    square
+                    scrollbar-dusty-grass
+                    square
+                    thin
+                  "
+                >
+                  <div class="card-body card-body-list">
+                    <!-- <button class="add-bugs">
+                        <span class="mr-2">
+                          <i class="fa fa-plus-circle"></i>
+                        </span>
+                        <span><b>Add</b></span>
+                      </button> -->
+                    <div
+                      *ngFor="let item of resolved"
+                      class="card card-body-white"
+                      data-toggle="modal"
+                      data-target="#modal-fullscreen"
+                    >
+                      <div
+                        class="card-body card-resize"
+                        (click)="viewTicket(item)"
+                      >
+                        <!-- <div class="card-header space bg-transparent p-0">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <b class="ticket-font"
+                                  >Tno. : {{ item.ticket_no }}</b
+                                >
+                              </div>
+                              <div class="col-md-6">
+                                <span class="assigne text-wrap font-weight-bold"
+                                  >By : {{ item.assigned_by_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body desc-p">
+                            <p class="card-text">
+                              {{ item.ticket_desc }}
+                            </p>
+                          </div>
+                          <div class="card-footer bg-transparent p-0 footer-bt">
+                            <div class="row">
+                              <div class="col-md-7">
+                                <p class="card-text ticket-font">
+                                  {{ item.name }}
+
+                                  {{ item.created_at | date: "short" }}
+                                </p>
+                              </div>
+                              <div class="col-md-5">
+                                <span class="assigne text-wrap font-weight-bold"
+                                  >To : {{ item.assigned_to_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div> -->
+
+                        <div class="card-header space bg-transparent p-0">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h6>
+                                <b
+                                  class="ticket-font"
+                                  style="font-size: 1rem !important"
+                                  >T.No : {{ item.ticket_no }}</b
+                                >
+                              </h6>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-6">
+                              <span class="assigne text-wrap font-weight-bold"
+                                >By : {{ item.assigned_by_name }}</span
+                              >
+                            </div>
+                            <div class="col-md-6">
+                              <div class="">
+                                <span
+                                  class="
+                                    assigne
+                                    text-wrap
+                                    font-weight-bold
+                                    float-right
+                                  "
+                                  >To : {{ item.assigned_to_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body desc-p">
+                          <p class="card-text text-wrap">
+                            {{ item.ticket_desc }}
+                          </p>
+                        </div>
+                        <div class="card-footer bg-transparent p-0 footer-bt">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p class="card-text ticket-font">
+                                Raised :
+                                {{ item.name }}
+
+                                {{ item.created_at | date: "short" }}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="resolved.length === 0"
+                      style="text-align: center; font-size: 14px"
+                    >
+                      <span>No Tickets Found</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card all-card">
+                <div id="header-border9" class="card-header all-header">
+                  <h6 class="text-center mb-0">Approved</h6>
+                </div>
+                <div style="clear: both"></div>
+
+                <div
+                  id="example-1"
+                  class="
+                    card
+                    example-1
+                    square
+                    scrollbar-dusty-grass
+                    square
+                    thin
+                  "
+                >
+                  <div class="card-body card-body-list">
+                    <!-- <button class="add-bugs">
+                        <span> <i class="fa fa-plus-circle"></i> </span>
+                        <span> Add</span>
+                      </button> -->
+                    <div
+                      *ngFor="let item of approved"
+                      class="card card-body-white"
+                      data-toggle="modal"
+                      data-target="#modal-fullscreen"
+                    >
+                      <div
+                        class="card-body card-resize"
+                        (click)="viewTicket(item)"
+                      >
+                        <!-- <div class="card-header space bg-transparent p-0">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <b class="ticket-font"
+                                  >Tno. : {{ item.ticket_no }}</b
+                                >
+                              </div>
+                              <div class="col-md-6">
+                                <span class="assigne text-wrap font-weight-bold"
+                                  >By : {{ item.assigned_by_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body desc-p">
+                            <p class="card-text">
+                              {{ item.ticket_desc }}
+                            </p>
+                          </div>
+                          <div class="card-footer bg-transparent p-0 footer-bt">
+                            <div class="row">
+                              <div class="col-md-7">
+                                <p class="card-text ticket-font">
+                                  {{ item.name }}
+
+                                  {{ item.created_at | date: "short" }}
+                                </p>
+                              </div>
+                              <div class="col-md-5">
+                                <span class="assigne text-wrap font-weight-bold"
+                                  >To : {{ item.assigned_to_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div> -->
+
+                        <div class="card-header space bg-transparent p-0">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h6>
+                                <b
+                                  class="ticket-font"
+                                  style="font-size: 1rem !important"
+                                  >T.No : {{ item.ticket_no }}</b
+                                >
+                              </h6>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-6">
+                              <span class="assigne text-wrap font-weight-bold"
+                                >By : {{ item.assigned_by_name }}</span
+                              >
+                            </div>
+                            <div class="col-md-6">
+                              <div class="">
+                                <span
+                                  class="
+                                    assigne
+                                    text-wrap
+                                    font-weight-bold
+                                    float-right
+                                  "
+                                  >To : {{ item.assigned_to_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body desc-p">
+                          <p class="card-text text-wrap">
+                            {{ item.ticket_desc }}
+                          </p>
+                        </div>
+                        <div class="card-footer bg-transparent p-0 footer-bt">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p class="card-text ticket-font">
+                                Raised :
+                                {{ item.name }}
+
+                                {{ item.created_at | date: "short" }}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="approved.length === 0"
+                      style="text-align: center; font-size: 14px"
+                    >
+                      <span>No Tickets Found</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card all-card">
+                <div id="header-border8" class="card-header all-header">
+                  <h6 class="text-center mb-0">Hold</h6>
+                </div>
+                <div style="clear: both"></div>
+
+                <div
+                  id="example-1"
+                  class="
+                    card
+                    example-1
+                    square
+                    scrollbar-dusty-grass
+                    square
+                    thin
+                  "
+                >
+                  <div class="card-body card-body-list">
+                    <!-- <button class="add-bugs">
+                        <span> <i class="fa fa-plus-circle"></i> </span>
+                        <span> Add</span>
+                      </button> -->
+                    <div
+                      *ngFor="let item of hold"
+                      class="card card-body-white"
+                      data-toggle="modal"
+                      data-target="#modal-fullscreen"
+                    >
+                      <div
+                        class="card-body card-resize"
+                        (click)="viewTicket(item)"
+                      >
+                        <!-- <div class="card-header space bg-transparent p-0">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <b class="ticket-font"
+                                  >Tno. : {{ item.ticket_no }}</b
+                                >
+                              </div>
+                              <div class="col-md-6">
+                                <span class="assigne text-wrap font-weight-bold"
+                                  >By : {{ item.assigned_by_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body desc-p">
+                            <p class="card-text">
+                              {{ item.ticket_desc }}
+                            </p>
+                          </div>
+                          <div class="card-footer bg-transparent p-0 footer-bt">
+                            <div class="row">
+                              <div class="col-md-7">
+                                <p class="card-text ticket-font">
+                                  {{ item.name }}
+
+                                  {{ item.created_at | date: "short" }}
+                                </p>
+                              </div>
+                              <div class="col-md-5">
+                                <span class="assigne text-wrap font-weight-bold"
+                                  >To : {{ item.assigned_to_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div> -->
+
+                        <div class="card-header space bg-transparent p-0">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h6>
+                                <b
+                                  class="ticket-font"
+                                  style="font-size: 1rem !important"
+                                  >T.No : {{ item.ticket_no }}</b
+                                >
+                              </h6>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-6">
+                              <span class="assigne text-wrap font-weight-bold"
+                                >By : {{ item.assigned_by_name }}</span
+                              >
+                            </div>
+                            <div class="col-md-6">
+                              <div class="">
+                                <span
+                                  class="
+                                    assigne
+                                    text-wrap
+                                    font-weight-bold
+                                    float-right
+                                  "
+                                  >To : {{ item.assigned_to_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body desc-p">
+                          <p class="card-text text-wrap">
+                            {{ item.ticket_desc }}
+                          </p>
+                        </div>
+                        <div class="card-footer bg-transparent p-0 footer-bt">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p class="card-text ticket-font">
+                                Raised :
+                                {{ item.name }}
+
+                                {{ item.created_at | date: "short" }}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="hold.length === 0"
+                      style="text-align: center; font-size: 14px"
+                    >
+                      <span>No Tickets Found</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card all-card">
+                <div id="header-border7" class="card-header all-header">
+                  <h6 class="text-center mb-0">Reopen</h6>
+                </div>
+                <div style="clear: both"></div>
+
+                <div
+                  id="example-1"
+                  class="
+                    card
+                    example-1
+                    square
+                    scrollbar-dusty-grass
+                    square
+                    thin
+                  "
+                >
+                  <div class="card-body card-body-list">
+                    <!-- <button class="add-bugs">
+                        <span> <i class="fa fa-plus-circle"></i> </span>
+                        <span> Add</span>
+                      </button> -->
+                    <div
+                      *ngFor="let item of reOpen"
+                      class="card card-body-white"
+                      data-toggle="modal"
+                      data-target="#modal-fullscreen"
+                    >
+                      <div
+                        class="card-body card-resize"
+                        (click)="viewTicket(item)"
+                      >
+                        <!-- <div class="card-header space bg-transparent p-0">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <b class="ticket-font"
+                                  >Tno. : {{ item.ticket_no }}</b
+                                >
+                              </div>
+                              <div class="col-md-6">
+                                <span class="assigne text-wrap font-weight-bold"
+                                  >By : {{ item.assigned_by_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body desc-p">
+                            <p class="card-text text-wrap">
+                              {{ item.ticket_desc }}
+                            </p>
+                          </div>
+                          <div class="card-footer bg-transparent p-0 footer-bt">
+                            <div class="row">
+                              <div class="col-md-7">
+                                <p class="card-text ticket-font">
+                                  {{ item.name }}
+
+                                  {{ item.created_at | date: "short" }}
+                                </p>
+                              </div>
+                              <div class="col-md-5">
+                                <span class="assigne text-wrap font-weight-bold"
+                                  >To : {{ item.assigned_to_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div> -->
+
+                        <div class="card-header space bg-transparent p-0">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h6>
+                                <b
+                                  class="ticket-font"
+                                  style="font-size: 1rem !important"
+                                  >T.No : {{ item.ticket_no }}</b
+                                >
+                              </h6>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-6">
+                              <span class="assigne text-wrap font-weight-bold"
+                                >By : {{ item.assigned_by_name }}</span
+                              >
+                            </div>
+                            <div class="col-md-6">
+                              <div class="">
+                                <span
+                                  class="
+                                    assigne
+                                    text-wrap
+                                    font-weight-bold
+                                    float-right
+                                  "
+                                  >To : {{ item.assigned_to_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body desc-p">
+                          <p class="card-text text-wrap">
+                            {{ item.ticket_desc }}
+                          </p>
+                        </div>
+                        <div class="card-footer bg-transparent p-0 footer-bt">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p class="card-text ticket-font">
+                                Raised :
+                                {{ item.name }}
+
+                                {{ item.created_at | date: "short" }}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="reOpen.length === 0"
+                      style="text-align: center; font-size: 14px"
+                    >
+                      <span>No Tickets Found</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card all-card">
+                <div id="header-border6" class="card-header all-header">
+                  <h6 class="text-center mb-0">Closed</h6>
+                </div>
+                <div style="clear: both"></div>
+
+                <div
+                  id="example-1"
+                  class="
+                    card
+                    example-1
+                    square
+                    scrollbar-dusty-grass
+                    square
+                    thin
+                  "
+                >
+                  <div class="card-body card-body-list">
+                    <!-- <button class="add-bugs">
+                        <span> <i class="fa fa-plus-circle"></i> </span>
+                        <span> Add</span>
+                      </button> -->
+                    <div
+                      *ngFor="let item of closed"
+                      class="card card-body-white"
+                      data-toggle="modal"
+                      data-target="#modal-fullscreen"
+                    >
+                      <div
+                        class="card-body card-resize"
+                        (click)="viewTicket(item)"
+                      >
+                        <!-- <div class="card-header space bg-transparent p-0">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <b class="ticket-font"
+                                  >Tno. : {{ item.ticket_no }}</b
+                                >
+                              </div>
+                              <div class="col-md-6">
+                                <span class="assigne text-wrap font-weight-bold"
+                                  >By : {{ item.assigned_by_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body desc-p">
+                            <p class="card-text text-wrap">
+                              {{ item.ticket_desc }}
+                            </p>
+                          </div>
+                          <div class="card-footer bg-transparent p-0 footer-bt">
+                            <div class="row">
+                              <div class="col-md-7">
+                                <p class="card-text ticket-font">
+                                  {{ item.name }}
+
+                                  {{ item.created_at | date: "short" }}
+                                </p>
+                              </div>
+                              <div class="col-md-5">
+                                <span class="assigne text-wrap font-weight-bold"
+                                  >To : {{ item.assigned_to_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div> -->
+
+                        <div class="card-header space bg-transparent p-0">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h6>
+                                <b
+                                  class="ticket-font"
+                                  style="font-size: 1rem !important"
+                                  >T.No : {{ item.ticket_no }}</b
+                                >
+                              </h6>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-6">
+                              <span class="assigne text-wrap font-weight-bold"
+                                >By : {{ item.assigned_by_name }}</span
+                              >
+                            </div>
+                            <div class="col-md-6">
+                              <div class="">
+                                <span
+                                  class="
+                                    assigne
+                                    text-wrap
+                                    font-weight-bold
+                                    float-right
+                                  "
+                                  >To : {{ item.assigned_to_name }}</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body desc-p">
+                          <p class="card-text text-wrap">
+                            {{ item.ticket_desc }}
+                          </p>
+                        </div>
+                        <div class="card-footer bg-transparent p-0 footer-bt">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p class="card-text ticket-font">
+                                Raised :
+                                {{ item.name }}
+
+                                {{ item.created_at | date: "short" }}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="closed.length === 0"
+                      style="text-align: center; font-size: 14px"
+                    >
+                      <span>No Tickets Found</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="row">
+              <div class="col">
+                <div class="card card-list">
+                  <div
+                    class="card-header1 card-header_ticketing card-list-text"
+                  >
+                    <div id="textbox">
+                      <div id="textbox">
+                        <h6 class="text-center">Open</h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: both"></div>
+                  <div
+                    id="example-1"
+                    class="
+                      card
+                      example-1
+                      square
+                      scrollbar-dusty-grass
+                      square
+                      thin
+                    "
+                  >
+                    <div class="card-body card-body-list">
+                      <div
+                        *ngFor="let item of openData"
+                        class="card card-body-white"
+                        data-toggle="modal"
+                        data-target="#modal-fullscreen"
+                      >
+                        <div
+                          class="card-body card-resize"
+                          (click)="viewTicket(item)"
+                        >
+                          <div class="card-header space bg-transparent">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <b>Tno. : {{ item.ticket_no }}</b>
+                              </div>
+                              <div class="col-md-6">
+                                <span>By:{{ item.assigned_by_name }}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            <p class="card-text">
+                              {{ item.ticket_desc }}
+                            </p>
+                          </div>
+                          <div class="card-footer bg-transparent">
+                            <p class="card-text">
+                              {{ item.name }}
+
+                              {{ item.created_at | date: "short" }}
+                              <span>to:{{ item.assigned_to_name }}</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="openData.length === 0"
+                        style="text-align: center; font-size: 14px"
+                      >
+                        <span>No Tickets Found</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card card-list">
+                  <div
+                    class="card-header1 card-header_ticketing1 card-list-text"
+                  >
+                    <div id="textbox">
+                      <h6 class="text-center">In-Progress</h6>
+                    </div>
+                  </div>
+                  <div style="clear: both"></div>
+                  <div
+                    id="example-1"
+                    class="
+                      card
+                      example-1
+                      square
+                      scrollbar-dusty-grass
+                      square
+                      thin
+                    "
+                  >
+                    <div class="card-body card-body-list">
+                      <div
+                        *ngFor="let item of InPorgressData"
+                        class="card card-body-white"
+                        data-toggle="modal"
+                        data-target="#modal-fullscreen"
+                      >
+                        <div
+                          class="card-body card-resize"
+                          (click)="viewTicket(item)"
+                        >
+                          <div class="card-header space bg-transparent">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <b>Tno. : {{ item.ticket_no }}</b>
+                              </div>
+                              <div class="col-md-6">
+                                <span>By:{{ item.assigned_by_name }}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            <p class="card-text">
+                              {{ item.ticket_desc }}
+                            </p>
+                          </div>
+                          <div class="card-footer bg-transparent">
+                            <p class="card-text">
+                              {{ item.name }}
+
+                              {{ item.created_at | date: "short" }}
+                              <span>to:{{ item.assigned_to_name }}</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="InPorgressData.length === 0"
+                        style="text-align: center; font-size: 14px"
+                      >
+                        <span>No Tickets Found</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card card-list">
+                  <div
+                    class="card-header1 card-header_ticketing2 card-list-text"
+                  >
+                    <div id="textbox">
+                      <h6 class="text-center">Waiting for Customer</h6>
+                    </div>
+                  </div>
+                  <div style="clear: both"></div>
+                  <div
+                    id="example-1"
+                    class="
+                      card
+                      example-1
+                      square
+                      scrollbar-dusty-grass
+                      square
+                      thin
+                    "
+                  >
+                    <div class="card-body card-body-list">
+                      <div
+                        *ngFor="let item of waitingForCustomer"
+                        class="card card-body-white"
+                        data-toggle="modal"
+                        data-target="#modal-fullscreen"
+                      >
+                        <div
+                          class="card-body card-resize"
+                          (click)="viewTicket(item)"
+                        >
+                          <h5 class="">Ticket Number : {{ item.ticket_no }}</h5>
+                          <span>by:{{ item.assigned_by_name }}</span>
+                          <p class="card-text">
+                            {{ item.ticket_desc }}
+                          </p>
+                          <hr />
+                          <p class="card-text">
+                            {{ item.name }}
+
+                            {{ item.created_at | date: "short" }}
+                            <span>to:{{ item.assigned_to_name }}</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="waitingForCustomer.length === 0"
+                        style="text-align: center; font-size: 14px"
+                      >
+                        <span>No Tickets Found</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card card-list">
+                  <div
+                    class="card-header1 card-header_ticketing3 card-list-text"
+                  >
+                    <div id="textbox">
+                      <h6 class="text-center">Solution Verification</h6>
+                    </div>
+                  </div>
+                  <div style="clear: both"></div>
+                  <div
+                    id="example-1"
+                    class="
+                      card
+                      example-1
+                      square
+                      scrollbar-dusty-grass
+                      square
+                      thin
+                    "
+                  >
+                    <div class="card-body card-body-list">
+                      <div
+                        *ngFor="let item of solutionVerified"
+                        class="card card-body-white"
+                        data-toggle="modal"
+                        data-target="#modal-fullscreen"
+                      >
+                        <div
+                          class="card-body card-resize"
+                          (click)="viewTicket(item)"
+                        >
+                          <h5 class="">Ticket Number : {{ item.ticket_no }}</h5>
+                          <span>by:{{ item.assigned_by_name }}</span>
+                          <p class="card-text">
+                            {{ item.ticket_desc }}
+                          </p>
+                          <hr />
+                          <p class="card-text">
+                            {{ item.name }}
+
+                            {{ item.created_at | date: "short" }}
+                            <span>to:{{ item.assigned_to_name }}</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="solutionVerified.length === 0"
+                        style="text-align: center; font-size: 14px"
+                      >
+                        <span>No Tickets Found</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card card-list">
+                  <div
+                    id="example-1"
+                    class="card-header1 card-header_ticketing4 card-list-text"
+                  >
+                    <div id="textbox">
+                      <h6 class="text-center">Closed</h6>
+                    </div>
+                  </div>
+                  <div style="clear: both"></div>
+
+                  <div
+                    id="example-1"
+                    class="
+                      card
+                      example-1
+                      square
+                      scrollbar-dusty-grass
+                      square
+                      thin
+                    "
+                  >
+                    <div class="card-body card-body-list">
+                      <div
+                        *ngFor="let item of closed"
+                        class="card card-body-white"
+                        data-toggle="modal"
+                        data-target="#modal-fullscreen"
+                      >
+                        <div
+                          class="card-body card-resize"
+                          (click)="viewTicket(item)"
+                        >
+                          <h5 class="">Ticket Number: {{ item.ticket_no }}</h5>
+                          <span>by: {{ item.assigned_by_name }}</span>
+                          <p class="card-text">
+                            {{ item.ticket_desc }}
+                          </p>
+                          <hr />
+                          <p class="card-text">
+                            {{ item.name }}
+
+                            {{ item.created_at | date: "short" }}
+                            <span
+                              >to: <b> {{ item.assigned_to_name }}</b></span
+                            >
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="closed.length === 0"
+                        style="text-align: center; font-size: 14px"
+                      >
+                        <span>No Tickets Found</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- New Design -->
+
+    <div
+      class="modal fade modal-fullscreen modal-padding"
+      id="modal-fullscreen"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header modal-header1">
+            <h6 class="modal-title" id="myModalLabel"><b>Bug View</b></h6>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-hidden="true"
+            >
+              <i class="fa fa-times fa" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="modal-body card-resize1">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="container mt-3">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h5>
+                        Bug ID : {{ bugView.ticket_no }},
+                        <span
+                          style="
+                            display: inline-block;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            max-width: 13ch;
+                            margin-bottom: -5px;
+                          "
+                        >
+                          {{ bugView.ticket_desc }}</span
+                        >
+                      </h5>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-md-12">
+                      <span class="mr-4"
+                        ><i class="fa fa-user-o" aria-hidden="true"></i
+                        ><span class="ml-2"
+                          >By {{ bugView.assigned_by_name }}</span
+                        >
+                      </span>
+                      <span>
+                        <i class="fa fa-clock-o" aria-hidden="true"></i
+                        ><span class="ml-2">{{
+                          bugView.created_at | date: "short"
+                        }}</span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mt-3">
+                    <!-- {{status_dummy}} -->
+                    <button
+                      *ngIf="status_dummy === 0"
+                      (click)="statusChange(0)"
+                      class="ml-2 tag tag-gray"
+                      [ngClass]="{ enabledStatus: status === 0 }"
+                    >
+                      Open 
+                    </button>
+                    <button
+                      *ngIf="status_dummy === 0 || status_dummy === 1"
+                      (click)="statusChange(1)"
+                      class="ml-2 tag tag-gray"
+                      [ngClass]="{ enabledStatus: status === 1 }"
+                    >
+                      In-Progress
+                    </button>
+                    <button
+                      *ngIf="
+                        status_dummy === 0 ||
+                        status_dummy === 1 ||
+                        status_dummy === 3 ||
+                        status_dummy === 2
+                      "
+                      (click)="statusChange(2)"
+                      class="ml-2 tag tag-gray"
+                      [ngClass]="{ enabledStatus: status === 2 }"
+                    >
+                      Resolved
+                    </button>
+                    <button
+                      *ngIf="
+                        status_dummy === 0 ||
+                        status_dummy === 1 ||
+                        status_dummy === 3
+                      "
+                      (click)="statusChange(3)"
+                      class="ml-2 tag tag-gray"
+                      [ngClass]="{ enabledStatus: status === 3 }"
+                    >
+                      Awaiting Information
+                    </button>
+                    <button
+                      *ngIf="status_dummy === 2 || status_dummy === 4"
+                      (click)="statusChange(4)"
+                      class="ml-2 tag tag-gray"
+                      [ngClass]="{ enabledStatus: status === 4 }"
+                    >
+                      Approved
+                    </button>
+                    <button
+                      *ngIf="
+                        status_dummy === 4 ||
+                        status_dummy === 7 ||
+                        status_dummy === 5
+                      "
+                      (click)="statusChange(5)"
+                      class="ml-2 tag tag-gray"
+                      [ngClass]="{ enabledStatus: status === 5 }"
+                    >
+                      Closed
+                    </button>
+                    <button
+                      *ngIf="status_dummy !== 5 || status_dummy === 6"
+                      (click)="statusChange(6)"
+                      class="ml-2 tag tag-gray"
+                      [ngClass]="{ enabledStatus: status === 6 }"
+                    >
+                      Hold
+                    </button>
+                    <button
+                      *ngIf="status_dummy === 5 || status_dummy === 7 || status_dummy === 6"
+                      (click)="statusChange(1)"
+                      class="ml-2 tag tag-gray"
+                      [ngClass]="{ enabledStatus: status === 1 }"
+                    >
+                      Reopen
+                    </button>
+                  </div>
+
+                  <div class="mt-3">
+                    <div class="mt-3">
+                      <div class="">
+                        <div class="row clearfix">
+                          <div class="col-lg-6">
+                            <div class="card">
+                              <div class="card-header">
+                                <div
+                                  class="d-md-flex justify-content-between mb-2"
+                                >
+                                  <ul class="nav nav-tabs b-none">
+                                    <li class="nav-item">
+                                      <b
+                                        class="nav-link active"
+                                        data-toggle="tab"
+                                        href="#bug"
+                                        ><i
+                                          class="fa fa-bug fa-2 mr-2"
+                                          aria-hidden="true"
+                                        ></i>
+                                        Bug Information</b
+                                      >
+                                    </li>
+                                    <li class="nav-item">
+                                      <b
+                                        class="nav-link"
+                                        data-toggle="tab"
+                                        href="#description"
+                                        ><i
+                                          class="fa fa-info-circle fa-2 mr-2"
+                                          aria-hidden="true"
+                                        ></i>
+                                        Description
+                                      </b>
+                                    </li>
+                                    <li class="nav-item">
+                                      <b
+                                        class="nav-link"
+                                        data-toggle="tab"
+                                        href="#comments"
+                                        ><i
+                                          class="fa fa-comments fa-2 mr-2"
+                                          aria-hidden="true"
+                                        ></i>
+                                        Comments</b
+                                      >
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                              <div class="card-body">
+                                <div class="">
+                                  <div class="tab-content">
+                                    <div
+                                      class="tab-pane fade"
+                                      id="description"
+                                      role="tabpanel"
+                                    >
+                                      <div class="row clearfix">
+                                        <div class="col-md-12">
+                                          <b>{{ bugView.ticket_desc }}</b>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="tab-pane fade"
+                                      id="comments"
+                                      role="tabpanel"
+                                    >
+                                      <div class="row">
+                                        <div class="col-lg-12 col-md-12">
+                                          <div
+                                            *ngFor="
+                                              let items of historyData;
+                                              let i = index
+                                            "
+                                          >
+                                            {{ i + 1 }}. {{ items.comments }} -
+                                            {{ items.created_at | date }}
+                                          </div>
+                                          <b
+                                            *ngIf="historyData.length === 0"
+                                            class="text-center"
+                                            >There are no records to display</b
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="tab-pane fade active show"
+                                      id="bug"
+                                      role="tabpanel"
+                                    >
+                                      <div class="">
+                                        <div class="row">
+                                          <div class="col-md-6">
+                                            <div class="row">
+                                              <div class="col-6 py-1">
+                                                <strong>Assigned to:</strong>
+                                              </div>
+                                              <div class="col-6 py-1">
+                                                {{ bugView.assigned_to_name }}
+                                              </div>
+                                              <div class="col-6 py-1">
+                                                <strong>Due on:</strong>
+                                              </div>
+                                              <div class="col-6 py-1">
+                                                {{
+                                                  bugView.created_at
+                                                    | date: "short"
+                                                }}
+                                              </div>
+                                              <div class="col-6 py-1">
+                                                <strong>Severity:</strong>
+                                              </div>
+                                              <div class="col-6 py-1">
+                                                {{
+                                                  bugView.priority === 0
+                                                    ? "Low"
+                                                    : bugView.priority === 1
+                                                    ? "Medium"
+                                                    : "High"
+                                                }}
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <div class="row">
+                                              <div class="col-6 py-1">
+                                                <strong>Status:</strong>
+                                              </div>
+                                              <div class="col-6 py-1">
+                                                {{
+                                                  bugView.status === 0
+                                                    ? "Open"
+                                                    : bugView.status === 1
+                                                    ? "In-Progress"
+                                                    : bugView.status === 2
+                                                    ? "Resolved"
+                                                    : bugView.status === 3
+                                                    ? " Awaiting Information"
+                                                    : bugView.status === 4
+                                                    ? "Approved"
+                                                    : bugView.status === 5
+                                                    ? "Closed"
+                                                    : bugView.status === 6
+                                                    ? " Hold"
+                                                    : "Reopen"
+                                                }}
+                                              </div>
+                                              <div class="col-6 py-1">
+                                                <strong>Classification:</strong>
+                                              </div>
+                                              <div class="col-6 py-1">
+                                                {{
+                                                  bugView.priority === 0
+                                                    ? "Functional"
+                                                    : bugView.priority === 1
+                                                    ? "Technical"
+                                                    : bugView.priority === 2
+                                                    ? "UI/UX Designer"
+                                                    : bugView.priority === 3
+                                                    ? "UI/UX Developer"
+                                                    : bugView.priority === 4
+                                                    ? "Back End Developer"
+                                                    : "DB Architech"
+                                                }}
+                                              </div>
+                                              <!-- <div class="col-5 py-1">
+                                                <strong>Flag:</strong>
+                                              </div>
+                                              <div class="col-7 py-1">
+                                                internalb
+                                              </div> -->
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="card">
+                              <div class="card-header">
+                                <div
+                                  class="d-md-flex justify-content-between mb-2"
+                                >
+                                  <ul class="nav nav-tabs b-none">
+                                    <li class="nav-item">
+                                      <b
+                                        class="nav-link active"
+                                        data-toggle="tab"
+                                        href="#addnew"
+                                        ><i
+                                          class="fa fa-camera fa-2 mr-2"
+                                          aria-hidden="true"
+                                        ></i
+                                        >Comments & Screenshots</b
+                                      >
+                                    </li>
+                                    <li class="nav-item">
+                                      <b
+                                        class="nav-link"
+                                        data-toggle="tab"
+                                        href="#list"
+                                        ><i
+                                          class="fa fa-paperclip fa-2 mr-2"
+                                          aria-hidden="true"
+                                        ></i>
+
+                                        Attachments
+                                      </b>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                              <div class="card-body">
+                                <div class="">
+                                  <div class="tab-content">
+                                    <div
+                                      class="tab-pane fade"
+                                      id="list"
+                                      role="tabpanel"
+                                    >
+                                      <div class="row clearfix">
+                                        <div
+                                          class="col-md-12"
+                                          *ngIf="bugView.files"
+                                        >
+                                          <a
+                                            href="{{ path }}{{ bugView.files }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >1.Attachment</a
+                                          >
+                                        </div>
+                                        <div
+                                          class="col-md-12 text-center"
+                                          *ngIf="!bugView.files"
+                                        >
+                                          <b>There are no records to display</b>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="tab-pane fade active show"
+                                      id="addnew"
+                                      role="tabpanel"
+                                    >
+                                      <form [formGroup]="empTicket">
+                                        <div class="row clearfix">
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="screenshot"
+                                                >Upload File</label
+                                              >
+                                              <input
+                                                type="file"
+                                                (change)="onFileChange($event)"
+                                                name="screenshot"
+                                                class="form-control"
+                                                placeholder=""
+                                              />
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <label
+                                              >Comments
+                                              <span style="color: red">*</span>
+                                            </label>
+                                            <textarea
+                                              name="comments"
+                                              [(ngModel)]="comments"
+                                              id=""
+                                              cols="30"
+                                              rows="3"
+                                              formControlName="comments"
+                                              class="form-control"
+                                              [ngClass]="{
+                                                'is-invalid':
+                                                  submitted && f.comments.errors
+                                              }"
+                                              required
+                                            ></textarea>
+                                            <div
+                                              *ngIf="
+                                                submitted && f.comments.errors
+                                              "
+                                              class="invalid-feedback"
+                                            >
+                                              <div
+                                                *ngIf="
+                                                  f.comments.errors.required
+                                                "
+                                              >
+                                                Comments is required
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </form>
+                                      <div class="mt-3 float-right">
+                                        <button
+                                          [disabled]="spinner"
+                                          (click)="statusSubmit()"
+                                          type="submit"
+                                          class="btn btn-primary footer-button"
+                                        >
+                                          Save
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

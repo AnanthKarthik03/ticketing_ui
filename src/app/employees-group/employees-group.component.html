@@ -1,0 +1,519 @@
+<div id="main_content">
+  <app-project-sidebar></app-project-sidebar>
+  <div class="page">
+    <app-header></app-header>
+
+    <div class="section-body mt-3">
+      <div class="container-fluid">
+        <div class="col-lg-12">
+          <div class="nav-container">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item" *ngIf="role === 'Admin'">
+                  <a (click)="company()">{{ companyName }}</a>
+                </li>
+                <li class="breadcrumb-item" *ngIf="role === 'Pm'">
+                  <a>{{ companyName }}</a>
+                </li>
+                <li class="breadcrumb-item" *ngIf="role === 'Admin'">
+                  <a (click)="customer()">{{ customerName }}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  <a (click)="project()">{{ projectName }}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  Employees Group
+                </li>
+              </ol>
+              <button
+                *ngIf="!viewEmployeeGroup"
+                class="addButton1 btn btn-primary button-back"
+                (click)="project()"
+              >
+                <span class="css-button-icon"
+                  ><i class="fa fa-arrow-left" aria-hidden="true"></i
+                ></span>
+              </button>
+            </nav>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-12">
+            <div *ngIf="!viewEmployeeGroup">
+              <div class="row">
+                <div class="col-8">
+                  <div class="mb-4">
+                    <h4>Employees Group</h4>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <button
+                    class="addButton1 float-right btn btn-primary"
+                    (click)="showEmployeeGroupForm()"
+                  >
+                    <span class="css-button-icon"
+                      ><i class="fa fa-plus" aria-hidden="true"></i
+                    ></span>
+                    <span class="css-button-text">Add</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="viewEmployeeGroup">
+              <div class="row">
+                <div class="col-8">
+                  <div class="mb-4">
+                    <h4>Employees Group</h4>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <button
+                    class="addButton1 float-right btn btn-primary"
+                    (click)="showEmployeeGroupList()"
+                  >
+                    <span class="css-button-icon"
+                      ><i class="fa fa-arrow-left" aria-hidden="true"></i
+                    ></span>
+                    <span class="css-button-text">Back</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix row-deck" *ngIf="!viewEmployeeGroup">
+          <div
+          class="col-md-12 text-center"
+          *ngIf="spinner"
+          style="display: block"
+        >
+          <i class="fa fa-spinner fa-spin fa-2x"></i>
+        </div>
+          <!-- <p-table
+              [style]="{ width: '100%' }"
+              #dt1
+              [value]="groupData"
+              dataKey="id"
+              [rows]="10"
+              [showCurrentPageReport]="true"
+              [rowsPerPageOptions]="[10, 25, 50]"
+              styleClass="p-datatable-customers p-datatable-gridlines p-datatable-responsive-demo"
+              [paginator]="true"
+              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            >
+              <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                  <col style="width: 90px" />
+                  <col style="width: 150px" />
+                  <col style="width: 150px" />
+                  <col style="width: 120px" />
+                </colgroup>
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>
+                    <div class="p-d-flex p-jc-between p-ai-center">S.NO</div>
+                  </th>
+                  <th>
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                      Employees Name
+                      <p-columnFilter
+                        type="text"
+                        field="name"
+                        display="menu"
+                      ></p-columnFilter>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                      Group Name
+                    </div>
+                  </th>
+                  <th>
+                    <div class="p-d-flex p-jc-between p-ai-center">Action</div>
+                  </th>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-groupData let-i="rowIndex">
+                <tr>
+                  <td>{{ i + 1 }}</td>
+                  <td>
+                    {{ groupData.name }}
+                  </td>
+                  <td>{{ groupData.group_name }}</td>
+                  <td>
+                    <button
+                      class="edit-button"
+                      data-toggle="modal"
+                      data-target="#large-Modal"
+                      (click)="edit(groupData)"
+                    >
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td colspan="4" style="text-align: center">
+                    <div
+                class="col-md-12 text-center"
+                *ngIf="spinner"
+                style="display: block"
+              >  -->
+          <!-- <sa-spinner-circular></sa-spinner-circular> -->
+          <!-- <i class="fa fa-spinner fa-spin fa-2x"></i>-->
+          <!-- </div>
+                    No Date found
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table> -->
+          <div class="col-md-6" *ngFor="let item of groupNames; let i = index">
+            <div class="card usercard">
+              <div class="card-header card-header1">
+                <div class="col-11">
+                  <h3 class="card-title">Group Name : {{ item.group_name }}</h3>
+                </div>
+<div class="col-1">
+                  <button
+                  
+                    (click)="edit(item)"
+                    class="btn btn-primary span-button"
+                  >
+                    <i class="fa fa-pencil"></i>
+                  </button>
+                </div> 
+              </div>
+              <div class="card-body card-body1">
+                Employees Name: 
+                <br>
+                <span *ngFor = "let item1 of getUsernames(item.group_name); let i = index">
+                  
+                {{i+1}}.&nbsp;{{item1.name}} <br>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div  *ngIf="!spinner">
+        <div class="col-md-12" *ngIf="!viewEmployeeGroup">
+          <div *ngIf="groupNames.length == 0">
+            <h4 class="text-center">No Data found</h4>
+          </div>
+        </div>
+      </div>
+        <div class="row clearfix row-deck" *ngIf="viewEmployeeGroup">
+          <div class="col-xl-12 col-lg-12">
+            <div class="card">
+              <div class="card-body">
+                <form [formGroup]="employeesForm">
+                  <div class="controls">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="emp_name">Group Name<span style="color:red;">*</span></label>
+                          <input
+                            type="text"
+                            name="group_name"
+                            class="form-control"
+                            placeholder=""
+                            formControlName="group_name"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.group_name.errors
+                            }"
+                            required
+                          />
+                          <div
+                            *ngIf="submitted && f.group_name.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.group_name.errors.required">
+                              Group Name is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="emp_code">Employees <span style="color:red;">*</span></label>
+
+                          <p-multiSelect
+                            [options]="employeesData"
+                            formControlName="emp_id"
+                            defaultLabel="Select Employees"
+                            optionLabel=""
+                            [virtualScroll]="true"
+                            display="chip"
+                            [style]="{
+                              overflow: 'visible',
+                              width: '100%'
+                            }"
+                          ></p-multiSelect>
+
+                          <div
+                            [ngClass]="{
+                              'is-invalid2': submitted && f.emp_id.errors
+                            }"
+                            *ngIf="submitted && f.emp_id.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.emp_id.errors.required">
+                              Employee ID is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="col-md-12">
+                    <button
+                      (click)="onSubmit()"
+                      type="submit"
+                      class="btn btn-success saveButton"
+                      [disabled]="spinner"
+                    >
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary cancleButton float-right"
+                      (click)="showEmployeeGroupList()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="card">
+          <div class="col-lg-12 mt-3">
+            <div class="row">
+              <div class="col-lg-8">
+                <h4 class="pl-3">Employees Group</h4>
+              </div>
+              <div class="col-lg-4">
+                <button
+                  class="addButton float-right btn btn-primary"
+                  data-toggle="modal"
+                  data-target=".bd-example-modal-lg"
+                >
+                  <span class="css-button-icon"
+                    ><i class="fa fa-plus" aria-hidden="true"></i
+                  ></span>
+                </button>
+                <button class="addButton float-right btn btn-primary">
+                  <span class="css-button-icon"
+                    ><i class="fa fa-download" aria-hidden="true"></i>
+                  </span>
+                </button>
+                <button class="addButton float-right btn btn-primary">
+                  <span class="css-button-icon"
+                    ><i class="fa fa-upload" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <p-table
+                [scrollable]="true"
+                [style]="{ width: '100%' }"
+                #dt1
+                [value]="employeesData"
+                dataKey="id"
+                [rows]="10"
+                [showCurrentPageReport]="true"
+                [rowsPerPageOptions]="[10, 25, 50]"
+                styleClass="p-datatable-customers p-datatable-gridlines p-datatable-responsive-demo"
+                [paginator]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+              >
+                <ng-template pTemplate="colgroup" let-columns>
+                  <colgroup>
+                    <col style="width: 90px" />
+                    <col style="width: 150px" />
+                    <col style="width: 150px" />
+                    <col style="width: 120px" />
+                  </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">S.NO</div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Group Name
+                      </div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Employees ID
+                        <p-columnFilter
+                          type="text"
+                          field="designation"
+                          display="menu"
+                        ></p-columnFilter>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Action
+                      </div>
+                    </th>
+                  </tr>
+                </ng-template>
+
+                <ng-template
+                  pTemplate="body"
+                  let-employeesData
+                  let-i="rowIndex"
+                >
+                  <tr>
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ employeesData.group_name }}</td>
+                    <td>
+                      {{ employeesData.emp_id === 0 ? "Active" : "In Active" }}
+                    </td>
+                    <td>
+                      <button
+                        class="edit-button"
+                        data-toggle="modal"
+                        data-target="#large-Modal"
+                        (click)="edit(employeesData)"
+                      >
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                  <tr>
+                    <td colspan="4" style="text-align: center">
+                      No Date found
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div> -->
+        <!-- <div
+          id="large-Modal"
+          class="modal fade bd-example-modal-lg"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="myLargeModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Employees Group
+                </h5>
+                <button
+                   type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form
+                method="post"
+                action=""
+                role="form"
+                [formGroup]="employeesForm"
+              >
+                <div class="modal-body">
+                  <div class="col-lg-12">
+                    <div class="row">
+                      <div class="col-6 pr-3">
+                        <div class="form-group">
+                          <label>Group Name</label>
+                          <input
+                            type="text"
+                            name="designation"
+                            class="form-control"
+                            id="code"
+                            formControlName="group_name"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.group_name.errors
+                            }"
+                            required
+                          />
+                          <div
+                            *ngIf="submitted && f.group_name.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.group_name.errors.required">
+                              Group Name is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6 pl-3">
+                        <div class="form-group">
+                          <label>Employee ID</label>
+                          <select
+                            name="select"
+                            formControlName="emp_id"
+                            class="form-control"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.emp_id.errors
+                            }"
+                          >
+                            <option value="" selected>Select Employee ID</option>
+                            <option value="0">E-01</option>
+                            <option value="1">E-02</option>
+                            <option value="2">E-03</option>
+                            <option value="3">E-04</option>
+                          </select>
+                          <div
+                            *ngIf="submitted && f.emp_id.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.emp_id.errors.required">
+                              Employee ID is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary footer-button"
+                    data-dismiss="modal"
+                    (click)="clear()"
+                  >
+                    Close
+                  </button>
+                  <button
+                    [disabled]="spinner"
+                    (click)="onSubmit()"
+                    type="button"
+                    class="btn btn-primary footer-button"
+                  >
+                    Save
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

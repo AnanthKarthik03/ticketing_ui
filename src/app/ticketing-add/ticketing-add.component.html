@@ -1,0 +1,327 @@
+<div id="main_content">
+  <app-project-sidebar></app-project-sidebar>
+  <div class="page">
+    <app-header></app-header>
+
+    <div class="section-body mt-3">
+      <div class="container-fluid" >
+        <div class="col-lg-12">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a (click)="company()">{{ companyName }}</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a (click)="customer()">{{ customerName }}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                <a (click)="project()">{{ projectName }}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Ticketing List
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="col-lg-12">
+          <div class="row clearfix">
+            <div class="col-lg-12">
+              <div>
+                <div class="row">
+                  <div class="col-8">
+                    <div class="mb-4">
+                      <h4>Ticketing Add</h4>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <button
+                      class="addButton1 float-right btn btn-primary"
+                      (click)="backToList()"
+                    >
+                      <span class="css-button-icon"
+                        ><i class="fa fa-arrow-left" aria-hidden="true"></i
+                      ></span>
+                      <span class="css-button-text">Back</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-body mt-3">
+      
+      <div class="container-fluid">
+        <div class="col-lg-12">
+          <div class="row clearfix row-deck">
+            <div class="col-xl-12 col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <form [formGroup]="addTicket">
+                    <div class="controls">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>Ticket Number <span style="color:red;">*</span></label>
+                            <input
+                              formControlName="ticket_no"
+                              type="text"
+                              disabled
+                              name="ticket_no"
+                              class="form-control"
+                              placeholder=""
+                              [ngClass]="{
+                                'is-invalid': submitted && f.ticket_no.errors
+                              }"
+                              required
+                            />
+                            <div
+                              *ngIf="submitted && f.ticket_no.errors"
+                              class="invalid-feedback"
+                            >
+                              <div *ngIf="f.ticket_no.errors.required">
+                                Ticket Number is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-8">
+                          <div class="form-group">
+                            <label>Ticket Description <span style="color:red;">*</span></label>
+                            <textarea
+                              formControlName="ticket_desc"
+                              name="ticket_desc"
+                              id="desc"
+                              cols="30"
+                              rows="3"
+                              class="form-control"
+                              [ngClass]="{
+                                'is-invalid': submitted && f.ticket_desc.errors
+                              }"
+                              required
+                            ></textarea>
+                            <!-- <input
+                              type="text"
+                              name="ticket_desc"
+                              class="form-control"
+                              placeholder=""
+                            /> -->
+                            <div
+                              *ngIf="submitted && f.ticket_desc.errors"
+                              class="invalid-feedback"
+                            >
+                              <div *ngIf="f.ticket_desc.errors.required">
+                                Ticket Description is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>Category</label>
+                            <p-dropdown
+                            formControlName="category_id"
+                            [options]="category"
+                            name="test"
+                            appendTo="body"
+                            [style]="{
+                              overflow: 'visible',
+                              width: '100%'
+                            }"
+                          >
+                          </p-dropdown>
+                            <!-- <select
+                              formControlName="category_id"
+                              name="category_id"
+                              class="form-control"
+                            >
+                              <option value="">Select Category</option>
+                              <option value="0">Functional</option>
+                              <option value="1">Technical</option>
+                              <option value="2">UI/UX Designer</option>
+                              <option value="3">UI/UX Developer</option>
+                              <option value="4">Back End Developer</option>
+                              <option value="5">DB Architech</option>
+                            </select> -->
+                            <div
+                              [ngClass]="{
+                                'is-invalid2': submitted && f.category_id.errors
+                              }"
+                              *ngIf="submitted && f.category_id.errors"
+                              class="invalid-feedback"
+                            >
+                              <div *ngIf="f.category_id.errors.required">
+                                Category is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>Priority <span style="color:red;">*</span></label>
+                            <select
+                              formControlName="priority"
+                              name="priority"
+                              id="priorit"
+                              class="form-control"
+                            >
+                              <option value="">Select Priority</option>
+                              <option value="0">Low</option>
+                              <option value="1">Medium</option>
+                              <option value="2">High</option>
+                            </select>
+                            <div
+                              [ngClass]="{
+                                'is-invalid2': submitted && f.priority.errors
+                              }"
+                              *ngIf="submitted && f.priority.errors"
+                              class="invalid-feedback"
+                            >
+                              <div *ngIf="f.priority.errors.required">
+                                Priority is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>Start Date <span style="color:red;">*</span></label>
+                            <p-calendar
+                              formControlName="start_date"
+                              [yearNavigator]="true"
+                              yearRange="1900:2030"
+                              [inputStyle]="{ width: '90%' }"
+                              [style]="{ width: '100%' }"
+                              [showIcon]="true"
+                              inputId="icon3"
+                            ></p-calendar>
+                            <div
+                              [ngClass]="{
+                                'is-invalid2': submitted && f.start_date.errors
+                              }"
+                              *ngIf="submitted && f.start_date.errors"
+                              class="invalid-feedback"
+                            >
+                              <div *ngIf="f.start_date.errors.required">
+                                Start Date is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>End Date <span style="color:red;">*</span></label>
+                            <p-calendar
+                              formControlName="end_date"
+                              [yearNavigator]="true"
+                              yearRange="1900:2030"
+                              [inputStyle]="{ width: '90%' }"
+                              [style]="{ width: '100%' }"
+                              [showIcon]="true"
+                              inputId="icon4"
+                            ></p-calendar>
+                            <div
+                              [ngClass]="{
+                                'is-invalid2': submitted && f.end_date.errors
+                              }"
+                              *ngIf="submitted && f.end_date.errors"
+                              class="invalid-feedback"
+                            >
+                              <div *ngIf="f.end_date.errors.required">
+                                End Date is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>Assigned Group</label>
+                            <p-dropdown
+                              formControlName="assigned_group_id"
+                              (onChange)="assignedGroup($event.value)"
+                              [options]="groupData"
+                              name="test"
+                              appendTo="body"
+                              [style]="{
+                                overflow: 'visible',
+                                width: '100%'
+                              }"
+                            >
+                            </p-dropdown>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>Assigned To</label>
+                            <!-- <p-dropdown
+                            (onChange)="getRm($event.value)"
+                              formControlName="assigned_to"
+                              [options]="assignedToEmp"
+                              name="test"
+                              appendTo="body"
+                              [style]="{
+                                overflow: 'visible',
+                                width: '100%'
+                              }"
+                            >
+                            </p-dropdown> -->
+                            <p-multiSelect
+                              defaultLabel="Select Employee Name"
+                              [options]="assignedToEmp"
+                              formControlName="assigned_to"
+                              appendTo="body"
+                              [style]="{
+                                overflow: 'visible',
+                                width: '100%'
+                              }"
+                            >
+                            </p-multiSelect>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>File</label>
+                            <input
+                              (change)="onFileChange($event)"
+                              type="file"
+                              name="files"
+                              class="form-control"
+                              formControlName="files"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-12">
+                      <button
+                        [disabled]="spinner"
+                        (click)="onSubmit()"
+                        type="submit"
+                        class="btn btn-success saveButton"
+                      >
+                        Save
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-primary cancleButton float-right"
+                        (click)="backToList()"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

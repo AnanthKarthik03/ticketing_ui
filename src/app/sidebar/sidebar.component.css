@@ -1,0 +1,12 @@
+.active {
+    color: rgb(26, 80, 137);
+    border-color: rgb(26, 80, 137);
+}
+
+.metismenu ul a {
+    padding: 5px 5px 4px 10px !important;
+}
+.icon-w{
+    width: 22px;
+    font-size: 15px;
+}

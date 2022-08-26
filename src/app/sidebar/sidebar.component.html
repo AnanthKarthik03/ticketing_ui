@@ -1,0 +1,287 @@
+<div id="header_top" class="header_top">
+  <div class="container">
+    <div class="hleft">
+      <a class="header-brand"><i class="fa fa-handshake-o brand-logo"></i></a>
+      <div class="dropdown">
+        <a class="nav-link user_btn"
+          ><img
+            class="avatar"
+            src="{{ imagePath }}{{ userProfile }}"
+            onerror="this.src='assets/images/noimage.png'"
+            alt="alternative"
+            width="50%"
+            data-toggle="tooltip"
+            data-placement="right"
+            title="{{ userName }}"
+        /></a>
+      </div>
+    </div>
+    <div class="hright">
+      <div class="dropdown">
+        <a (click)="role()" class="nav-link icon settingbar" *ngIf="roleId ==='SuperAdmin'"
+          ><i
+            class="fa fa-gear fa-spin"
+            data-toggle="tooltip"
+            data-placement="right"
+            title="Settings"
+          ></i
+        ></a>
+        <a class="nav-link icon menu_toggle"
+          ><i class="fa fa-align-left"></i
+        ></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="left-sidebar" class="sidebar">
+  <h5 class="brand-name">
+    Ticketing Tool
+    <a class="menu_option float-right">
+      <i
+        class="icon-grid fa fa-th-large font-16"
+        aria-hidden="true"
+        data-toggle="tooltip"
+        data-placement="left"
+        title="Grid & List Toggle"
+      ></i>
+    </a>
+  </h5>
+  <!-- Super Admin -->
+  <nav
+    id="left-sidebar-nav"
+    class="sidebar-nav"
+    *ngIf="roleId === 'SuperAdmin'"
+  >
+    <ul class="metismenu">
+      <li class="g_heading">Admin</li>
+      <li [ngClass]="{ active: pageType === 'Dashboard' }">
+        <a (click)="dashboard()"
+          ><i class="fa fa-dashboard"></i><span>Dashboard</span></a
+        >
+      </li>
+      <li [ngClass]="{ active: pageType === 'company' }">
+        <a (click)="company()"
+          ><i class="fa fa-building"></i><span>Company</span></a
+        >
+      </li>
+
+    </ul>
+  </nav>
+  <!-- Admin -->
+  <nav id="left-sidebar-nav" class="sidebar-nav" *ngIf="roleId === 'Admin'">
+    <ul class="metismenu">
+      <li class="g_heading">Admin</li>
+      <li [ngClass]="{ active: pageType === 'adminDashboard' }">
+        <a (click)="adminDashboard()"
+          ><i class="fa fa-dashboard"></i><span>Dashboard</span></a
+        >
+      </li>
+      
+      <li [ngClass]="{ active: pageType === 'company' }">
+        <a (click)="company()"
+          ><i class="fa fa-building"></i><span>Company</span></a
+        >
+      </li>
+      <li [ngClass]="{ active: pageType === 'timeSheet' }">
+        <a (click)="timeSheet()"
+          ><i class="fa fa-calendar" aria-hidden="true"></i>
+          <span>Time Sheet</span></a
+        >
+      </li>
+      <li>
+        <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-calendar-check-o"></i><span>Reports</span></a>
+        <ul>
+          <li>
+            <a (click)="employeeReport()"
+              ><i class="fa fa-id-card-o icon-w" aria-hidden="true"></i>
+              <span>Employee Report</span></a
+            >
+          </li>
+          <li [ngClass]="{ active: pageType === 'projectReport' }">
+            <a (click)="projectReport()"
+              ><i class="fa fa-file icon-w" aria-hidden="true"></i>
+              <span>Project Report</span></a
+            >
+          </li>
+          <li [ngClass]="{ active: pageType === 'timeSheetReport' }">
+            <a (click)="timeSheetReport()"
+              ><i class="fa fa-clock-o icon-w" aria-hidden="true"></i>
+              <span>Timesheet Report</span></a
+            >
+          </li>
+          <li [ngClass]="{ active: pageType === 'clientReport' }">
+            <a (click)="clientReport()"
+              ><i class="fa fa-user icon-w"></i><span>Client Report</span></a
+            >
+          </li>
+          <li [ngClass]="{ active: pageType === 'ticketingDetails' }">
+            <a (click)="ticketingDetails()"
+              ><i class="fa fa-tag icon-w" aria-hidden="true"></i><span>Ticketing Details</span></a
+            >
+          </li>
+          <li [ngClass]="{ active: pageType === 'summaryReports' }">
+            <a (click)="summaryReports()"
+              ><i class="fa fa-list-ol icon-w" aria-hidden="true"></i><span>Summary Reports</span></a
+            >
+          </li>
+        </ul>
+        </li>
+     
+    </ul>
+  </nav>
+  <!-- Client -->
+  <nav id="left-sidebar-nav" class="sidebar-nav" *ngIf="roleId === 'Client'">
+    <ul class="metismenu">
+      <li class="g_heading">Client</li>
+      <li class="active">
+        <a (click)="clientDashboard()"
+          ><i class="fa fa-dashboard"></i><span>Dashboard</span></a
+        >
+      </li>
+    </ul>
+  </nav>
+  <!-- User -->
+  <nav id="left-sidebar-nav" class="sidebar-nav" *ngIf="roleId === 'User'">
+    <ul class="metismenu">
+      <li class="g_heading">User</li>
+      <li class="active">
+        <a (click)="employeeDashboard()"
+          ><i class="fa fa-dashboard"></i><span>Dashboard</span></a
+        >
+      </li>
+      <li [ngClass]="{ active: pageType === 'timeSheet' }">
+        <a (click)="timeSheet()"
+          ><i class="fa fa-calendar" aria-hidden="true"></i>
+          <span>Time Sheet</span></a
+        >
+      </li>
+     
+    </ul>
+  </nav>
+  <!-- Project Manager -->
+  <nav id="left-sidebar-nav" class="sidebar-nav" *ngIf="roleId === 'Pm'">
+    <ul class="metismenu">
+      <li class="g_heading">Project Manager</li>
+      <li class="active" [ngClass]="{ active: pageType === 'pmDashboard' }">
+        <a (click)="projectManager()"
+          ><i class="fa fa-dashboard"></i><span>Dashboard</span></a
+        >
+      </li>
+      <li class="" [ngClass]="{ active: pageType === 'projects' }">
+        <a (click)="project()"
+          ><i class="fa fa-tasks" aria-hidden="true"></i>
+          <span>Projects</span></a
+        >
+      </li>
+      <li [ngClass]="{ active: pageType === 'timeSheet' }">
+        <a (click)="timeSheet()"
+          ><i class="fa fa-calendar" aria-hidden="true"></i>
+          <span>Time Sheet</span></a
+        >
+      </li>
+      <li>
+        <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-calendar-check-o"></i><span>Reports</span></a>
+        <ul>
+          <li>
+            <a (click)="employeeReport()"
+              ><i class="fa fa-id-card-o icon-w" aria-hidden="true"></i>
+              <span>Employee Report</span></a
+            >
+          </li>
+          <li [ngClass]="{ active: pageType === 'projectReport' }">
+            <a (click)="projectReport()"
+              ><i class="fa fa-file icon-w" aria-hidden="true"></i>
+              <span>Project Report</span></a
+            >
+          </li>
+          <li [ngClass]="{ active: pageType === 'timeSheetReport' }">
+            <a (click)="timeSheetReport()"
+              ><i class="fa fa-clock-o icon-w" aria-hidden="true"></i>
+              <span>Timesheet Report</span></a
+            >
+          </li>
+          <!-- <li [ngClass]="{ active: pageType === 'clientReport' }">
+            <a (click)="clientReport()"
+              ><i class="fa fa-user icon-w"></i><span>Client Report</span></a
+            >
+          </li> -->
+          <li [ngClass]="{ active: pageType === 'ticketingDetails' }">
+            <a (click)="ticketingDetails()"
+              ><i class="fa fa-tag icon-w" aria-hidden="true"></i><span>Ticketing Details</span></a
+            >
+          </li>
+          <li [ngClass]="{ active: pageType === 'summaryReports' }">
+            <a (click)="summaryReports()"
+              ><i class="fa fa-list-ol"></i><span>Summary Reports</span></a
+            >
+          </li>
+        </ul>
+        </li>
+    </ul>
+  </nav>
+</div>
+<!-- Role = Admin -->
+<!-- <div id="left-sidebar" class="sidebar" >
+  <h5 class="brand-name">
+    Ticketing Tool
+    <a class="menu_option float-right">
+      <i
+        class="icon-grid fa fa-th-large font-16"
+        aria-hidden="true"
+        data-toggle="tooltip"
+        data-placement="left"
+        title="Grid & List Toggle"
+      ></i>
+    </a>
+  </h5>
+
+</div> -->
+<!-- Role = Client -->
+<!-- <div id="left-sidebar" class="sidebar" >
+  <h5 class="brand-name">
+    Ticketing Tool
+    <a class="menu_option float-right">
+      <i
+        class="icon-grid fa fa-th-large font-16"
+        aria-hidden="true"
+        data-toggle="tooltip"
+        data-placement="left"
+        title="Grid & List Toggle"
+      ></i>
+    </a>
+  </h5>
+
+</div> -->
+
+<!-- <div id="left-sidebar" class="sidebar">
+  <h5 class="brand-name">
+    Ticketing Tool
+    <a class="menu_option float-right">
+      <i
+        class="icon-grid fa fa-th-large font-16"
+        aria-hidden="true"
+        data-toggle="tooltip"
+        data-placement="left"
+        title="Grid & List Toggle"
+      ></i>
+    </a>
+  </h5>
+
+</div> -->
+
+<!-- <div id="left-sidebar" class="sidebar" >
+  <h5 class="brand-name">
+    Ticketing Tool
+    <a class="menu_option float-right">
+      <i
+        class="icon-grid fa fa-th-large font-16"
+        aria-hidden="true"
+        data-toggle="tooltip"
+        data-placement="left"
+        title="Grid & List Toggle"
+      ></i>
+    </a>
+  </h5>
+
+</div> -->

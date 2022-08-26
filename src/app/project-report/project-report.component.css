@@ -1,0 +1,204 @@
+.btn-timeline {
+  border: 1px solid rgb(78, 76, 76);
+}
+
+.selectpicker_employee-deshbord {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+.card-selectpicker {
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+}
+.card-selectpicker1 {
+  border: none;
+}
+.card-heade-em-deshboard select option {
+  margin-top: 20px;
+  border-bottom-color: #6900c7;
+  border-bottom-width: 5px;
+}
+.card-heade-em-deshboard {
+  box-shadow: 0px 10px 8px -10px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  border-radius: 0%;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  border-top-color: #008eaa;
+  border-top-width: 5px;
+}
+.c-1 {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  border-right-color: #008eaa;
+  border-left-color: #008eaa;
+  border-left-width: 5px;
+}
+.selectpicker_employee-deshbord {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.card-selectpicker {
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.card-selectpicker1 {
+  border: none;
+}
+
+.card-heade-em-deshboard select option {
+  margin-top: 20px;
+  border-bottom-color: #6900c7;
+  border-bottom-width: 5px;
+}
+
+.card-heade-em-deshboard {
+  box-shadow: 0px 10px 8px -10px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  border-radius: 0%;
+}
+
+.border-green {
+  border-color: #8ec06c;
+}
+.green {
+  color: #8ec06c;
+}
+
+.border-red {
+  border-color: #be0027;
+}
+.red {
+  color: #be0027;
+}
+
+.border-org {
+  border-color: #f1632a;
+}
+.org {
+  color: #f1632a;
+}
+
+.border-light-blue {
+  border-color: #8baaff;
+}
+.light-blue {
+  color: #8baaff;
+}
+
+.border-voliet {
+  border-color: #6762a6;
+}
+.voliet {
+  color: #6762a6;
+}
+
+.border-yellow {
+  border-color: #ffcc00 !important;
+}
+.yellow {
+  color: #ffcc00;
+}
+
+.border-lightpink{
+  border-color: #f65a5b;
+}
+
+.light-pink{
+  color:  #f65a5b;
+}
+
+.border-cement{
+  border-color: #94938f;
+}
+.cement{
+  color: #94938f;
+}
+
+.border-await{
+  border-color: #6a9c84;
+}
+
+.await{
+  color: #6a9c84;
+}
+
+.black{
+  color: #484848;
+}
+
+.border-black{
+  border-color: #484848;
+}
+
+.dropdown-menu {
+  box-shadow: 0 2px 20px 0 rgb(0 0 0 / 25%);
+  border-bottom-color: #6900c7;
+  border-bottom-width: 5px;
+  min-width: 12rem;
+  font-size: 14px;
+}
+
+#dropdown-menu1 {
+  width: 100px;
+}
+
+#dropdown-menu1 li {
+  border-bottom: 1px solid rgb(228, 226, 226);
+  padding: 15px;
+}
+
+li {
+  padding-left: 20px;
+}
+
+#dropdown-menu1 > li:hover {
+  display: block;
+  background-color: #1216f8;
+  color: #ffffff;
+}
+
+.excel1 {
+  font-size: 15px;
+  /* font-family: Arial;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #faf8f7; */
+    background-color: #008eaa;
+    color: #ffffff;
+    border-radius: 50%;
+    border: #807b7b 1px solid;
+    float: right;
+
+  }
+  
+  .btn-default {
+    border: none;
+  }
+
+.btn-default {
+  border: none;
+}
+
+@media only screen and (max-width:425px) {
+  .excel1{
+    margin: 10px;
+    float:left;
+
+  }
+ 
+}
+  
+.icon-style {
+  display: grid;
+  align-items: center;
+  color: #e0e5ec
+}

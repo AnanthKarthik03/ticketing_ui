@@ -1,0 +1,67 @@
+<div id="header_top" class="header_top">
+  <div class="container">
+    <div class="hleft">
+      <a class="header-brand"><i class="fa fa-handshake-o brand-logo"></i></a>
+      <div class="dropdown">
+        <a class="nav-link user_btn"
+          ><img
+            class="avatar"
+            src="{{ imagePath }}{{ userProfile }}"
+            onerror="this.src='assets/images/noimage.png'"
+            alt="alternative"
+            data-toggle="tooltip"
+            data-placement="right"
+            title={{userName}}
+        /></a>
+      </div>
+    </div>
+    <div class="hright">
+      <div class="dropdown">
+        <a (click)="role()" class="nav-link icon settingbar" *ngIf = " roleName ==='SuperAdmin'"
+          ><i
+            class="fa fa-gear fa-spin"
+            data-toggle="tooltip"
+            data-placement="right"
+            title="Settings"
+          ></i
+        ></a>
+        <a class="nav-link icon menu_toggle"
+          ><i class="fa fa-align-left"></i
+        ></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="left-sidebar" class="sidebar">
+  <h5 class="brand-name">
+    Ticketing Tool
+    <a class="menu_option float-right">
+      <i
+        class="icon-grid fa fa-th-large font-16"
+        aria-hidden="true"
+        data-toggle="tooltip"
+        data-placement="left"
+        title="Grid & List Toggle"
+      ></i>
+    </a>
+  </h5>
+  <nav id="left-sidebar-nav" class="sidebar-nav">
+    <ul class="metismenu">
+      <li class="g_heading">Company</li>
+      <li [ngClass]="{ active: pageType=== 'customer'}" *ngIf = "roleName !=='SuperAdmin'">
+        <a (click)="customer()"
+          ><i class="fa fa-street-view"></i><span>Customer</span></a
+        >
+      </li>
+      <li [ngClass]="{ active: pageType=== 'employees'}">
+        <a (click)="employeeRoute()"><i class="fa fa-id-card"></i><span>Employees</span></a>
+      </li>
+    
+     
+      <!-- <li>
+        <a (click)="projects()"><i class="fa fa-clone"></i><span>Projects</span></a>
+      </li> -->
+    </ul>
+  </nav>
+</div>

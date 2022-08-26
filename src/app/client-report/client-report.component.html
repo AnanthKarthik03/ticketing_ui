@@ -1,0 +1,256 @@
+<div id="main_content">
+  <app-sidebar></app-sidebar>
+  <div class="page">
+    <app-header></app-header>
+    <div class="section-body mt-3">
+      <div class="container-fluid">
+        <div class="row clearfix">
+          <div class="col-lg-12">
+            <div class="mb-4">
+              <h4>Client Report</h4>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-lg-12 col-md-12">
+            <div class="card">
+              <div class="card-header card-heade-em-deshboard">
+                <!--Size dropdown menu-->
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-6 text-left">
+                      <h6 class="m-2"><b>Client</b></h6>
+                    </div>
+                    <div class="col-md-1 col-form-label text-right">
+                      <a
+                        class="addButton float-right btn btn-primary"
+                        (click)="excelDownload()"
+                      >
+                        <span class="css-button-icon"
+                          ><i class="fa fa-download" aria-hidden="true"></i>
+                        </span>
+                      </a>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="row">
+                        <div class="col-2 mt-2 text-right">Client :</div>
+                        <div class="col-10">
+                          <p-dropdown
+                          (onChange)="projectReport($event.value)"
+                          [options]="selectClient"
+                          [filter]="true" 
+                          name="test"
+                          appendTo="body"
+                          [style]="{
+                            overflow: 'visible',
+                            width: '100%'
+                          }"
+                        >
+                        </p-dropdown>
+                          <!-- <p-multiSelect
+                            (onChange)="projectReport($event.value)"
+                            [options]="selectClient"
+                            defaultLabel="Select a Client"
+                            [filter]="true"
+                            name="test"
+                            appendTo="body"
+                            [style]="{
+                              overflow: 'visible',
+                              width: '100%'
+                            }"
+                          >
+                          </p-multiSelect> -->
+                          <!-- <select
+                            name="select"
+                            class="form-control"
+                            (change)="projectReport($event.target.value)"
+                          >
+                            <option
+                              *ngFor="let item of customerData"
+                              value="{{ item.id }}"
+                            >
+                              {{ item.company_name }}-
+                              {{ item.customer_name_first }}
+                            </option>
+                          </select> -->
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="col-md-1">
+                      <button class="btn excel1 float-right">
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                      </button>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <!-- <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-3 mt-2">From:</div>
+                        <div class="col-md-9">
+                          <p-calendar
+                            [(ngModel)]="date3"
+                            [showIcon]="true"
+                            inputId="icon"
+                          ></p-calendar>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-3 mt-2">To:</div>
+                        <div class="col-md-9">
+                          <p-calendar
+                          [(ngModel)]="date4"
+                          [showIcon]="true"
+                          inputId="icon"
+                          (onSelect)="doSomething(date4)"
+                        ></p-calendar>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="table-responsive">
+                  <p-table
+                    [style]="{ width: '100%' }"
+                    #dt1
+                    [value]="clientReportData"
+                    dataKey="id"
+                    [rows]="10"
+                    [showCurrentPageReport]="true"
+                    [rowsPerPageOptions]="[10, 25, 50]"
+                    styleClass="p-datatable-customers p-datatable-gridlines p-datatable-responsive-demo"
+                    [paginator]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                  >
+                    <ng-template pTemplate="colgroup" let-columns>
+                      <colgroup>
+                        <col style="width: 90px" />
+                        <col style="width: 180px" />
+                        <col style="width: 150px" />
+                        <col style="width: 120px" />
+                        <col style="width: 120px" />
+                        <col style="width: 120px" />
+                        <col style="width: 120px" />
+                        <col style="width: 120px" />
+                        <col style="width: 120px" />
+                        <col style="width: 120px" />
+                        <col style="width: 120px" />
+                      </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            S.NO
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Project
+                            <p-columnFilter
+                              type="text"
+                              field="project_name"
+                              display="menu"
+                            ></p-columnFilter>
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Total Ticket
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Open
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Close
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            In-progress
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Hold
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Resolve
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Awaiting
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Approved
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Reopen
+                          </div>
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template
+                      pTemplate="body"
+                      let-clientReportData
+                      let-i="rowIndex"
+                    >
+                      <tr>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ clientReportData.project_name }}</td>
+                        <td>{{ clientReportData.totalTickets }}</td>
+                        <td>{{ clientReportData.open }}</td>
+                        <td>{{ clientReportData.Closed }}</td>
+                        <td>{{ clientReportData.inProgress }}</td>
+                        <td>{{ clientReportData.Hold }}</td>
+                        <td>{{ clientReportData.Resolved }}</td>
+                        <td>{{ clientReportData.AwaitingInformation }}</td>
+                        <td>{{ clientReportData.Approved }}</td>
+                        <td>{{ clientReportData.Reopen }}</td>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                      <tr *ngIf="clientReportData.length === 0">
+                        <td colspan="9" style="text-align: center">
+                          No Data Found
+                        </td>
+                      </tr>
+                      <tr *ngIf="spinner">
+                        <td colspan="9" style="text-align: center">
+                          <div
+                            class="col-md-12 text-center"
+                            *ngIf="spinner"
+                            style="display: block"
+                          >
+                            <!-- <sa-spinner-circular></sa-spinner-circular> -->
+                            <i class="fa fa-spinner fa-spin fa-2x"></i>
+                          </div>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

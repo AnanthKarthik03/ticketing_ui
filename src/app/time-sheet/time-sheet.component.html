@@ -1,0 +1,320 @@
+<div id="main_content">
+  <app-project-sidebar *ngIf="projectId > 0"></app-project-sidebar>
+  <app-sidebar *ngIf="projectId === 'null' || projectId === ''"></app-sidebar>
+  <div class="page">
+    <app-header></app-header>
+    <div class="section-body mt-3">
+      <div class="container-fluid">
+        <div class="col-lg-12">
+          <div class="nav-container">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item" *ngIf="role === 'Admin'">
+                  <a (click)="company()">{{ companyName }}</a>
+                </li>
+                <li class="breadcrumb-item" *ngIf="role === 'Pm'">
+                  <a>{{ companyName }}</a>
+                </li>
+                <!-- <li class="breadcrumb-item" *ngIf="role === 'Admin'">
+                  <a (click)="customer()">{{ customerName }}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  <a (click)="project()">{{ projectName }}</a>
+                </li> -->
+                <li class="breadcrumb-item active" aria-current="page">
+                  Time Sheet
+                </li>
+              </ol>
+              <!-- formControlName="assigned_group_id"
+              (onChange)="assignedGroup($event.value)" -->
+            </nav>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="row clearfix">
+            <div class="col-lg-12">
+              <div>
+                <div class="row">
+                  <div class="col-8">
+                    <div class="mb-4">
+                      <h4>Time Sheet</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-body mt-3" id="ticketing">
+      <!-- <div class="container-fluid">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <h2>All Events - {{ currentEvents.length }}</h2>
+              <ul>
+                <li *ngFor="let event of currentEvents">
+                  <b
+                    >{{ event.startStr | date
+                    }}<i class="ml-2">{{ event.title }}</i></b
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <label class="float-right">
+                <input
+                  type="checkbox"
+                  [checked]="calendarOptions.weekends"
+                  (change)="handleWeekendsToggle()"
+                />
+                toggle weekends
+              </label>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="card card-white">
+        <div class="container-fluid">
+          <div
+            class="col-md-12 text-center"
+            *ngIf="spinner"
+            style="display: block"
+          >
+            <!-- <sa-spinner-circular></sa-spinner-circular> -->
+            <i class="fa fa-spinner fa-spin fa-2x"></i>
+          </div>
+          <div class="col-md-12 p-0">
+            <div class="">
+              <full-calendar
+                [options]="calendarOptions"
+                class="mb-4 mt-4"
+              ></full-calendar>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  id="large-Modal"
+  class="modal fade bd-example-modal-lg"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <b class="mt-2">Time Sheet Details</b>
+        <button
+          type="button"
+          class="close close-button"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="closeClear()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post" role="form" [formGroup]="myTime">
+        <div class="modal-body">
+          <div
+            class="col-md-12"
+            *ngIf="projectId === 'null' || projectId === ''"
+          >
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  Project<span style="color: red">*</span>
+                </div>
+                <div class="col-md-9">
+                  <select
+                    class="form-control"
+                    formControlName="project_id"
+                    (change)="projectChange($event.target.value)"
+                  >
+                    <option value="">Select</option>
+                    <option value="0">Others</option>
+                    <option
+                      *ngFor="let item of selectEmp"
+                      value="{{ item.value }}"
+                    >
+                      {{ item.label }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-md-12"
+            *ngIf="othersDisbale"
+          >
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  Others<span style="color: red">*</span>
+                </div>
+                <div class="col-md-9">
+                  <!-- <select
+                    class="form-control"
+                    formControlName="others"
+ 
+                  >
+                    <option value="">Select Others</option>
+                      <option
+                      *ngFor="let item of othersList"
+                      value="{{ item.value }}"
+                    >
+                      {{ item.label }}
+                    </option>
+                  </select> -->
+                  <p-dropdown
+                  formControlName="others"
+                  [options]="othersList"
+                  name="test"
+                  [style]="{
+                    overflow: 'visible',
+                    width: '100%'
+                  }"
+                >
+                </p-dropdown>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12" *ngIf = "!othersDisbale">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  Ticket No<span style="color: red">*</span>
+                </div>
+                <div class="col-md-9">
+                  <p-dropdown
+                    formControlName="ticket_id"
+                    [options]="ticketsData"
+                    name="test"
+                    [style]="{
+                      overflow: 'visible',
+                      width: '100%'
+                    }"
+                  >
+                  </p-dropdown>
+
+                  <!-- <select formControlName="ticket_id" class="form-control">
+                    <option value="">
+                      Select Ticket No <span style="color: red">*</span>
+                    </option>
+                    <option
+                      *ngFor="let item of ticketsData"
+                      value="{{ item.id }}"
+                    >
+                      {{ item.ticket_no }} - {{ item.ticket_desc }}
+                    </option>
+                  </select> -->
+                  <div
+                    [ngClass]="{
+                      'is-invalid2': submitted && f.ticket_id.errors
+                    }"
+                    *ngIf="submitted && f.ticket_id.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.ticket_id.errors.required">
+                      Ticket No. is required
+                    </div>
+                  </div>
+                  <!-- <input
+                 [(ngModel)]="ticket_no"
+                  class="form-control"
+                  name="ticket-no"
+                  type="text"
+                  placeholder="Enter Ticket No"
+                /> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  Description<span style="color: red">*</span>
+                </div>
+                <div class="col-md-9">
+                  <textarea
+                    class="form-control"
+                    rows="4"
+                    cols="40"
+                    name="description"
+                    placeholder="Enter Description here..."
+                    formControlName="description"
+                    form="usrform"
+                    [ngClass]="{
+                      'is-invalid': submitted && f.description.errors
+                    }"
+                    required
+                  ></textarea>
+                  <div
+                    *ngIf="submitted && f.description.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.description.errors.required">
+                      Description is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  Working Hours<span style="color: red">*</span>
+                </div>
+                <div class="col-md-9">
+                  <input
+                    formControlName="hrs"
+                    class="form-control"
+                    name="hrs"
+                    type="number"
+                    min="0"
+                    placeholder="Working hours"
+                    [ngClass]="{
+                      'is-invalid': submitted && f.hrs.errors
+                    }"
+                    required
+                  />
+                  <div
+                    *ngIf="submitted && f.hrs.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.hrs.errors.required">
+                      Working hours is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="float-left save-button">
+          
+          <button
+             class="btn save-btn btn-success"
+            [disabled]="spinner"
+            (click)="save()"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

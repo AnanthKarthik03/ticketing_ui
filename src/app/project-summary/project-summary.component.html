@@ -1,0 +1,455 @@
+<div id="main_content">
+  <app-sidebar></app-sidebar>
+  <div class="page">
+    <app-header></app-header>
+    <div class="section-body mt-3">
+      <div class="container-fluid">
+        <div class="row clearfix">
+          <div class="col-lg-12">
+            <div class="mb-4">
+              <h4> Project Summary </h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-lg-12 col-md-12">
+            <div class="card">
+              <div class="card-header card-heade-em-deshboard">
+                <!--Size dropdown menu-->
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-auto text-left">
+                      <h6 class="m-2"><b>Project Summary</b></h6>
+                    </div>
+
+                    <div class="col-md-9 ml-4 text-right view-port">
+                      <div class="row float-right">
+                        <div class="mt-2 pr-2">Select Month:</div>
+                        <div class="mobile-v">
+                          <p-calendar
+                            [(ngModel)]="date1"
+                            view="month"
+                            dateFormat="mm/yy"
+                            [readonlyInput]="true"
+                            inputId="monthpicker"
+                            (onSelect)="doSomething(date2)"
+                          ></p-calendar>
+                        </div>
+                        <div class="mt-2 pl-5 px-2">
+                          <a
+                            class="addButton float-left btn btn-primary"
+                            (click)="excelDownload()"
+                          >
+                            <span class="css-button-icon"
+                              ><i class="fa fa-download" aria-hidden="true"></i>
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <!-- <div class="row">
+                  <div class="col-6">
+                    <a
+                      class="addButton float-left btn btn-primary"
+                      (click)="excelDownload()"
+                    >
+                      <span class="css-button-icon"
+                        ><i class="fa fa-download" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                  </div>
+                </div> -->
+                <div class="table-responsive">
+                  <p-table
+                    [scrollable]="false"
+                    scrollHeight="100%"
+                    scrollWidth="100%"
+                    [style]="{ width: '100%' }"
+                    #dt1
+                    [value]="empReportData"
+                    dataKey="id"
+                    [rows]="10"
+                    [showCurrentPageReport]="true"
+                    [rowsPerPageOptions]="[10, 25, 50]"
+                    styleClass="p-datatable-customers p-datatable-gridlines p-datatable-responsive-demo "
+                    [paginator]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                  >
+                    <ng-template pTemplate="colgroup" let-columns>
+                      <colgroup>
+                        <col style="width: 40px" />
+                        <col style="width: 130px" />
+                        <col style="width: 340px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                        <col style="width: 40px" />
+                      </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            S.NO
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Name
+                            <p-columnFilter
+                              type="text"
+                              field="name"
+                              display="menu"
+                            ></p-columnFilter>
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">1</div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">2</div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">3</div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">4</div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">5</div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">6</div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">7</div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">8</div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">9</div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            10
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            11
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            12
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            13
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            14
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            15
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            16
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            17
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            18
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            19
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            20
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            21
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            22
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            23
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            24
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            25
+                          </div>
+                        </th>
+
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            26
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            27
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            28
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            29
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            30
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            31
+                          </div>
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template
+                      pTemplate="body"
+                      let-empReportData
+                      let-i="rowIndex"
+                    >
+                      <tr>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ empReportData.name }}</td>
+                        
+                        <td >
+                          <!-- <h6>Total Hours:</h6> {{ empReportData["01"] ? empReportData["01"] : "-" }} -->
+                          <!-- <tr  >
+                            <th style="width: 90px;border: none;color: red;"><h6 >Total Hours:</h6></th>
+                            <th style="width: 30px;border: none; color: red; "><h6 >{{ empReportData["01"] ? empReportData["01"] : "-" }}</h6></th>
+                            
+                          </tr> -->
+                           <!-- <tr style="border:1px solid #e9ecef;background-color: #f8f9fa;" >
+                            <th style="width: 30px;border: none;">S.N.</th>
+                            <th style="width: 140px;border: none;">Project Name</th>
+                            <th style="width: 100px;border: none;"> Hours</th>
+                          </tr> -->
+                          <tr  >
+                            <td  style="width: 30px; ">1</td>
+                                  <td  style="width: 300px; text-align: left  !important; padding:0px  !important;">conficore</td>
+                                  <td  style="width: 30px;text-align: left  !important;padding:0px  !important; ">4</td>
+                                  
+                          </tr> 
+                          <tr style="padding:0px  !important; ">
+                            <td style="width: 30px;">2</td>
+                                  <td  style="width: 300px; text-align: left  !important;padding:0px  !important; ">Ticketing Tool</td>
+                                  <td  style="width: 30px;text-align: left  !important; padding:0px  !important;">4</td>
+                                  
+                          </tr> 
+                           <!-- <p-table responsiveLayout="scroll"
+                           [value]="empReportData"
+                            >
+                            <ng-template pTemplate="header" >
+                                <tr >
+                                  <th style="border: none;">S.N.</th>
+                                  <th style="border: none;">Project Name</th>
+                                  <th style="border: none;"> Hours</th>
+                                </tr>
+                                <tr>
+                                  <td>1</td>
+                                  <td>conficore</td>
+                                  <td>4</td>
+                                </tr>
+                            </ng-template>
+                            
+                            <ng-template pTemplate="body" let-empReportData let-i="rowIndex" >
+                                <tr>
+                                  <td>>{{ i + 1 }}</td>
+                                  <td>{{ empReportData.project_name }}</td>
+                                  <td> {{ empReportData.hrs ? empReportData.hrs : "-" }}</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>  -->
+                        
+                        </td>
+                        <td>
+                          {{ empReportData["02"] ? empReportData["02"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["03"] ? empReportData["03"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["04"] ? empReportData["04"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["05"] ? empReportData["05"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["06"] ? empReportData["06"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["07"] ? empReportData["07"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["08"] ? empReportData["08"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["09"] ? empReportData["09"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["10"] ? empReportData["10"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["11"] ? empReportData["11"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["12"] ? empReportData["12"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["13"] ? empReportData["13"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["14"] ? empReportData["14"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["15"] ? empReportData["15"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["16"] ? empReportData["16"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["17"] ? empReportData["17"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["18"] ? empReportData["18"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["19"] ? empReportData["19"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["20"] ? empReportData["20"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["21"] ? empReportData["21"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["22"] ? empReportData["22"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["23"] ? empReportData["23"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["24"] ? empReportData["24"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["25"] ? empReportData["25"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["26"] ? empReportData["26"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["27"] ? empReportData["27"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["28"] ? empReportData["28"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["29"] ? empReportData["29"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["30"] ? empReportData["30"] : "-" }}
+                        </td>
+                        <td>
+                          {{ empReportData["31"] ? empReportData["31"] : "-" }}
+                        </td>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                      <tr *ngIf="!spinner">
+                        <td colspan="34" style="text-align: center">
+                          No Data Found
+                        </td>
+                      </tr>
+                      <tr *ngIf="spinner">
+                        <td colspan="34" style="text-align: center">
+                          <div
+                            class="col-md-12 text-center"
+                            *ngIf="spinner"
+                            style="display: block"
+                          >
+                            <i class="fa fa-spinner fa-spin fa-2x"></i>
+                          </div>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

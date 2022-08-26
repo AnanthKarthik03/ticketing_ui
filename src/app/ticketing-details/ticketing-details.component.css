@@ -1,0 +1,133 @@
+
+  .btn-timeline{
+    border: 1px solid rgb(78, 76, 76);
+  }
+  
+  .selectpicker_employee-deshbord {
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+  .card-selectpicker {
+    width: 100%;
+    background: none;
+    border: none;
+    outline: none;
+  }
+  .card-selectpicker1 {
+    border: none;
+  }
+  .card-heade-em-deshboard select option {
+    margin-top: 20px;
+    border-bottom-color: #6900c7;
+    border-bottom-width: 5px;
+  }
+  .card-heade-em-deshboard {
+    box-shadow: 0px 10px 8px -10px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    border-radius: 0%;
+  }
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    border-top-color: #008eaa;
+    border-top-width: 5px;
+  }
+  .dropdown-menu {
+    box-shadow: 0 2px 20px 0 rgb(0 0 0 / 25%);
+    border-bottom-color: #6900c7;
+    border-bottom-width: 5px;
+    min-width: 12rem;
+    font-size: 14px;
+  }
+  
+  #dropdown-menu1 {
+    width: 100px;
+  }
+  
+  #dropdown-menu1 li {
+    border-bottom: 1px solid rgb(228, 226, 226);
+    padding: 15px;
+  }
+  
+  li {
+    padding-left: 20px;
+  }
+  
+  #dropdown-menu1>li:hover {
+    display: block;
+    background-color: #1216f8;
+    color: #ffffff;
+  }
+  
+  .excel1 {
+    font-size: 15px;
+    /* font-family: Arial;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #faf8f7; */
+    background-color: #008eaa;
+    color: #ffffff;
+    border-radius: 50%;
+    border: #807b7b 1px solid;
+    float:right;
+
+  }
+  
+  .btn-default {
+    border: none;
+  }
+
+  .mobile-v{
+    width: 23%;
+  }
+  .font-size{
+    font-size: 14px;
+  }
+  .text-report{
+    font-size: 14px;
+  }
+  .view-port{
+    width: 82%;
+  }
+  
+@media only screen and (max-width: 430px) {
+  .excel1 {
+    margin: 10px;
+    float: left;
+  }
+  .mobile-v{
+    width: 100%;
+    text-align: left;
+  }
+  .pp{
+    padding-right: 12px;
+    font-size: 10px;
+  }
+  .mobile-b{
+    font-size: 10px;
+    padding: 10px;
+  }
+}
+@media screen and (max-width: 770px) and (min-width: 768px) {
+  .mobile-v{
+    width: 23%;
+  }
+  .view-port{
+    margin: 12px !important;
+  }
+  .text-report{
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 1030px) and (min-width: 1024px) {
+  .mobile-v{
+    width: 23%;
+  }
+  .view-port{
+    width: 80%;
+  }
+  .text-report{
+    font-size: 14px;
+  }
+}

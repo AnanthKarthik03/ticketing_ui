@@ -1,0 +1,104 @@
+.card-heade-em-deshboard select option {
+    margin-top: 20px;
+    border-bottom-color: #6900c7;
+    border-bottom-width: 5px;
+  }
+  .card-heade-em-deshboard {
+    box-shadow: 0px 10px 8px -10px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    border-radius: 0%;
+  }
+  
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    border-top-color: #008eaa;
+    border-top-width: 5px;
+  }
+  
+  .excel1 {
+    font-size: 15px;
+    /* font-family: Arial;
+      font-weight: bold;
+      text-decoration: none;
+      text-shadow: 0px 1px 0px #faf8f7; */
+    background-color: #008eaa;
+    color: #ffffff;
+    border-radius: 50%;
+    border: #807b7b 1px solid;
+    float: right;
+  }
+  
+  .ss {
+    background-color: rgb(243, 97, 77);
+    border-radius: 25px;
+    border: 1px solid #ee842c;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-shadow: 0px 1px 0px #f7f5f4;
+  }
+  .pp {
+    padding-right: 20px;
+    padding-top: 10px;
+  }
+  
+  .btn-default {
+    border: none;
+  }
+  
+  @media only screen and (max-width: 430px) {
+    .excel1 {
+      margin: 10px;
+      float: left;
+    }
+    .mobile-v{
+      width: 100%;
+      text-align: left;
+    }
+    .pp{
+      padding-right: 12px;
+      font-size: 10px;
+    }
+    .mobile-b{
+      font-size: 10px;
+      padding: 10px;
+    }
+  }
+  @media screen and (max-width: 770px) and (min-width: 768px) {
+    .mobile-v{
+      width: 40%;
+    }
+    .view-port{
+      margin: 12px !important;
+    }
+    .text-report{
+      font-size: 14px;
+    }
+  }
+  th {
+    text-align:center !important;
+    padding:0px !important;
+    border: 1px solid #e9ecef;
+    font-size: 14px;
+  }
+  
+  td {
+    text-align:center !important;
+    padding:10px !important;
+    font-size: 14px;
+  }
+  .p-paginator {
+    background: #ffffff;
+    color: #6c757d;
+    border: solid #e9ecef;
+    border-width: 0;
+    border-radius: 3px;
+    padding:10px !important;
+}
+.hrs{
+  font-size: 10px;
+
+}

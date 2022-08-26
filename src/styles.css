@@ -1,0 +1,445 @@
+/* You can add global styles to this file, and also import other style files */
+
+.is-invalid2 {
+	display: block;
+}
+
+.text-center {
+	text-align: center !important;
+}
+
+.edit-button {
+	background-color: rgb(21, 105, 214);
+	border-radius: 5px;
+	border: 1px solid #29668f;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: Arial;
+	margin-right: 20px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #3d768a;
+	font-size: x-small;
+}
+
+.addButton {
+	background-color: rgb(243, 97, 77);
+	border-radius: 20px;
+	border: 1px solid #ee842c;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: Arial;
+	margin-right: 20px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #f79a64;
+	font-size: x-small;
+}
+
+.addButton1 {
+	background-color: #599bb3;
+	border-radius: 28px;
+	border: 1px solid #29668f;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #3d768a;
+}
+
+.addButton1:hover {
+	background-color: #599bb3;
+}
+
+.addButton1 span {
+	padding-right: 5px;
+}
+
+.cancleButton {
+	background-color: #2e964a;
+	border: 1px solid #18ab29;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	margin-right: 6px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #2f6627;
+}
+
+.cancleButton:hover {
+	background-color: #2e964a;
+}
+
+.saveButton {
+	background-color: #7892c2;
+	border: 1px solid #4e6096;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #283966;
+	float: right;
+	margin-right: 6px;
+}
+
+.saveButton:hover {
+	background-color: #7892c2;
+}
+
+.delete-button {
+	background-color: rgb(248, 90, 42);
+	border-radius: 5px;
+	border: 1px solid #29668f;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: Arial;
+	margin-right: 20px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #3d768a;
+	font-size: x-small;
+}
+
+.footer-button {
+	border-radius: 30px;
+}
+
+/* Scroll Styles */
+
+.scrollbar-dusty-grass::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+	background-color: #f0ecec !important;
+	border-radius: 0px;
+}
+
+.scrollbar-dusty-grass::-webkit-scrollbar {
+	width: 14px;
+	background-color: #F5F5F5;
+}
+
+.scrollbar-dusty-grass::-webkit-scrollbar-thumb {
+	border-radius: 0px;
+	background: #cfced1!important
+}
+
+#ticketing .card {
+	background: #e8ecef;
+}
+
+#example-1 .card {
+	background: #fff;
+}
+
+.square::-webkit-scrollbar-track {
+	border-radius: 0 !important;
+}
+
+.square::-webkit-scrollbar-thumb {
+	border-radius: 0 !important;
+}
+
+.thin::-webkit-scrollbar {
+	width: 9px;
+}
+
+.example-1 {
+	background: #e8ecef;
+	position: relative;
+	overflow-y: scroll;
+	height: 400px;
+}
+
+body *::-webkit-scrollbar {
+	width: auto;
+	height: 9px;
+	transition: .3s background;
+}
+
+.close-button {
+	background-color: #fff;
+	border: 1px solid #fff;
+	display: inline-block;
+	cursor: pointer;
+	color: #000;
+	font-family: Arial;
+	font-size: 1.25rem;
+}
+
+.close-button:hover {
+	color: #000;
+	font-size: 1.25rem;
+}
+
+.close-button:focus {
+	outline: 0px auto -webkit-focus-ring-color !important;
+}
+
+.card-resize {
+	padding: 10px !important;
+}
+
+.card-resize1 {
+	padding: 0px !important;
+}
+
+.green {
+	color: #8ec06c;
+}
+
+.red {
+	color: #ed1b2e;
+}
+
+.blue {
+	color: #004b79;
+}
+
+.cement {
+	color: #6d6e70;
+}
+
+.voliet {
+	color: #6900c7;
+}
+.Header_userName{
+	color: #333537;
+    font-size: 14px;
+    padding: 3px;
+    margin: 0 2px;
+    width: auto;
+}
+@media screen and (max-width: 320px) {
+	.breadcrumb-item{font-size: 4px;}
+  .h4, h4 {
+    font-size: 1rem;
+}
+.button-back{
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+	font-size: 5px;
+	padding: 3px;
+}
+  
+  }
+  @media screen and (max-width: 375px) {
+	
+  .h4, h4 {
+    font-size: 1 rem;
+}
+.breadcrumb-item{font-size: 10px;}
+  
+  }
+  @media screen and (max-width: 425px) {
+	
+  .h4, h4 {
+    font-size: 15px;
+}
+.breadcrumb-item{font-size: 7px;}
+  
+  }
+
+  .active {
+    color: rgb(26, 80, 137);
+    border-color: rgb(26, 80, 137);
+}
+
+
+.cursor-style{
+	cursor: default !important;
+}
+
+.fc-today-button{
+	display: initial !important;  }
+
+  /* .fc .fc-toolbar .fc-button {
+
+  } */
+
+  .card-white{
+	  background-color: white !important;
+  }
+
+  .fc-scrollgrid-section-header{
+	background-color: #9bc8ec !important;
+  }
+
+
+  .horizontal-scrollable > .row {
+	display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+  
+.horizontal-scrollable > .row > .col{
+	display: inline-block;
+	/* width: 37%; */
+	width: 372px;
+}
+body *::-webkit-scrollbar-thumb {
+    background:  #cfced1!important
+}
+
+ /* media css for calender  */
+
+@media (max-width:430px) {
+	.fc-toolbar-chunk{
+	  display: flex;
+	}
+	.fc .fc-toolbar .fc-button{
+	  font-size: 9px !important;
+	}
+	.fc .fc-toolbar-title {
+	  font-size: 14.5px !important;
+  }
+  .fc .fc-daygrid-body-balanced .fc-daygrid-day-events {
+	font-size: 11px;
+  }
+  .fc .fc-daygrid-day-top {
+	font-size: 11.5px;
+  }
+  }
+  @media (max-width:360px) {
+	.fc-toolbar-chunk{
+	  display: flex;
+	}
+	.fc .fc-toolbar .fc-button{
+	  font-size: 7px !important;
+	}
+	.fc .fc-toolbar-title {
+	  font-size: 11px !important;
+  }
+  .fc .fc-daygrid-body-balanced .fc-daygrid-day-events {
+	font-size: 7px;
+  }
+  .fc .fc-daygrid-day-top {
+	font-size: 9px;
+  }
+  }
+
+
+  /* upload styles */
+
+.jFiler {
+	font-family: sans-serif;
+	font-size  : 14px;
+	color      : #494949;
+  }
+  
+  .jFiler-input-dragDrop {
+	width           : 100%;
+	background-color: #fafafa;
+  }
+  
+  .jFiler-input-dragDrop {
+	display              : block;
+	margin               : 0 auto 25px auto;
+	padding              : 25px;
+	color                : #97A1A8;
+	background           : #F9FBFE;
+	border               : 2px dashed #C8CBCE;
+	text-align           : center;
+	/* -webkit-transition: box-shadow 0.3s, border-color 0.3s; */
+	-moz-transition      : box-shadow 0.3s, border-color 0.3s;
+	transition           : box-shadow 0.3s, border-color 0.3s;
+	height               : 100px;
+  }
+  
+  .jFiler * {
+	box-sizing: border-box;
+  }
+  
+  .jFiler-input-dragDrop .jFiler-input-icon {
+	font-size : 48px;
+	margin-top: -10px;
+	transition: all 0.3s ease;
+  }
+  
+  .jFiler-input-text h5 {
+	color: #97a1a8
+  }
+
+  /* end of upload styles */
+
+  /* colours */
+
+.card-border1 {
+	border-color: #f7c8c9;
+  }
+  
+  .card-border2 {
+	border-color: #cd004b;
+  }
+  
+  .card-border3 {
+	border-color: #f6b128;
+  }
+  
+  .card-border4 {
+	border-color: #057855;
+  }
+  
+  .card-border5 {
+	border-color: #85c446;
+  }
+  
+  .card-border6 {
+	border-color: #a25016;
+  }
+  
+  .card-border7 {
+	border-color: #94cecb;
+  }
+  
+  .card-border8 {
+	border-color: #fb8a2e;
+  }
+  
+  .card-font1 {
+	color: #f7c8c9;
+  }
+  
+  .card-font2 {
+	color: #cd004b;
+  }
+  
+  .card-font3 {
+	color: #f6b128;
+  }
+  
+  .card-font4 {
+	color: #057855;
+  }
+  
+  .card-font5 {
+	color: #85c446;
+  }
+  
+  .card-font6 {
+	color: #a25016;
+  }
+  
+  .card-font7 {
+	color: #94cecb;
+  }
+  
+  .card-font8 {
+   color: #fb8a2e;
+  }
+  
+  .border-start-lg {
+	border-left-width: .25rem!important;
+  }
+  
+  .border-end-0 {
+	border-right: 0!important;
+  }
+  
+  .text-gray-200 {
+	color: #e0e5ec!important;
+  }
+
+  .card-paddingcustom{
+	  padding: 10px !important;
+  }

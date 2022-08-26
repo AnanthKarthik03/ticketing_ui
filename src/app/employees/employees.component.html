@@ -1,0 +1,975 @@
+<div id="main_content">
+  <app-customer-sidebar></app-customer-sidebar>
+  <div class="page">
+    <app-header></app-header>
+
+    <div class="section-body mt-3">
+      <div class="container-fluid">
+        <div class="col-lg-12">
+          <div class="nav-container">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a (click)="company()">Company</a>
+                </li>
+                <li class="breadcrumb-item" *ngIf = "roleName !=='SuperAdmin'">
+                  <a (click)="customer()">Customer</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  Employee
+                </li>
+              </ol>
+              <button
+                *ngIf="!viewEmployee"
+                class="addButton1 btn btn-primary button-back"
+                (click)="customer()"
+              >
+                <span class="css-button-icon"
+                  ><i class="fa fa-arrow-left" aria-hidden="true"></i
+                ></span>
+              </button>
+            </nav>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-12">
+            <div *ngIf="!viewEmployee">
+              <div class="row">
+                <div class="col-8">
+                  <div class="mb-4">
+                    <h4>Employees Master</h4>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <button
+                    class="addButton1 float-right btn btn-primary"
+                    (click)="showEmployeeForm()"
+                  >
+                    <span class="css-button-icon"
+                      ><i class="fa fa-plus" aria-hidden="true"></i
+                    ></span>
+                    <span class="css-button-text">Add</span>
+                  </button>
+                  <a class="addButton2 float-right btn btn-primary" href="assets/excels/employeeDetails.xlsx">
+                    <span class="css-button-icon"
+                      ><i class="fa fa-download" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                  <button
+                  class="addButton2 float-right btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#large-Modal2"
+                  (click)="clear()"
+                >
+                  <span class="css-button-icon"
+                    ><i class="fa fa-upload" aria-hidden="true"></i>
+                  </span>
+                </button>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="viewEmployee">
+              <div class="row">
+                <div class="col-8">
+                  <div class="mb-4">
+                    <h4>Employee Form</h4>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <button
+                    class="addButton1 float-right btn btn-primary"
+                    (click)="showEmployeeList()"
+                  >
+                    <span class="css-button-icon"
+                      ><i class="fa fa-arrow-left" aria-hidden="true"></i
+                    ></span>
+                    <span class="css-button-text">Back</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix row-deck" *ngIf="!viewEmployee">
+          <div class="card">
+            <div class="table-responsive">
+              <p-table
+                [scrollable]="true"
+                [style]="{ width: '100%' }"
+                #dt1
+                [value]="employeeData"
+                dataKey="id"
+                [rows]="10"
+                [showCurrentPageReport]="true"
+                [rowsPerPageOptions]="[10, 25, 50]"
+                styleClass="p-datatable-customers p-datatable-gridlines p-datatable-responsive-demo"
+                [paginator]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+              >
+                <ng-template pTemplate="colgroup" let-columns>
+                  <colgroup>
+                    <col style="width: 90px" />
+                    <col style="width: 140px" />
+                    <col style="width: 183px" />
+                    <col style="width: 150px" />
+                    <col style="width: 176px" />
+                    <col style="width: 140px" />
+                    <col style="width: 212px" />
+                    <col style="width: 150px" />
+                    <col style="width: 170px" />
+                    <col style="width: 158px" />
+                    <col style="width: 185px" />
+                    <col style="width: 163px" />
+                    <col style="width: 179px" />
+                    <col style="width: 123px" />
+                    <col style="width: 123px" />
+                  </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">S.NO</div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Profile Image
+                      </div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Employee Code
+                        <p-columnFilter
+                          type="text"
+                          field="emp_code"
+                          display="menu"
+                        ></p-columnFilter>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Name
+                        <p-columnFilter
+                          type="text"
+                          field="name"
+                          display="menu"
+                        ></p-columnFilter>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Email
+                        <p-columnFilter
+                          type="text"
+                          field="email"
+                          display="menu"
+                        ></p-columnFilter>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Phone
+                        <p-columnFilter
+                          type="text"
+                          field="phone"
+                          display="menu"
+                        ></p-columnFilter>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Reporting Manager
+                        <p-columnFilter
+                          type="text"
+                          field="rm"
+                          display="menu"
+                        ></p-columnFilter>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Role
+                        <p-columnFilter
+                          type="text"
+                          field="role"
+                          display="menu"
+                        ></p-columnFilter>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Department
+                        <p-columnFilter
+                          type="text"
+                          field="dept_name"
+                          display="menu"
+                        ></p-columnFilter>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Designation
+                        <p-columnFilter
+                          type="text"
+                          field="designation"
+                          display="menu"
+                        ></p-columnFilter>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Date of Joining
+                       
+                      </div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Date of Birth
+                       
+                      </div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        CTC Per Month
+                        <p-columnFilter
+                          type="text"
+                          field="ctc_per_month"
+                          display="menu"
+                        ></p-columnFilter>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Gender
+                        <p-columnFilter
+                          type="text"
+                          field="genderName"
+                          display="menu"
+                        ></p-columnFilter>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Action
+                      </div>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-employeeData let-i="rowIndex">
+                  <tr>
+                    <td>{{ i + 1 }}</td>
+                    <td><img src="{{ imagePath }}{{ employeeData.profile_image }}" onerror="this.src='assets/images/noimage.png'"  alt="alternative" width="50%"></td>
+                    <td>{{ employeeData.emp_code }}</td>
+                    <td>{{ employeeData.name }}</td>
+                    <td>{{ employeeData.email }}</td>
+                    <td>
+                      {{ employeeData.phone }}
+                    </td>
+                    <td>
+                      {{ employeeData.rm }}
+                    </td>
+                    <td>{{ employeeData.role }}</td>
+                    <td>{{ employeeData.dept_name }}</td>
+                    <td>{{ employeeData.designation }}</td>
+                    <td>{{ employeeData.doj | date }}</td>
+                    <td>{{ employeeData.dob | date }}</td>
+                    <td>{{ employeeData.ctc_per_month }}</td>
+                    <!-- <td>{{ employeeData.gender }}</td> -->
+                    <td>
+                     {{employeeData.genderName}}
+                    </td>
+                    <td>
+                      <button
+                        class="edit-button"
+                        style="color: white; cursor: pointer"
+                        title="Edit"
+                        (click)="employeeEdit(employeeData)"
+                      >
+                        <i aria-hidden="true" class="fa fa-pencil"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                  <tr *ngIf="!spinner">
+                    <td colspan="8" style="text-align: center">
+                      No Data Found
+                    </td>
+                  </tr>
+                  <tr *ngIf="spinner">
+                    <td colspan="8" style="text-align: center">
+                      <div
+                        class="col-md-12 text-center"
+                        *ngIf="spinner"
+                        style="display: block"
+                      >
+                        <!-- <sa-spinner-circular></sa-spinner-circular> -->
+                        <i class="fa fa-spinner fa-spin fa-2x"></i>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="row clearfix row-deck" *ngIf="!viewEmployee">
+          <div class="card">
+     
+              <div class="dt-responsive table-responsive">
+                <table
+                  class="table table-striped"
+                  [svData]="employeeData"
+                  #sv="svDataTable"
+                  [svRowsOnPage]="10"
+                  svSortBy="name"
+                  svSortOrder="asc"
+                >
+                  <thead>
+                    <tr>
+                      <th>
+                        <sv-default-sorter >S.NO</sv-default-sorter>
+                      </th>
+                      <th>
+                        <sv-default-sorter by="ORGCODE"
+                          >Employee Code</sv-default-sorter
+                        >
+                      </th>
+                      <th>
+                        <sv-default-sorter by="EMPCODE"
+                          >Name</sv-default-sorter
+                        >
+                      </th>
+                      <th>
+                        <sv-default-sorter by="EMPNAME"
+                          >Email</sv-default-sorter
+                        >
+                      </th>
+                      <th>
+                        <sv-default-sorter by="CONTACTNO"
+                          >Phone</sv-default-sorter
+                        >
+                      </th>
+                      <th>
+                        <sv-default-sorter by="CURRENTADDRESS"
+                          >Reporting Manager</sv-default-sorter
+                        >
+                      </th>
+                      <th>
+                        <sv-default-sorter by="ROLENAME"
+                          >Role</sv-default-sorter
+                        >
+                      </th>
+                      <th>
+                        <sv-default-sorter by="ROLENAME"
+                          >Role</sv-default-sorter
+                        >
+                      </th>
+                      <th>
+                        <sv-default-sorter by="ROLENAME"
+                          >Department</sv-default-sorter
+                        >
+                      </th>
+                      <th>
+                        <sv-default-sorter by="ROLENAME"
+                          >Designation</sv-default-sorter
+                        >
+                      </th>
+                      <th>
+                        <sv-default-sorter by="ROLENAME"
+                          >Date of joining </sv-default-sorter
+                        >
+                      </th>
+                      <th>
+                        <sv-default-sorter by="ROLENAME"
+                          >Date of Birth </sv-default-sorter
+                        >
+                      </th>
+                      <th>
+                        <sv-default-sorter by="ROLENAME"
+                          >Ctc Per month</sv-default-sorter
+                        >
+                      </th>
+                      <th>
+                        <sv-default-sorter by="STATUS"
+                          >Status</sv-default-sorter
+                        >
+                      </th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                 
+
+                  <tbody *ngIf="sv.data.length == 0">
+                    <tr>
+                      <td colspan="10">
+                        <h4 class="text-center">No Data found</h4>
+                      </td>
+                    </tr>
+                  </tbody>
+
+                  <tbody *ngIf="spinner">
+                    <tr>
+                      <td colspan="10">
+                        <div
+                          class="d-flex justify-content-center"
+                          *ngIf="spinner"
+                        >
+                          <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+
+                  <tfoot>
+                    <tr>
+                      <td colspan="10">
+                        <sv-bootstrap-paginator [rowsOnPageSet]="[5, 10, 25]">
+                        </sv-bootstrap-paginator>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            
+          </div>
+        </div> -->
+
+        <div class="row clearfix row-deck" *ngIf="viewEmployee">
+          <div class="col-xl-12 col-lg-12">
+            <div class="card">
+              <div class="card-body">
+                <form [formGroup]="myForm">
+                  <div class="controls">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="emp_code">Employee Code <span style="color:red;">*</span></label>
+                          <input
+                            type="text"
+                            name="emp_code"
+                            class="form-control"
+                            placeholder=""
+                            formControlName="emp_code"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.emp_code.errors
+                            }"
+                            required
+                          />
+                          <div
+                            *ngIf="submitted && f.emp_code.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.emp_code.errors.required">
+                              Employee Code is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="emp_name">Employee Name <span style="color:red;">*</span></label>
+                          <input
+                            type="text"
+                            name="emp_name"
+                            class="form-control"
+                            placeholder=""
+                            formControlName="name"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.name.errors
+                            }"
+                            required
+                          />
+                          <div
+                            *ngIf="submitted && f.name.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.name.errors.required">
+                              Employee Name is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="email">Email <span style="color:red;">*</span></label>
+                          <input
+                            type="email"
+                            name="email"
+                            class="form-control"
+                            placeholder=""
+                            formControlName="email"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.email.errors
+                            }"
+                            required
+                          />
+                          <div
+                            *ngIf="submitted && f.email.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.email.errors.required">
+                              Email is required
+                            </div>
+                            <div *ngIf="f.email.errors.email">
+                              Email must be valid
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="phone">Phone <span style="color:red;">*</span></label>
+                          <input
+                            type="number"
+                            name="phone"
+                            class="form-control"
+                            placeholder=""
+                            maxlength="10"
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            pattern="[0-9][0-9]{9}"
+                            formControlName="phone"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.phone.errors
+                            }"
+                            required
+                          />
+                          <div
+                            *ngIf="submitted && f.phone.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.phone.errors.required">
+                              Phone is required
+                            </div>
+                            <div *ngIf="f.phone.errors.pattern">
+                              Please Enter 10 digit Phone Number
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="rm">Relationship Manager <span style="color:red;">*</span></label>
+                          <input
+                            type="text"
+                            name="rm"
+                            class="form-control"
+                            placeholder=""
+                            formControlName="rm"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.rm.errors
+                            }"
+                            required
+                          />
+                          <div
+                            *ngIf="submitted && f.rm.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.rm.errors.required">
+                              Relationship Manager is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="role">Role <span style="color:red;">*</span></label>
+                          <select
+                          name="role"
+                          class="form-control"
+                          formControlName="role"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.role.errors
+                          }"
+                        >
+                          <option
+                            *ngFor="let item of role"
+                            value="{{ item.value }}"
+                          >
+                            {{ item.label }}
+                          </option>
+                        </select>
+                          <div
+                            [ngClass]="{
+                              'is-invalid2': submitted && f.role.errors
+                            }"
+                            *ngIf="submitted && f.role.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.role.errors.required">
+                              Role is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="dept">Deparment<span style="color:red;">*</span></label>
+                          <!-- <input
+                            type="text"
+                            name="dept"
+                            class="form-control"
+                            placeholder=""
+                            formControlName="dept"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.dept.errors
+                            }"
+                            required
+                          /> -->
+                          <select
+                            name="dept"
+                            class="form-control"
+                            formControlName="dept"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.dept.errors
+                            }"
+                          >
+                            <option value="" selected>Select Deparment</option>
+                            <option
+                              *ngFor="let item of departmentData"
+                              value="{{ item.id }}"
+                            >
+                              {{ item.dept_name }}
+                            </option>
+                          </select>
+
+                          <div
+                            *ngIf="submitted && f.dept.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.dept.errors.required">
+                              Deparment is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="desg">Designation<span style="color:red;">*</span></label>
+                          <select
+                            name="desg"
+                            class="form-control"
+                            formControlName="desg"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.desg.errors
+                            }"
+                          >
+                            <option value="" selected>Select Designation</option>
+                            <option
+                              *ngFor="let item of designationData"
+                              value="{{ item.id }}"
+                            >
+                              {{ item.designation }}
+                            </option>
+                          </select>
+
+                          <div
+                            [ngClass]="{
+                              'is-invalid2': submitted && f.desg.errors
+                            }"
+                            *ngIf="submitted && f.desg.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.desg.errors.required">
+                              Designation is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="pm">Profile Image</label>
+                          <input
+                            type="file"
+                            (change)="onFileChange($event)"
+                            name="pm"
+                            class="form-control"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="doj">Date of joining<span style="color:red;">*</span></label>
+                          <p-calendar
+                            [yearNavigator]="true"
+                            yearRange="1900:2030"
+                            [inputStyle]="{ width: '90%' }"
+                            [style]="{ width: '100%' }"
+                            [showIcon]="true"
+                            inputId="icon3"
+                            formControlName="doj"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.doj.errors
+                            }"
+                            required
+                          ></p-calendar>
+                          <div
+                            *ngIf="submitted && f.doj.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.doj.errors.required">
+                              Date of joining is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="dob">Date Of Birth<span style="color:red;">*</span></label>
+                          <p-calendar
+                            [yearNavigator]="true"
+                            yearRange="1900:2030"
+                            [inputStyle]="{ width: '90%' }"
+                            [style]="{ width: '100%' }"
+                            [showIcon]="true"
+                            inputId="icon4"
+                            formControlName="dob"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.dob.errors
+                            }"
+                            required
+                          ></p-calendar>
+                          <div
+                            *ngIf="submitted && f.dob.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.dob.errors.required">
+                              Date Of Birth is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="ctc">Ctc Per Month<span style="color:red;">*</span></label>
+                          <input
+                            type="number"
+                            name="ctc"
+                            class="form-control"
+                            placeholder=""
+                            formControlName="ctc_per_month"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.ctc_per_month.errors
+                            }"
+                            required
+                          />
+                          <div
+                            *ngIf="submitted && f.ctc_per_month.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.ctc_per_month.errors.required">
+                              Ctc Per Month is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="gender">Gender <span style="color:red;">*</span></label>
+                          <div class="form-control readio">
+                            <div class="form-check form-check-inline">
+                              <input
+                                type="radio"
+                                name="gender"
+                                value="0"
+                                formControlName="gender"
+                                required
+                              />
+                              <label
+                                class="form-check-label ml-1"
+                                for="inlineRadio1"
+                                >Male</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                type="radio"
+                                name="gender"
+                                value="1"
+                                formControlName="gender"
+                                required
+                              />
+                              <label
+                                class="form-check-label ml-1"
+                                for="inlineRadio1"
+                              >
+                                Female</label
+                              >
+                               
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                type="radio"
+                                name="gender"
+                                value="2"
+                                formControlName="gender"
+                                required
+                              />
+                              <label
+                                class="form-check-label ml-1"
+                                for="inlineRadio1"
+                                >Other</label
+                              > 
+                            </div>
+                          </div>
+                          <div
+                          [ngClass]="{
+                            'is-invalid2': submitted && f.gender.errors
+                          }"
+                          *ngIf="submitted && f.gender.errors"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="f.gender.errors.required">
+                            Gender is required
+                          </div>
+                        </div>
+                        </div>
+                       
+                      </div>
+
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="cus_id">Create Bug <span style="color:red;">*</span></label>
+                          <div class="form-control readio">
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="raise_bug"
+                                id="inlineRadio3"
+                                formControlName="raise_bug"
+                                value="0"
+                              />
+                              <label class="form-check-label" for="inlineRadio3"
+                                >Yes</label
+                              >
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="raise_bug"
+                                id="inlineRadio4"
+                                formControlName="raise_bug"
+                                value="1"
+                              />
+                              <label class="form-check-label" for="inlineRadio4"
+                                >No</label
+                              >
+                            </div>
+                            <div
+                            [ngClass]="{
+                              'is-invalid2':
+                                submitted && f.raise_bug.errors
+                            }"
+                            *ngIf="submitted && f.raise_bug.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.raise_bug.errors.required">
+                              Create Bug is required
+                            </div>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="col-md-12">
+                    <button
+                      [disabled]="spinner"
+                      (click)="onSubmit()"
+                      type="submit"
+                      class="btn btn-success saveButton"
+                    >
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary cancleButton float-right"
+                      (click)="showEmployeeList()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- upload -->
+<div
+  class="modal fade"
+  id="large-Modal2"
+  tabindex="-1"
+  role="dialog"
+  style="z-index: 1050; display: none"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Upload</h4>
+        <button
+          type="button"
+          class="close close-button"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <div aria-hidden="true">&times;</div>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="jFiler-input-dragDrop">
+          <input
+            type="file"
+            type="file"
+            class="upload"
+            [(ngModel)]="fileUpload"
+            (change)="handleFile($event)"
+            id="excel"
+            style="width: 240px; word-break: break-all; white-space: normal"
+          />
+        </div>
+        <div class="jFiler-items jFiler-row">
+          <ul class="jFiler-items-list jFiler-items-grid"></ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary footer-button"
+          data-dismiss="modal"
+        >
+          Close
+        </button>
+        <button
+          [disabled]="spinner"
+          type="save"
+          class="btn btn-primary footer-button"
+          data-dismiss="modal"
+          (click)="employeeUpload()"
+        >
+          Upload
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

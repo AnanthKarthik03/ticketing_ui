@@ -1,0 +1,562 @@
+<div id="main_content">
+  <app-sidebar></app-sidebar>
+  <div class="page">
+    <app-header></app-header>
+    <div class="section-body mt-3">
+      <div class="container-fluid">
+        <div class="row clearfix">
+          <div class="col-lg-12">
+            <div class="mb-4">
+              <h4>Welcome {{ loginName }}!</h4>
+              <br>
+              
+              <h4>Tickets status</h4>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="card">
+          <div class="row">
+            <div class="col-md-2">
+              <div class="card-body">
+                <h5 class="number mb-2 font-32 counter text-center green">7</h5>
+                <span class="font-12">
+                  <h3 class="card-title text-center">Live Projects</h3></span
+                >
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card-body">
+                <h5 class="number mb-2 font-32 counter text-center red">1</h5>
+                <span class="font-12">
+                  <h3 class="card-title text-center">
+                    All Risk Projects
+                  </h3></span
+                >
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card-body">
+                <h5 class="number mb-2 font-32 counter text-center blue">3</h5>
+                <span class="font-12">
+                  <h3 class="card-title text-center">
+                    Tasks Pending Approval
+                  </h3></span
+                >
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card-body">
+                <h5 class="number mb-2 font-32 counter text-center cement">
+                  4
+                </h5>
+                <span class="font-12">
+                  <h3 class="card-title text-center">
+                    Proposed Projects
+                  </h3></span
+                >
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card-body">
+                <h5 class="number mb-2 font-32 counter text-center red">4</h5>
+                <span class="font-12">
+                  <h3 class="card-title text-center">
+                    Projects Over Budget
+                  </h3></span
+                >
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card-body">
+                <h5 class="number mb-2 font-32 counter text-center blue">
+                  117
+                </h5>
+                <span class="font-12">
+                  <h3 class="card-title text-center">Open Issues</h3></span
+                >
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="col-md-12">
+          <div class="row">
+            
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0
+                  border-bottom-0
+                  border-end-0
+                  border-start-lg
+                  border-red
+                "
+              >
+                <div class="card-body cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title text-center font_size">Open</h3></span
+                      >
+
+                      <h5 class="number mb-2 font-32 counter text-center red count_size">
+                        {{ employeeDashboard.open }}
+                      </h5>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <i
+                        class="fa fa-linode fa-3x text-gray-200 icon_size"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0
+                  border-bottom-0
+                  border-end-0
+                  border-start-lg
+                  border-blue
+                "
+              >
+                <div class="card-body cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title text-center font_size">
+                          In Progress
+                        </h3></span
+                      >
+
+                      <h5 class="number mb-2 font-32 counter text-center blue count_size">
+                        {{ employeeDashboard.inProgress }}
+                      </h5>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <i
+                        class="fa fa-id-card fa-3x text-gray-200 icon_size"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0
+                  border-bottom-0
+                  border-end-0
+                  border-start-lg
+                  border-info
+                "
+              >
+                <div class="card-body cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title text-center font_size">Closed</h3></span
+                      >
+
+                      <h5 class="number mb-2 font-32 counter text-center info count_size">
+                        {{ employeeDashboard.closed }}
+                      </h5>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <i
+                        class="fa fa-folder-open fa-3x text-gray-200 icon_size"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0
+                  border-bottom-0
+                  border-end-0
+                  border-start-lg
+                  border-green
+                "
+              >
+                <div class="card-body cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title text-center font_size">Hold</h3></span
+                      >
+
+                      <h5 class="number mb-2 font-32 counter text-center green count_size">
+                        {{ employeeDashboard.hold}}
+                      </h5>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <i
+                        class=" fa fa-hand-paper-o fa-3x text-gray-200 icon_size"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div
+                class="
+                  card
+                  border-top-0
+                  border-bottom-0
+                  border-end-0
+                  border-start-lg
+                  border-cement
+                "
+              >
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title text-center">
+                          Proposed Projects
+                        </h3></span
+                      >
+
+                      <h5
+                        class="number mb-2 font-32 counter text-center cement"
+                      >
+                        4
+                      </h5>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <i
+                        class="fa fa-tasks fa-3x text-gray-200"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div
+                class="
+                  card
+                  border-top-0
+                  border-bottom-0
+                  border-end-0
+                  border-start-lg
+                  border-voliet
+                "
+              >
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title text-center">
+                          Projects Over Budget
+                        </h3></span
+                      >
+
+                      <h5
+                        class="number mb-2 font-32 counter text-center voliet"
+                      >
+                        4
+                      </h5>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <i
+                        class="fa fa-thumbs-o-up fa-3x text-gray-200"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="row clearfix mt-2">
+          <div class="col-lg-12">
+            <div class="mb-4">
+              <h4>Projects</h4>
+            </div>
+          </div>
+        </div>
+        <!--<div class="row clearfix">
+          <div class="col-md-2">
+            <div class="card card-body">
+              <h5 class="number mb-2 font-32 counter text-center green">7</h5>
+              <span class="font-12">
+                <h3 class="card-title text-center">Open</h3></span
+              >
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="card card-body">
+              <h5 class="number mb-2 font-32 counter text-center red">1</h5>
+              <span class="font-12">
+                <h3 class="card-title text-center">Closed</h3></span
+              >
+            </div>
+          </div>
+        </div> -->
+
+        <!-- old -->
+        <!-- <div class="row">
+          <div class="col-md-12">
+            <div id="root">
+              <div class="">
+                <div ng-if="$index % 4 == 0">
+                  <div class="row">
+                    <div class="col-md-3"  *ngFor="let item of projectsData"
+                    (click)="gotoProjects(item)">
+                      <div
+                        class="card align-items-stretch"
+                       
+                      >
+                        <div class="card-header" style="display: block;">
+                         <b>{{ item.company_name}}</b> 
+                        </div>
+                        <div title="{{item.project_name}}" class="card-body" style="font-size: 13px;"> {{ item.project_name.substring(0, 21) }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row align-items-stretch">
+                  <div
+                    class="c-dashboardInfo col-lg-3 col-md-6"
+                    *ngFor="let item of projectsData"
+                  >
+                    <div class="wrap" (click)="gotoProjects(item)">
+                      <h4
+                        class="
+                          heading
+                          heading5
+                          hind-font
+                          medium-font-weight
+                          c-dashboardInfo__title
+                        "
+                      >
+                        {{ item.project_name }}
+                      </h4>
+                     </div>
+                  </div>
+                </div> 
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="row">
+          <div class="col-md-3"  *ngFor="let item of projectsData"
+          (click)="gotoProjects(item)">
+            <div
+              class="card align-items-stretch"
+             
+            >
+              <div class="card-header" style="display: block;">
+               <b *ngIf = "item.company_name">{{ item.company_name.substring(0, 8) }}</b> 
+              </div>
+              <div *ngIf = "item.project_name" title="{{item.project_name}}" class="card-body" style="font-size: 13px;">{{ item.project_name.substring(0, 20)}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row clearfix mt-2">
+          <div class="col-lg-12">
+            <div class="mb-4">
+              <h4>User Report</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-lg-6 col-md-12">
+            <div class="card">
+              <div class="card-header card-heade-em-deshboard">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-5 text-left">
+                      <h6 class="m-2"><b>Project</b></h6>
+                    </div>
+                    <div class="col-md-7 mb-1">
+                      <!-- <select
+                        class="selectpicker card-selectpicker m-2"
+                        (change)="projectReport($event.target.value)"
+                      >
+                        <optgroup label="Construction">
+                          <option>Select Project</option>
+                          <option
+                            *ngFor="let item of this.projectsData"
+                            value="{{ item.id }}"
+                          >
+                            {{ item.project_name }}
+                          </option>
+                        </optgroup>
+                      </select>
+                      <div class="dropdown">
+                        <button
+                          class="btn btn-default dropdown-toggle"
+                          type="button"
+                          id="menu1"
+                          data-toggle="dropdown"
+                        >
+                          Tutorials <span class="caret"></span>
+                        </button>
+                        <ul
+                          id="dropdown-menu1"
+                          class="dropdown-menu dropdown-menu1"
+                        >
+                          <li class="item" role="presentation">
+                            Construction App
+                          </li>
+                          <li class="item" role="presentation">ERP</li>
+                          <li class="item" role="presentation">Tent</li>
+                        </ul>
+                      </div> -->
+                      <p-dropdown
+                      (onChange)="projectReport($event.value)"
+                      [options]="selectEmp"
+                      [filter]="true"
+                      name="test"
+                      appendTo="body"
+                      [style]="{
+                        overflow: 'visible',
+                        width: '100%'
+                      }"
+                    >
+                    </p-dropdown>
+                      <!-- <select
+                        name="select"
+                        class="form-control"
+                        (change)="projectReport($event.target.value)"
+                      >
+                       
+                        <option
+                          *ngFor="let item of this.projectsData"
+                          value="{{ item.id }}"
+                        >
+                          {{ item.project_name }}
+                        </option>
+                      </select> -->
+                    </div>
+                    <!-- <div class="col-md-2 text-right">
+                      <button class="btn excel1">
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                      </button>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <canvas
+                  baseChart
+                  [datasets]="barChartDataProject"
+                  [labels]="barChartLabelsProject"
+                  [options]="barChartOptions"
+                  [plugins]="barChartPlugins"
+                  [legend]="barChartLegend"
+                  [chartType]="barChartType"
+                >
+                </canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12">
+            <div class="card">
+              <div class="card-header card-heade-em-deshboard">
+                <!--Size dropdown menu-->
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-5 text-left">
+                      <h6 class="m-2"><b>Time Sheet</b></h6>
+                    </div>
+                    <div class="col-md-7 mb-1">
+                      <!-- <select class="selectpicker card-selectpicker m-2"  (change)='timeSheetReport($event.target.value)' >
+                           <option  >Select Project</option>
+                          <option
+                            *ngFor="let item of this.projectsData"
+                            value="{{ item.id }}"
+                          >
+                            {{ item.project_name }}
+                          </option>
+                       </select> -->
+                      <!-- <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Tutorials
+                        <span class="caret"></span></button>
+                        <ul id="dropdown-menu1" class="dropdown-menu dropdown-menu1  ">
+                          <li class= "item" role="presentation">Construction App</li>
+                          <li  class= "item" role="presentation">ERP</li>
+                          <li class= "item" role="presentation">Tent</li>
+                          
+                        </ul>
+                      </div> -->
+                      <p-dropdown
+                      (onChange)="timeSheetReport($event.value)"
+                      [options]="selectEmp"
+                      [filter]="true"
+                      name="test"
+                      appendTo="body"
+                      [style]="{
+                        overflow: 'visible',
+                        width: '100%'
+                      }"
+                    >
+                    </p-dropdown>
+                      <!-- <select
+                        name="select"
+                        class="form-control"
+                        (change)="timeSheetReport($event.target.value)"
+                      >
+                      
+                        <option
+                          *ngFor="let item of this.projectsData"
+                          value="{{ item.id }}"
+                        >
+                          {{ item.project_name }}
+                        </option>
+                      </select> -->
+                    </div>
+                    <!-- <div class="col-md-2 text-right">
+                      <button class="btn excel1">
+                        <i class="fa fa-file-excel-o"></i>
+                      </button>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <canvas
+                  baseChart
+                  [datasets]="barChartDataTimeSheet"
+                  [labels]="barChartLabelsTimeSheet"
+                  [options]="barChartOptions"
+                  [plugins]="barChartPlugins"
+                  [legend]="barChartLegend"
+                  [chartType]="barChartType"
+                >
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

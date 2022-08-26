@@ -1,0 +1,325 @@
+<div id="main_content">
+  <app-sidebar></app-sidebar>
+  <div class="page">
+    <app-header></app-header>
+    <div class="section-body mt-3">
+      <div class="container-fluid">
+        <div class="row clearfix">
+          <div class="col-lg-12">
+            <div class="mb-4">
+              <h4>Time Sheet Report</h4>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-lg-12 col-md-12">
+            <div class="card">
+              <div class="card-header card-heade-em-deshboard">
+                <!--Size dropdown menu-->
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-auto text-left">
+                      <h6 class="my-2 text-report"><b>Time Sheet</b></h6>
+                    </div>
+
+                    <div class="col-auto ml-3  view-port">
+                      <div class="row">
+                        <div class="font-size mt-2 pr-2">From:</div>
+                        <div class="mobile-v">
+                          <p-calendar
+                            [(ngModel)]="date3"
+                            [showIcon]="true"
+                            inputId="icon"
+                          ></p-calendar>
+                        </div>
+
+                        <div class="font-size mt-2 px-2">To:</div>
+                        <div class="mobile-v">
+                          <p-calendar
+                            [(ngModel)]="date4"
+                            [showIcon]="true"
+                            inputId="icon"
+                            (onSelect)="doSomething(date4)"
+                          ></p-calendar>
+                        </div>
+
+                        <div class="font-size mt-2 px-2">
+                          <span> Project :</span>
+                        </div>
+                        <div class="mobile-v pr-1">
+                          <!-- <p-dropdown
+                            (onChange)="timeSheetReport($event.value)"
+                            [options]="selectProject"
+                            [filter]="true"
+                            name="test"
+                            appendTo="body"
+                            [style]="{
+                              overflow: 'visible',
+                              width: '100%'
+                            }"
+                          >
+                          </p-dropdown> -->
+
+                          <p-multiSelect
+                            (onChange)="timeSheetReport($event.value)"
+                            [options]="selectProject"
+                            defaultLabel="Select a Project"
+                            [filter]="true"
+                            name="test"
+                            appendTo="body"
+                            [style]="{
+                              overflow: 'visible',
+                              width: '100%'
+                            }"
+                          >
+                          </p-multiSelect>
+                          <!-- <select
+                            name="select"
+                            class="form-control"
+                            (change)="timeSheetReport($event.target.value)"
+                          >
+                            <option
+                              *ngFor="let item of this.projectListData"
+                              value="{{ item.id }}"
+                            >
+                              {{ item.project_name }}
+                            </option>
+                          </select> -->
+                        </div>
+                        <div class="mobile-v">
+                          <!-- <p-dropdown
+                            (onChange)="selectEmpProject($event.value)"
+                            [options]="selectEmp"
+                            [filter]="true"
+                            name="test"
+                            appendTo="body"
+                            [style]="{
+                              overflow: 'visible',
+                              width: '100%'
+                            }"
+                          >
+                          </p-dropdown> -->
+
+                          <p-multiSelect
+                            (onChange)="selectEmpProject($event.value)"
+                            [options]="selectEmp"
+                            defaultLabel="Select a Employee"
+                            [filter]="true"
+                            name="test"
+                            appendTo="body"
+                            [style]="{
+                              overflow: 'visible',
+                              width: '100%'
+                            }"
+                          >
+                          </p-multiSelect>
+                          <!-- <select
+                            name="select"
+                            class="form-control"
+                            (change)="selectEmpProject($event.target.value)"
+                          >
+                            <option value="all">All Employees</option>
+                            <option
+                              *ngFor="let item of this.empFilter"
+                              value="{{ item.emp_id }}"
+                            >
+                              {{ item.name }}
+                            </option>
+                          </select> -->
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="col-md-1">
+                      <button class="btn excel1 float-right">
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                      </button>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-6 col-form-label ">
+                      <a
+                        class="addButton float-left btn btn-primary"
+                        (click)="excelDownload()"
+                      >
+                        <span class="css-button-icon"
+                          ><i class="fa fa-download" aria-hidden="true"></i>
+                        </span>
+                      </a>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="btn-group float-right mb-2">
+                        <div class="pp">
+                          Total Hours: <samp class="ss">{{ totalHrs }}</samp>
+                        </div>
+                        <button
+                          type="button"
+                          (click)="filterData('0')"
+                          class="btn btn-primary btn-timeline rounded-left"
+                        >
+                          All
+                        </button>
+                        <button
+                          type="button"
+                          (click)="filterData('1')"
+                          class="btn btn-primary btn-timeline"
+                        >
+                          D
+                        </button>
+                        <button
+                          type="button"
+                          (click)="filterData('2')"
+                          class="btn btn-primary btn-timeline"
+                        >
+                          W
+                        </button>
+                        <button
+                          type="button"
+                          (click)="filterData('3')"
+                          class="btn btn-primary btn-timeline"
+                        >
+                          M
+                        </button>
+                        <button
+                          type="button"
+                          (click)="filterData('4')"
+                          class="btn btn-primary btn-timeline"
+                        >
+                          Y
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <p-table
+                    [style]="{ width: '100%' }"
+                    #dt1
+                    [value]="timeSheetData"
+                    dataKey="id"
+                    [rows]="10"
+                    [showCurrentPageReport]="true"
+                    [rowsPerPageOptions]="[10, 25, 50]"
+                    styleClass="p-datatable-customers p-datatable-gridlines p-datatable-responsive-demo"
+                    [paginator]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                  >
+                    <ng-template pTemplate="colgroup" let-columns>
+                      <colgroup>
+                        <col style="width: 90px" />
+                        <col style="width: 120px" />
+                        <col style="width: 150px" />
+                        <col style="width: 180px" />
+                        <col style="width: 120px" />
+                        <col style="width: 150px" />
+                      </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            S.NO
+                          </div>
+                        </th>
+
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Name
+                            <p-columnFilter
+                              type="text"
+                              field="name"
+                              display="menu"
+                            ></p-columnFilter>
+                          </div>
+                        </th>
+
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Ticket No
+                            <p-columnFilter
+                              type="text"
+                              field="ticket_no"
+                              display="menu"
+                            ></p-columnFilter>
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Description
+                            <p-columnFilter
+                              type="text"
+                              field="description"
+                              display="menu"
+                            ></p-columnFilter>
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Hours
+                            <p-columnFilter
+                              type="text"
+                              field="hrs"
+                              display="menu"
+                            ></p-columnFilter>
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Date
+                          </div>
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template
+                      pTemplate="body"
+                      let-timeSheetData
+                      let-i="rowIndex"
+                    >
+                      <tr>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ timeSheetData.name }}</td>
+                        <td>
+                          {{
+                            timeSheetData.ticket_no === 0
+                              ? "OTHERS"
+                              : timeSheetData.ticket_no
+                          }}
+                        </td>
+                        <td>{{ timeSheetData.description }}</td>
+                        <td>{{ timeSheetData.hrs }}</td>
+                        <td>{{ timeSheetData.date | date }}</td>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                      <tr *ngIf="!spinner">
+                        <td colspan="6" style="text-align: center">
+                          No Data Found
+                        </td>
+                      </tr>
+                      <tr *ngIf="spinner">
+                        <td colspan="6" style="text-align: center">
+                          <div
+                            class="col-md-12 text-center"
+                            *ngIf="spinner"
+                            style="display: block"
+                          >
+                            <!-- <sa-spinner-circular></sa-spinner-circular> -->
+                            <i class="fa fa-spinner fa-spin fa-2x"></i>
+                          </div>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

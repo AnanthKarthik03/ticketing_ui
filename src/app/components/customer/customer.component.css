@@ -1,0 +1,59 @@
+.userMain{
+  float: left;
+  width: 100%;
+  box-shadow: 0px 0px 23px -3px #ccc;
+  padding-bottom:0px;
+  
+  margin-bottom: 30px;
+  overflow: hidden;
+  background:#fff;
+  border-radius: 0%;
+  text-align: center;
+
+}
+.btn1 {
+	
+   padding: 19px;
+    border:none ;
+    
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.btn-group1{max-width: 100%;
+	width: 100%;
+    }
+	
+
+.span1 { padding-right:6px;} 
+  
+.card-header1{ padding: 30px 23px 20px 23px;
+  background-color: #537895;
+background-image: linear-gradient(315deg, #537895 0%, #09203f 74%); color: #fff;
+}
+
+.card-footer1{padding:0px;}
+
+
+.btn-wrapper {
+  position: relative;
+}
+
+
+.card-body1{
+	height: 150px;
+	overflow: hidden;
+}
+.img1{
+	width: auto;
+  height: 100%;
+}
+
+.nav-container {
+	position:relative;
+  }
+.button-back {
+	position:absolute;
+	right:1rem;
+	top:50%;
+	transform:translateY(-50%);
+  }
+

@@ -1,0 +1,385 @@
+<div id="main_content">
+  <app-sidebar></app-sidebar>
+  <div class="page">
+    <app-header></app-header>
+    <div class="section-body mt-3">
+      <div class="container-fluid">
+        <div class="row clearfix">
+          <div class="col-lg-12">
+            <div class="mb-4">
+              <h4>Welcome {{ loginName }} !</h4>
+              <br />
+
+              <h4>Company status</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <!-- <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0
+                  border-bottom-0
+                  border-end-0
+                  border-start-lg
+                  border-green
+                "
+              >
+                <div class="card-body cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title text-center font_size">
+                         Projects
+                        </h3></span
+                      >
+
+                      <h5 class="number mb-2 font-32 counter text-center green count_size">
+                  {{pmDashbordData[0].projects}}
+                      </h5>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <i
+                        class="fa fa-line-chart fa-3x text-gray-200 icon_size"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0
+                  border-bottom-0
+                  border-end-0
+                  border-start-lg
+                  border-red
+                "
+              >
+                <div class="card-body cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title text-center font_size">
+                          Total 
+                        </h3></span
+                      >
+
+                      <h5
+                        class="
+                          number
+                          mb-2
+                          font-32
+                          counter
+                          text-center
+                          red
+                          count_size
+                        "
+                      >
+                        
+                      </h5>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <i
+                        class="fa fa-linode fa-3x text-gray-200 icon_size"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0
+                  border-bottom-0
+                  border-end-0
+                  border-start-lg
+                  border-blue
+                "
+              >
+                <div class="card-body cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title text-center font_size">
+                          Open 
+                        </h3></span
+                      >
+
+                      <h5
+                        class="
+                          number
+                          mb-2
+                          font-32
+                          counter
+                          text-center
+                          blue
+                          count_size
+                        "
+                      >
+                        
+                      </h5>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <i
+                        class="fa fa-hand-paper-o fa-3x text-gray-200 icon_size"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0
+                  border-bottom-0
+                  border-end-0
+                  border-start-lg
+                  border-green
+                "
+              >
+                <div class="card-body cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title text-center font_size">
+                          In-progress 
+                        </h3></span
+                      >
+
+                      <h5
+                        class="
+                          number
+                          mb-2
+                          font-32
+                          counter
+                          text-center
+                          blue
+                          count_size
+                        "
+                      >
+                        
+                      </h5>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <i
+                        class="fa fa-hand-rock-o fa-3x text-gray-200 icon_size"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0
+                  border-bottom-0
+                  border-end-0
+                  border-start-lg
+                  border-voliet
+                "
+              >
+                <div class="card-body cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title text-center font_size">
+                          Pending 
+                        </h3></span
+                      >
+
+                      <h5
+                        class="
+                          number
+                          mb-2
+                          font-32
+                          counter
+                          text-center
+                          blue
+                          count_size
+                        "
+                      >
+                        
+                      </h5>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <i
+                        class="fa fa-id-card fa-3x text-gray-200 icon_size"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0
+                  border-bottom-0
+                  border-end-0
+                  border-start-lg
+                  border-green
+                "
+              >
+                <div class="card-body cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title text-center font_size">
+                          Closed 
+                        </h3></span
+                      >
+
+                      <h5
+                        class="
+                          number
+                          mb-2
+                          font-32
+                          counter
+                          text-center
+                          blue
+                          count_size
+                        "
+                      >
+                        
+                      </h5>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <i
+                        class="fa fa-folder-open fa-3x text-gray-200 icon_size"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="
+                  card
+                  border-top-0
+                  border-bottom-0
+                  border-end-0
+                  border-start-lg
+                  border-voliet
+                "
+              >
+                <div class="card-body cursor-style">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span class="font-12">
+                        <h3 class="card-title text-center font_size">
+                          Totol Customer
+                        </h3></span
+                      >
+
+                      <h5
+                        class="
+                          number
+                          mb-2
+                          font-32
+                          counter
+                          text-center
+                          blue
+                          count_size
+                        "
+                      >
+                        
+                      </h5>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <i
+                        class="fa fa-id-card fa-3x text-gray-200 icon_size"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row clearfix mt-2">
+          <div class="col-lg-12">
+            <div class="mb-4">
+              <h4>Company</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            
+          </div>
+          <div class="col-md-12">
+            <div id="root">
+              <div class="">
+                <div ng-if="$index % 4 == 0" class="row">
+                  <!-- <div
+                    class="row align-items-stretch col-lg-3 col-md-6"
+                    *ngFor="let item of projectsList"
+                  >
+                    <div class="c-dashboardInfo">
+                      <div class="wrap" (click)="goto(item)">
+                        <h4
+                          class="
+                            heading
+                            heading5
+                            hind-font
+                            medium-font-weight
+                            c-dashboardInfo__title
+                          "
+                        >
+                          {{ item.company_name.substring(0, 8) }} <br />
+                          <hr />
+                          {{ item.project_name }}
+                        </h4>
+                      </div>
+                    </div>
+                  </div> -->
+                  <div class="row">
+                    <div
+                      class="col-md-3"
+                      
+                    >
+                      <div class="card align-items-stretch" style="width:250px;">
+                        
+                        <div
+                          
+                          class="card-body"
+                          style="font-size: 13px"
+                        >
+                         sadfasffsd
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+      </div>
+    </div>
+  </div>
+</div>

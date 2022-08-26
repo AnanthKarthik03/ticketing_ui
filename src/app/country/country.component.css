@@ -1,0 +1,43 @@
+
+.addButton {
+	background-color:rgb(243, 97, 77);
+	border-radius:20px;
+	border:1px solid #ee842c;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	margin-right: 20px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #f79a64;
+    font-size: x-small;
+}
+.edit-button{
+    background-color: rgb(21, 105, 214);
+    border-radius:5px;
+	border:1px solid #29668f;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	margin-right: 20px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #3d768a;
+    font-size: x-small;
+}
+.delete-button{
+    background-color: rgb(248, 90, 42);
+    border-radius:5px;
+	border:1px solid #29668f;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	margin-right: 20px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #3d768a;
+    font-size: x-small;
+}
+.footer-button{
+    border-radius: 30px;
+}

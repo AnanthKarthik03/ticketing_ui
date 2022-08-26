@@ -1,0 +1,95 @@
+<div id="header_top" class="header_top">
+  <div class="container">
+    <div class="hleft">
+      <a class="header-brand"><i class="fa fa-handshake-o brand-logo"></i></a>
+      <div class="dropdown">
+        <a class="nav-link user_btn"
+          ><img
+            class="avatar"
+            src="{{ imagePath }}{{ userProfile }}"
+            onerror="this.src='assets/images/noimage.png'"
+            alt="alternative"
+            data-toggle="tooltip"
+            data-placement="right"
+            title="{{ userName }}"
+        /></a>
+      </div>
+    </div>
+    <div class="hright">
+      <div class="dropdown">
+        <a (click)="role()" class="nav-link icon settingbar" *ngIf="roleId ==='SuperAdmin'"
+          ><i
+            class="fa fa-gear fa-spin"
+            data-toggle="tooltip"
+            data-placement="right"
+            title="Settings"
+          ></i
+        ></a>
+        <a class="nav-link icon menu_toggle"
+          ><i class="fa fa-align-left"></i
+        ></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="left-sidebar" class="sidebar">
+  <h5 class="brand-name">
+    Ticketing Tool
+    <a class="menu_option float-right">
+      <i
+        class="icon-grid fa fa-th-large font-16"
+        aria-hidden="true"
+        data-toggle="tooltip"
+        data-placement="left"
+        title="Grid & List Toggle"
+      ></i>
+    </a>
+  </h5>
+  <nav id="left-sidebar-nav" class="sidebar-nav">
+    <ul class="metismenu">
+      <li [ngClass]="{ active: pageType === 'Dashboard' }">
+        <a (click)="Dashboard()"
+          ><i class="fa fa-home" aria-hidden="true"></i>
+          <span>Back to Home</span></a
+        >
+      </li>
+      <li class="g_heading mt-1">Settings</li>
+      <li [ngClass]="{ active: pageType === 'role' }">
+        <a (click)="role()"
+          ><i class="fa fa-pencil-square-o"></i><span>Roles</span></a
+        >
+      </li>
+      <li [ngClass]="{ active: pageType === 'department' }">
+        <a (click)="department()"
+          ><i class="fa fa-briefcase"></i><span>Department</span></a
+        >
+      </li>
+      <li [ngClass]="{ active: pageType === 'designation' }">
+        <a (click)="designation()"
+          ><i class="fa fa-user-circle-o"></i><span>Designations</span></a
+        >
+      </li>
+      <li [ngClass]="{ active: pageType === 'country' }">
+        <a (click)="country()"
+          ><i class="fa fa-flag"></i><span>Country</span></a
+        >
+      </li>
+      <li [ngClass]="{ active: pageType === 'state' }">
+        <a (click)="state()"
+          ><i class="fa fa-university"></i><span>State</span></a
+        >
+      </li>
+      <li [ngClass]="{ active: pageType === 'category' }">
+        <a (click)="category()"
+          ><i class="fa fa-list-alt" aria-hidden="true"></i><span>Category</span></a
+        >
+      </li>
+      <li [ngClass]="{ active: pageType === 'Other' }">
+        <a (click)="Other()"
+          ><i class="fa fa-list  fa-3x" aria-hidden="true"></i><span>Other</span></a
+        >
+      </li>
+    </ul>
+  </nav>
+</div>

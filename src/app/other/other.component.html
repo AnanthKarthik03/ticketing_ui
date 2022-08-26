@@ -1,0 +1,299 @@
+<div id="main_content">
+  <app-setting-sidebar></app-setting-sidebar>
+  <div class="page">
+    <app-header></app-header>
+
+    <div class="section-body mt-3">
+      <div class="container-fluid">
+        <div class="card">
+          <div class="col-lg-12 mt-3">
+            <div class="row">
+              <div class="col-lg-8">
+                <h4 class="pl-3">Other</h4>
+              </div>
+              <div class="col-lg-4">
+                <button
+                  class="addButton float-right btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#large-Modal"
+                >
+                  <span class="css-button-icon"
+                    ><i class="fa fa-plus" aria-hidden="true"></i
+                  ></span>
+                </button>
+                <a class="addButton float-right btn btn-primary" href="assets/excels/other.xlsx">
+                  <span class="css-button-icon"
+                    ><i class="fa fa-download" aria-hidden="true"></i>
+                  </span>
+                </a>
+                <button
+                  class="addButton float-right btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#large-Modal2"
+                  (click)="clear()"
+                >
+                  <span class="css-button-icon"
+                    ><i class="fa fa-upload" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <p-table
+                [style]="{ width: '100%' }"
+                #dt1
+                [value]="otherList"
+                dataKey="id"
+                [rows]="10"
+                [showCurrentPageReport]="true"
+                [rowsPerPageOptions]="[10, 25, 50]"
+                styleClass="p-datatable-customers p-datatable-gridlines p-datatable-responsive-demo"
+                [paginator]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+              >
+                <ng-template pTemplate="colgroup" let-columns>
+                  <colgroup>
+                    <col style="width: 90px" />
+                    <col style="width: 150px" />
+                    <col style="width: 150px" />
+                    <col style="width: 120px" />
+                  </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">S.NO</div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Other
+                        <p-columnFilter
+                          type="text"
+                          field="other"
+                          display="menu"
+                        ></p-columnFilter>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Status
+                        <p-columnFilter
+                          type="text"
+                          field="status_name"
+                          display="menu"
+                        ></p-columnFilter>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="p-d-flex p-jc-between p-ai-center">
+                        Action
+                      </div>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-otherList let-i="rowIndex">
+                  <tr>
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ otherList.others }}</td>
+                    <td>
+                      {{ otherList.status_name }}
+                    </td>
+                    <td>
+                      <button
+                        class="edit-button"
+                        data-toggle="modal"
+                        data-target="#large-Modal"
+                        (click)="edit(otherList)"
+                      >
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                  <tr *ngIf="!spinner">
+                    <td colspan="4" style="text-align: center">
+                      No Data Found
+                    </td>
+                  </tr>
+                  <tr *ngIf="spinner">
+                    <td colspan="4" style="text-align: center">
+                      <div
+                        class="col-md-12 text-center"
+                        *ngIf="spinner"
+                        style="display: block"
+                      >
+                        <!-- <sa-spinner-circular></sa-spinner-circular> -->
+                        <i class="fa fa-spinner fa-spin fa-2x"></i>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+        <div
+          id="large-Modal"
+          class="modal fade bd-example-modal-lg"
+          tabindex="-1"
+          other="dialog"
+          aria-labelledby="myLargeModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Other</h5>
+                <button
+                  type="button"
+                  class="close close-button"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <div aria-hidden="true">&times;</div>
+                </button>
+              </div>
+              <form method="post" action="" other="form" [formGroup]="otherForm">
+                <div class="modal-body">
+                  <div class="col-lg-12">
+                    <div class="row">
+                      <div class="col-6 pr-3">
+                        <div class="form-group">
+                          <label>Other Name <span style="color:red;">*</span></label>
+                          <input
+                            type="text"
+                            name="other"
+                            class="form-control"
+                            id="code"
+                            formControlName="others"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.others.errors
+                            }"
+                            required
+                          />
+                          <div
+                            *ngIf="submitted && f.others.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.others.errors.required">
+                              Other Name is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6 pl-3">
+                        <div class="form-group">
+                          <label>Status <span style="color:red;">*</span></label>
+                          <select
+                            name="select"
+                            formControlName="status"
+                            class="form-control"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.status.errors
+                            }"
+                          >
+                            <option value="" selected>Select Status</option>
+                            <option value="0">Active</option>
+                            <option value="1">InActive</option>
+                          </select>
+                          <div
+                            *ngIf="submitted && f.status.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.status.errors.required">
+                              Status is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary footer-button"
+                    data-dismiss="modal"
+                    (click)="clear()"
+                  >
+                    Close
+                  </button>
+                  <button
+                    [disabled]="spinner"
+                    (click)="onSubmit()"
+                    type="button"
+                    class="btn btn-primary footer-button"
+                  >
+                    Save
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- upload -->
+<div
+  class="modal fade"
+  id="large-Modal2"
+  tabindex="-1"
+  other="dialog"
+  style="z-index: 1050; display: none"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-md" other="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Upload</h4>
+        <button
+          type="button"
+          class="close close-button"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <div aria-hidden="true">&times;</div>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="jFiler-input-dragDrop">
+          <input
+            type="file"
+            type="file"
+            class="upload"
+            [(ngModel)]="fileUpload"
+            (change)="handleFile($event)"
+            id="excel"
+            style="width: 240px; word-break: break-all; white-space: normal"
+          />
+        </div>
+        <div class="jFiler-items jFiler-row">
+          <ul class="jFiler-items-list jFiler-items-grid"></ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary footer-button"
+          data-dismiss="modal"
+        >
+          Close
+        </button>
+        <button
+          [disabled]="spinner"
+          type="save"
+          class="btn btn-primary footer-button"
+          data-dismiss="modal"
+          (click)="otherUpload()"
+        >
+          Upload
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

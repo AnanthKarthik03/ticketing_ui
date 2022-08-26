@@ -1,0 +1,143 @@
+<div id="header_top" class="header_top">
+  <div class="container">
+    <div class="hleft">
+      <a class="header-brand"><i class="fa fa-handshake-o brand-logo"></i></a>
+      <div class="dropdown">
+        <a class="nav-link user_btn"
+          ><img
+            class="avatar"
+            src="{{ imagePath }}{{ userProfile }}"
+            onerror="this.src='assets/images/noimage.png'"
+            alt="alternative"
+            data-toggle="tooltip"
+            data-placement="right"
+            title="{{ userName }}"
+        /></a>
+      </div>
+    </div>
+    <div class="hright">
+      <div class="dropdown">
+        <a
+          (click)="role()"
+          class="nav-link icon settingbar"
+          *ngIf="roleId === 'SuperAdmin'"
+          ><i
+            class="fa fa-gear fa-spin"
+            data-toggle="tooltip"
+            data-placement="right"
+            title="Settings"
+          ></i
+        ></a>
+        <a class="nav-link icon menu_toggle"
+          ><i class="fa fa-align-left"></i
+        ></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  id="left-sidebar"
+  class="sidebar"
+  *ngIf="roleId === 'Admin' || roleId === 'Pm'"
+>
+  <h5 class="brand-name">
+    Ticketing Tool
+    <a class="menu_option float-right">
+      <i
+        class="icon-grid fa fa-th-large font-16"
+        aria-hidden="true"
+        data-toggle="tooltip"
+        data-placement="left"
+        title="Grid & List Toggle"
+      ></i>
+    </a>
+  </h5>
+  <nav id="left-sidebar-nav" class="sidebar-nav">
+    <ul class="metismenu">
+      <li *ngIf="roleId === 'Admin'">
+        <a (click)="adminDashboard()"
+          ><i class="fa fa-home" aria-hidden="true"></i>
+          <span>Back to Home</span></a
+        >
+      </li>
+      <li *ngIf="roleId === 'Pm'">
+        <a (click)="pmDashboard()"
+          ><i class="fa fa-home" aria-hidden="true"></i>
+          <span>Back to Home</span></a
+        >
+      </li>
+      
+      <li class="g_heading">Project</li>
+
+      <li [ngClass]="{ active: pageType === 'projectEmployees' }">
+        <a (click)="projectEmployees()"
+          ><i class="fa fa-id-card"></i><span>Project Employees</span></a
+        >
+      </li>
+      <li [ngClass]="{ active: pageType === 'employeesGroup' }">
+        <a (click)="employeesGroup()"
+          ><i class="fa fa-users"></i><span>Employees Group</span></a
+        >
+      </li>
+      <li [ngClass]="{ active: pageType === 'ticketingList' }">
+        <a (click)="ticketingList()"
+          ><i class="fa fa-clone"></i><span>Ticketing List</span></a
+        >
+      </li>
+      <!-- <li [ngClass]="{ active: pageType === 'timeSheet' }">
+        <a (click)="timeSheet()"
+          ><i class="fa fa-calendar" aria-hidden="true"></i>
+          <span>Time Sheet</span></a
+        >
+      </li> -->
+    </ul>
+  </nav>
+</div>
+
+<div
+  id="left-sidebar"
+  class="sidebar"
+  *ngIf="roleId === 'User' || roleId === 'Client'"
+>
+  <h5 class="brand-name">
+    Ticketing Tool
+    <a class="menu_option float-right">
+      <i
+        class="icon-grid fa fa-th-large font-16"
+        aria-hidden="true"
+        data-toggle="tooltip"
+        data-placement="left"
+        title="Grid & List Toggle"
+      ></i>
+    </a>
+  </h5>
+  <nav id="left-sidebar-nav" class="sidebar-nav">
+    <ul class="metismenu">
+      <li *ngIf="roleId === 'User'">
+        <a (click)="employeeDashboard()"
+          ><i class="fa fa-home" aria-hidden="true"></i>
+          <span>Back to Home</span></a
+        >
+      </li>
+      <li *ngIf="roleId === 'Client'">
+        <a (click)="clientDashboard()"
+          ><i class="fa fa-home" aria-hidden="true"></i>
+          <span>Back to Home</span></a
+        >
+      </li>
+      <li class="g_heading">Project</li>
+      <li [ngClass]="{ active: pageType === 'ticketingList' }">
+        <a (click)="ticketingList()"
+          ><i class="fa fa-clone"></i><span>Ticketing List</span></a
+        >
+      </li>
+      <!-- <li [ngClass]="{ active: pageType === 'timeSheet' }">
+        <a (click)="timeSheet()"
+          ><i class="fa fa-calendar" aria-hidden="true"></i>
+          <span>Time Sheet</span></a
+        >
+      </li> -->
+    </ul>
+  </nav>
+</div>

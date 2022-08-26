@@ -1,0 +1,129 @@
+<div class="auth">
+  <div class="auth_left">
+    <div class="card">
+      <div class="text-center mb-2">
+        <a class="header-brand"><i class="fa fa-handshake-o brand-logo"></i></a>
+      </div>
+      <div *ngIf="!viewSignIn">
+        <div class="card-body">
+          <div class="card-title">Login to your account</div>
+
+          <form [formGroup]="myForm" (ngSubmit)="dashboard()">
+            <div class="form-group">
+              <label class="form-label">User Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="exampleInputEmail1"
+                formControlName="username"
+                aria-describedby="emailHelp"
+                placeholder="Username"
+              />
+              <div *ngIf="m.username.invalid && m.username.touched">
+                <div
+                  *ngIf="m.username.errors?.required"
+                  class="text text-danger"
+                >
+                  Username required
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="exampleInputPassword1"
+                formControlName="password"
+                placeholder="Password"
+              />
+              <div *ngIf="m.password.invalid && m.password.touched">
+                <div
+                  *ngIf="m.password.errors?.required"
+                  class="text text-danger"
+                >
+                  Password required
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12" style="text-align: center">
+              <!-- <sa-spinner-circular *ngIf="spinner"></sa-spinner-circular> -->
+              <i class="fa fa-spinner fa-spin fa-2x" *ngIf="spinner"></i>
+            </div>
+            <div class="form-footer" *ngIf="!spinner">
+              <button
+                type="submit"
+                class="btn btn-primary btn-block"
+                title=""
+                style="color: white"
+                [disabled]="!myForm.valid"
+              >
+                Sign in
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="text-center text-muted">
+          <a (click)="forgot()">I forgot password!</a>
+        </div>
+      </div>
+
+      <div *ngIf="viewSignIn">
+        <div class="card-body">
+          <div class="card-title">Forgot Password</div>
+          <form [formGroup]="resetForm" (ngSubmit)="forgetPass()">
+            <div class="form-group">
+              <label class="form-label">Username</label>
+              <input
+                formControlName="empCode"
+                type="email"
+                class="form-control"
+                placeholder="Enter Employee Code"
+              />
+              <div *ngIf="n.username===n.empCode || n.empCode.invalid && n.empCode.touched">
+                <div
+                  *ngIf="n.empCode.errors?.required"
+                  class="text text-danger"
+                >
+                  Username required
+                </div>
+                
+              </div>
+            </div>
+
+            <div class="col-md-12" style="text-align: center">
+              <!-- <sa-spinner-circular *ngIf="spinner"></sa-spinner-circular> -->
+              <i class="fa fa-spinner fa-spin fa-2x" *ngIf="spinner"></i>
+            </div>
+            <div class="form-footer" *ngIf="!spinner">
+              <button 
+                type="submit"
+                class="btn btn-primary btn-block"
+             
+                style="color: white"
+                [disabled]="!resetForm.valid"
+              >
+                Reset Password
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="text-center text-muted">
+          <a (click)="signOut()">Back to Login!</a>
+        </div>
+      </div>
+      <div class="text-center">
+        <p>
+          <img
+            class="img-fluid mt-2"
+            src="assets/images/gallery/logo.png"
+            style="max-width: 90% !important"
+          />
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="auth_right full_img"></div>
+</div>

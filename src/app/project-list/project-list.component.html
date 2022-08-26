@@ -1,0 +1,535 @@
+<div id="main_content">
+  <app-sidebar></app-sidebar>
+  <div class="page">
+    <app-header></app-header>
+
+    <div class="section-body mt-3">
+      <div class="container-fluid">
+        <div class="col-lg-12">
+          <div class="nav-container">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item" *ngIf="role === 'Admin'">
+                  <a (click)="company()">{{ companyName }}</a>
+                </li>
+                <li class="breadcrumb-item" *ngIf="role === 'Pm'">
+                  <a>{{ companyName }}</a>
+                </li>
+                <!-- <li class="breadcrumb-item" *ngIf="customerName">
+                  <a (click)="customer()">{{ customerName }}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  <a (click)="project()">{{ projectName }}</a>
+                </li> -->
+                <li class="breadcrumb-item active" aria-current="page">
+                  Projects
+                </li>
+              </ol>
+              <button
+                *ngIf="!viewProject"
+                class="addButton1 btn btn-primary button-back"
+                (click)="customer()"
+              >
+                <span class="css-button-icon"
+                  ><i class="fa fa-arrow-left" aria-hidden="true"></i
+                ></span>
+              </button>
+            </nav>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-12">
+            <div *ngIf="!viewProject">
+              <div class="row">
+                <div class="col-8">
+                  <div class="mb-4">
+                    <h4>Projects</h4>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <button
+                    *ngIf="role === 'Admin'"
+                    class="addButton1 float-right btn btn-primary"
+                    (click)="showProjectForm()"
+                  >
+                    <span class="css-button-icon"
+                      ><i class="fa fa-plus" aria-hidden="true"></i
+                    ></span>
+                    <span class="css-button-text">Add</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="viewProject">
+              <div class="row">
+                <div class="col-8">
+                  <div class="mb-4">
+                    <h4>Project Form</h4>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <button
+                    class="addButton1 float-right btn btn-primary"
+                    (click)="showProjectsList()"
+                  >
+                    <span class="css-button-icon"
+                      ><i class="fa fa-arrow-left" aria-hidden="true"></i
+                    ></span>
+                    <span class="css-button-text">Back</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix row-deck" *ngIf="!viewProject">
+          <div
+            class="col-md-12 text-center"
+            *ngIf="spinner"
+            style="display: block"
+          >
+            <!-- <sa-spinner-circular></sa-spinner-circular> -->
+            <i class="fa fa-spinner fa-spin fa-2x"></i>
+          </div>
+          <div class="col-md-6" *ngFor="let item of projectData">
+            <div class="card userMain">
+              <div class="card-header card-header1">
+                <div class="col-sm-8">
+                  <h3 class="card-title" style="float: left">
+                    {{ item.project_name }}
+                  </h3>
+                </div>
+                <div class="col-sm-4">
+                  <h3
+                    class="card-title"
+                    style="float: right"
+                    [ngClass]="{
+                      ' label-delete': item.status === 1,
+                      'label-close ': item.status === 2,
+                      ' label-active': item.status === 3,
+                      ' label-inactive': item.status === 0
+                    }"
+                  >
+                    {{
+                      item.status === 1
+                        ? "Delete"
+                        : item.status === 2
+                        ? "Close"
+                        : item.status === 3
+                        ? "Active"
+                        : "InActive"
+                    }}
+                  </h3>
+                </div>
+              </div>
+              <div class="card-body">
+                <img class="col-md-6" src="assets/images/user1.png" />
+              </div>
+              <div class="card-footer card-footer1">
+                <div class="">
+                  <div class="pmd-btn-fill btn-group btn-group1">
+                    <!-- <button
+                    (click)="edit(item)"
+                      class="
+                        btn
+                        btn1
+                        pmd-ripple-effect
+                        btn-outline-dark
+                        border-right
+                        disabled
+                      "
+                      type="button"
+                    > -->
+                    <button
+                      (click)="edit(item)"
+                      class="btn btn1 pmd-ripple-effect btn-outline-dark border-right"
+                      type="button"
+                    >
+                      <span class="css-button-icon span1"
+                        ><i
+                          class="fa fa-plus-circle"
+                          aria-hidden="true"
+                        ></i></span
+                      >Modify
+                    </button>
+                    <button
+                      (click)="projectConfiguration(item)"
+                      type="button"
+                      class="btn btn1 pmd-ripple-effect btn-outline-dark"
+                    >
+                      <span class="css-button-icon span1"
+                        ><i class="fa fa-eye" aria-hidden="true"></i></span
+                      >Project Configuration
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!spinner">
+          <div class="col-md-12" *ngIf="!viewProject">
+            <div *ngIf="projectData.length == 0">
+              <h4 class="text-center">No Data found</h4>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix row-deck" *ngIf="viewProject">
+          <div class="col-xl-12 col-lg-12">
+            <div class="card">
+              <div class="card-body">
+                <form
+                  id="contact-form"
+                  method="post"
+                  action=""
+                  role="form"
+                  [formGroup]="myForm"
+                >
+                  <div class="controls">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="email"
+                            >Project Name<span style="color: red"
+                              >*</span
+                            ></label
+                          >
+                          <input
+                            type="text"
+                            name="project_name"
+                            class="form-control"
+                            placeholder=""
+                            formControlName="project_name"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.project_name.errors
+                            }"
+                            required
+                          />
+                          <div
+                            *ngIf="submitted && f.project_name.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.project_name.errors.required">
+                              Project Name is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="phone"
+                            >Project Description<span style="color: red"
+                              >*</span
+                            ></label
+                          >
+                          <input
+                            type="text"
+                            name="project_description"
+                            class="form-control"
+                            placeholder=""
+                            formControlName="project_description"
+                            [ngClass]="{
+                              'is-invalid':
+                                submitted && f.project_description.errors
+                            }"
+                            required
+                          />
+                          <div
+                            *ngIf="submitted && f.project_description.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.project_description.errors.required">
+                              Project Description is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="rm"
+                            >Start Date<span style="color: red">*</span></label
+                          >
+                          <p-calendar
+                            [yearNavigator]="true"
+                            yearRange="1900:2030"
+                            formControlName="start_date"
+                            [inputStyle]="{ width: '90%' }"
+                            [style]="{ width: '100%' }"
+                            [showIcon]="true"
+                            inputId="icon3"
+                          ></p-calendar>
+                          <div
+                            [ngClass]="{
+                              'is-invalid2': submitted && f.start_date.errors
+                            }"
+                            *ngIf="submitted && f.start_date.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.start_date.errors.required">
+                              Start Date is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="rolet"
+                            >End Date<span style="color: red">*</span></label
+                          >
+                          <p-calendar
+                            [yearNavigator]="true"
+                            yearRange="1900:2030"
+                            formControlName="end_date"
+                            [inputStyle]="{ width: '90%' }"
+                            [style]="{ width: '100%' }"
+                            [showIcon]="true"
+                            inputId="icon3"
+                          ></p-calendar>
+                          <div
+                            [ngClass]="{
+                              'is-invalid2': submitted && f.end_date.errors
+                            }"
+                            *ngIf="submitted && f.end_date.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.end_date.errors.required">
+                              End Date is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="dept"
+                            >Project Cost<span style="color: red"
+                              >*</span
+                            ></label
+                          >
+                          <input
+                            type="number"
+                            name="project_cost"
+                            class="form-control"
+                            placeholder=""
+                            formControlName="project_cost"
+                            maxlength="8"
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.project_cost.errors
+                            }"
+                            required
+                          />
+                          <div
+                            *ngIf="submitted && f.project_cost.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.project_cost.errors.required">
+                              Project Cost is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label>Status<span style="color: red">*</span></label>
+                          <select
+                            name="select"
+                            formControlName="status"
+                            class="form-control"
+                            [ngClass]="{
+                              'is-invalid':
+                                submitted && f.project_archive.errors
+                            }"
+                          >
+                            <option value="null" selected>Select status</option>
+                            <option value="0">InActive</option>
+                            <option *ngIf="role === 'Admin'" value="1">
+                              Delete
+                            </option>
+                            <option *ngIf="role === 'Admin'" value="2">
+                              Close
+                            </option>
+                            <option value="3">Active</option>
+                          </select>
+                          <div
+                            *ngIf="submitted && f.status.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.status.errors.required">
+                              Status is required
+                            </div>
+                          </div>
+                        </div>
+                        <!-- <div class="form-group">
+                          <label for="t_s">Ticket Status <span style="color:red;">*</span></label>
+                          <div class="form-control radio">
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="ticket_status"
+                                id="inlineRadio3"
+                                formControlName="ticket_status"
+                                value="0"
+                              />
+                              <label class="form-check-label" for="inlineRadio3"
+                                >Yes</label
+                              >
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="ticket_status"
+                                id="inlineRadio4"
+                                formControlName="ticket_status"
+                                value="1"
+                              />
+                              <label class="form-check-label" for="inlineRadio4"
+                                >No</label
+                              >
+                            </div>
+                            <div
+                            [ngClass]="{
+                              'is-invalid2':
+                                submitted && f.ticket_status.errors
+                            }"
+                            *ngIf="submitted && f.ticket_status.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.ticket_status.errors.required">
+                              Ticket Status is required
+                            </div>
+                          </div>
+                          </div>
+                        </div> -->
+                      </div>
+                      <!-- <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="dept"
+                            >Ticket Status<span style="color: red"
+                              >*</span
+                            ></label
+                          >
+                          <label class="switch switch-flat">
+                            <input
+                              class="switch-input"
+                              value="0"
+                              type="checkbox"
+                              formControlName="ticket_status"
+                            />
+                            <span
+                              class="switch-label"
+                              data-on="Yes"
+                              data-off="No"
+                            ></span>
+                            <span class="switch-handle"></span>
+                          </label>
+                        </div>
+                      </div> -->
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="t_s"
+                            >Ticket Status
+                            <span style="color: red">*</span></label
+                          >
+                          <div class="form-control radio">
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="ticket_status"
+                                id="inlineRadio3"
+                                formControlName="ticket_status"
+                                value="0"
+                              />
+                              <label class="form-check-label" for="inlineRadio3"
+                                >Yes</label
+                              >
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="ticket_status"
+                                id="inlineRadio4"
+                                formControlName="ticket_status"
+                                value="1"
+                              />
+                              <label class="form-check-label" for="inlineRadio4"
+                                >No</label
+                              >
+                            </div>
+                            <div
+                              [ngClass]="{
+                                'is-invalid2':
+                                  submitted && f.ticket_status.errors
+                              }"
+                              *ngIf="submitted && f.ticket_status.errors"
+                              class="invalid-feedback"
+                            >
+                              <div *ngIf="f.ticket_status.errors.required">
+                                Ticket Status is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="dept"
+                            >Ticket Status<span style="color: red"
+                              >*</span
+                            ></label
+                          >
+                          <label class="switch switch-flat">
+                            <input
+                              class="switch-input"
+                              value="0"
+                              type="checkbox"
+                              formControlName="ticket_status"
+                            />
+                            <span
+                              class="switch-label"
+                              data-on="Yes"
+                              data-off="No"
+                            ></span>
+                            <span class="switch-handle"></span>
+                          </label>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="col-md-12">
+                    <button
+                      (click)="onSubmit()"
+                      type="button"
+                      class="btn btn-success saveButton"
+                      [disabled]="spinner"
+                    >
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary cancleButton float-right"
+                      (click)="showProjectsList()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

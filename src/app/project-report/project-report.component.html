@@ -1,0 +1,675 @@
+<div id="main_content">
+  <app-sidebar></app-sidebar>
+  <div class="page">
+    <app-header></app-header>
+    <div class="section-body mt-3">
+      <div class="container-fluid">
+        <div class="row clearfix">
+          <div class="col-lg-12">
+            <div class="mb-4">
+              <h4>Project Report</h4>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-lg-12 col-md-12">
+            <div class="card">
+              <div class="card-header card-heade-em-deshboard">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-4 text-left">
+                      <h6 class="m-2"><b>Project</b></h6>
+                    </div>
+
+                    <div class="col-md-3 col-form-label ">
+                      <a
+                        class="addButton float-right btn btn-primary"
+                        (click)="excelDownload()"
+                      >
+                        <span class="css-button-icon"
+                          ><i class="fa fa-download" aria-hidden="true"></i>
+                        </span>
+                      </a>
+                    </div>
+                   
+                    
+                    <div class="col-auto col-form-label">
+                      <span> Project : </span>
+                    </div>
+                    <div class="col-md-4">
+                      <!-- <p-dropdown
+                      (onChange)="projectReport($event.value)"
+                      [options]="selectProject"
+                      [filter]="true" 
+                      name="test"
+                      appendTo="body"
+                      [style]="{
+                        overflow: 'visible',
+                        width: '100%'
+                      }"
+                    >
+                    </p-dropdown> -->
+                      <p-dropdown
+                        (onChange)="projectReport($event.value)"
+                        [options]="selectProject"
+                        defaultLabel="Select a Project"
+                        [filter]="true"
+                        name="test"
+                        appendTo="body"
+                        [style]="{
+                          overflow: 'visible',
+                          width: '100%'
+                        }"
+                      >
+                      </p-dropdown>
+                      <!-- <select
+                        name="select"
+                        class="form-control"
+                        (change)="projectReport($event.target.value)"
+                      >
+                        <option
+                          *ngFor="let item of this.projectListData"
+                          value="{{ item.id }}"
+                        >
+                          {{ item.project_name }}
+                        </option>
+                      </select> -->
+                    </div>
+                    <!-- <div class="col-md-1">
+                      <button class="btn excel1 float-right">
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                      </button>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 p-3">
+                <!-- <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-3 mt-2">From:</div>
+                        <div class="col-md-9">
+                          <p-calendar
+                            [(ngModel)]="date3"
+                            [showIcon]="true"
+                            inputId="icon"
+                          ></p-calendar>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-3 mt-2">To:</div>
+                        <div class="col-md-9">
+                          <p-calendar
+                            [(ngModel)]="date4"
+                            [showIcon]="true"
+                            inputId="icon"
+                          ></p-calendar>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="row" *ngIf="!spinner">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <!-- Total Tickets -->
+                      <div class="col-md-4">
+                        <div
+                          class="
+                            card
+                            c-1
+                            border-top-0
+                            border-bottom-0
+                            border-end-0
+                            border-voliet
+                          "
+                        >
+                          <div class="card-body cursor-style">
+                            <div class="row">
+                              <div class="col-md-8">
+                                <span class="font-32">
+                                  <h3 class="card-title text-center mb-2">
+                                    Total Ticket
+                                  </h3></span
+                                >
+
+                                <h5
+                                  class="
+                                    number
+                                    mb-2
+                                    font-25
+                                    counter
+                                    text-center
+                                    voliet
+                                  "
+                                >
+                                  {{
+                                    projectsData.totalTickets
+                                      ? projectsData.totalTickets
+                                      : 0
+                                  }}
+                                </h5>
+                              </div>
+                              <div class="col-md-4 text-center icon-style">
+                                <i
+                                  class="fa fa-list-alt fa-3x"
+                                  aria-hidden="true"
+                                ></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Open -->
+                      <div class="col-md-4">
+                        <div
+                          class="
+                            card
+                            c-1
+                            border-top-0
+                            border-bottom-0
+                            border-end-0
+                            border-lightpink
+                          "
+                        >
+                          <div class="card-body cursor-style">
+                            <div class="row">
+                              <div class="col-md-8">
+                                <span class="font-12">
+                                  <h3 class="card-title text-center mb-2">
+                                    Open
+                                  </h3></span
+                                >
+
+                                <h5
+                                  class="
+                                    number
+                                    mb-2
+                                    font-25
+                                    counter
+                                    text-center
+                                    light-pink
+                                  "
+                                >
+                                  {{
+                                    projectsData.open ? projectsData.open : 0
+                                  }}
+                                </h5>
+                              </div>
+                              <div class="col-md-4 text-center icon-style">
+                                <i
+                                  class="fa fa-linode fa-3x"
+                                  aria-hidden="true"
+                                ></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Close -->
+                      <div class="col-md-4">
+                        <div
+                          class="
+                            card
+                            c-1
+                            border-top-0
+                            border-bottom-0
+                            border-end-0
+                            border-cement
+                          "
+                        >
+                          <div class="card-body cursor-style">
+                            <div class="row">
+                              <div class="col-md-8">
+                                <span class="font-12">
+                                  <h3 class="card-title text-center mb-2">
+                                    Close
+                                  </h3></span
+                                >
+
+                                <h5
+                                  class="
+                                    number
+                                    mb-2
+                                    font-25
+                                    counter
+                                    text-center
+                                    cement
+                                  "
+                                >
+                                  {{
+                                    projectsData.Closed
+                                      ? projectsData.Closed
+                                      : 0
+                                  }}
+                                </h5>
+                              </div>
+                              <div class="col-md-4 text-center icon-style">
+                                <i
+                                  class="fa fa-times-circle fa-3x"
+                                  aria-hidden="true"
+                                ></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="row">
+                      <!-- In Progress -->
+                      <div class="col-md-4">
+                        <div
+                          class="
+                            card
+                            c-1
+                            border-top-0
+                            border-bottom-0
+                            border-end-0
+                            border-yellow
+                          "
+                        >
+                          <div class="card-body cursor-style">
+                            <div class="row">
+                              <div class="col-md-8">
+                                <span class="font-32">
+                                  <h3 class="card-title text-center mb-2">
+                                    In Progress
+                                  </h3></span
+                                >
+
+                                <h5
+                                  class="
+                                    number
+                                    mb-2
+                                    font-25
+                                    counter
+                                    text-center
+                                    yellow
+                                  "
+                                >
+                                  {{
+                                    projectsData.inProgress
+                                      ? projectsData.inProgress
+                                      : 0
+                                  }}
+                                </h5>
+                              </div>
+                              <div class="col-md-4 text-center icon-style">
+                                <i
+                                  class="fa fa-line-chart fa-3x"
+                                  aria-hidden="true"
+                                ></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- hold -->
+                      <div class="col-md-4">
+                        <div
+                          class="
+                            card
+                            c-1
+                            border-top-0 border-bottom-0 border-end-0 border-red
+                          "
+                        >
+                          <div class="card-body cursor-style">
+                            <div class="row">
+                              <div class="col-md-8">
+                                <span class="font-32">
+                                  <h3 class="card-title text-center mb-2">
+                                    Hold
+                                  </h3></span
+                                >
+
+                                <h5
+                                  class="
+                                    number
+                                    mb-2
+                                    font-25
+                                    counter
+                                    text-center
+                                    red
+                                  "
+                                >
+                                  {{
+                                    projectsData.Hold ? projectsData.Hold : 0
+                                  }}
+                                </h5>
+                              </div>
+                              <div class="col-md-4 text-center icon-style">
+                                <i
+                                  class="fa fa-hand-paper-o fa-3x"
+                                  aria-hidden="true"
+                                ></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Resolve -->
+                      <div class="col-md-4">
+                        <div
+                          class="
+                            card
+                            c-1
+                            border-top-0
+                            border-bottom-0
+                            border-end-0
+                            border-green
+                          "
+                        >
+                          <div class="card-body cursor-style">
+                            <div class="row">
+                              <div class="col-md-8">
+                                <span class="font-32">
+                                  <h3 class="card-title text-center mb-2">
+                                    Resolve
+                                  </h3></span
+                                >
+
+                                <h5
+                                  class="
+                                    number
+                                    mb-2
+                                    font-25
+                                    counter
+                                    text-center
+                                    green
+                                  "
+                                >
+                                  {{
+                                    projectsData.resolved
+                                      ? projectsData.resolved
+                                      : 0
+                                  }}
+                                </h5>
+                              </div>
+                              <div class="col-md-4 text-center icon-style">
+                                <i
+                                  class="fa fa-thumbs-up fa-3x"
+                                  aria-hidden="true"
+                                ></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="row">
+                      <!-- Awaiting Information -->
+                      <div class="col-md-4">
+                        <div
+                          class="
+                            card
+                            c-1
+                            border-top-0
+                            border-bottom-0
+                            border-end-0
+                            border-await
+                          "
+                        >
+                          <div class="card-body cursor-style">
+                            <div class="row">
+                              <div class="col-md-8">
+                                <span class="font-32">
+                                  <h3 class="card-title text-center mb-2">
+                                    Awaiting
+                                  </h3></span
+                                >
+
+                                <h5
+                                  class="
+                                    number
+                                    mb-2
+                                    font-25
+                                    counter
+                                    text-center
+                                    await
+                                  "
+                                >
+                                  {{
+                                    projectsData.AwaitingInformation
+                                      ? projectsData.AwaitingInformation
+                                      : 0
+                                  }}
+                                </h5>
+                              </div>
+                              <div class="col-md-4 text-center icon-style">
+                                <i
+                                  class="fa fa-clock-o fa-3x"
+                                  aria-hidden="true"
+                                ></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Approved -->
+                      <div class="col-md-4">
+                        <div
+                          class="
+                            card
+                            c-1
+                            border-top-0
+                            border-bottom-0
+                            border-end-0
+                            border-light-blue
+                          "
+                        >
+                          <div class="card-body cursor-style">
+                            <div class="row">
+                              <div class="col-md-8">
+                                <span class="font-32">
+                                  <h3 class="card-title text-center mb-2">
+                                    Approved
+                                  </h3></span
+                                >
+
+                                <h5
+                                  class="
+                                    number
+                                    mb-2
+                                    font-25
+                                    counter
+                                    text-center
+                                    light-blue
+                                  "
+                                >
+                                  {{
+                                    projectsData.Approved
+                                      ? projectsData.Approved
+                                      : 0
+                                  }}
+                                </h5>
+                              </div>
+                              <div class="col-md-4 text-center icon-style">
+                                <i
+                                  class="fa fa-check fa-3x"
+                                  aria-hidden="true"
+                                ></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Reopen -->
+                      <div class="col-md-4">
+                        <div
+                          class="
+                            card
+                            c-1
+                            border-top-0
+                            border-bottom-0
+                            border-end-0
+                            border-black
+                          "
+                        >
+                          <div class="card-body cursor-style">
+                            <div class="row">
+                              <div class="col-md-8">
+                                <span class="font-32">
+                                  <h3 class="card-title text-center mb-2">
+                                    Reopen
+                                  </h3></span
+                                >
+
+                                <h5
+                                  class="
+                                    number
+                                    mb-2
+                                    font-25
+                                    counter
+                                    text-center
+                                    black
+                                  "
+                                >
+                                  {{
+                                    projectsData.Reopen
+                                      ? projectsData.Reopen
+                                      : 0
+                                  }}
+                                </h5>
+                              </div>
+                              <div class="col-md-4 text-center icon-style">
+                                <i
+                                  class="fa fa-folder-open-o fa-3x"
+                                  aria-hidden="true"
+                                ></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="col-md-12 text-center"
+                  *ngIf="spinner"
+                  style="display: block"
+                >
+                  <i class="fa fa-spinner fa-spin fa-2x"></i>
+                </div>
+              </div>
+
+              <!-- <div class="card-body">
+                <div class="table-responsive">
+                  <p-table
+                    [style]="{ width: '100%' }"
+                    #dt1
+                    [value]="projectsData"
+                    dataKey="id"
+                    [rows]="10"
+                    [showCurrentPageReport]="true"
+                    [rowsPerPageOptions]="[10, 25, 50]"
+                    styleClass="p-datatable-customers p-datatable-gridlines p-datatable-responsive-demo"
+                    [paginator]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                  >
+                    <ng-template pTemplate="colgroup" let-columns>
+                      <colgroup>
+                        <col style="width: 90px" />
+                        <col style="width: 200px" />
+                        <col style="width: 120px" />
+                        <col style="width: 120px" />
+                        <col style="width: 120px" />
+                        <col style="width: 120px" />
+                        <col style="width: 120px" />
+                      </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            S.NO
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Project Name
+                            <p-columnFilter
+                              type="text"
+                              field="project_name"
+                              display="menu"
+                            ></p-columnFilter>
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Open
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Close
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            In Progress
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Hold
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Total Ticket
+                          </div>
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template
+                      pTemplate="body"
+                      let-projectsData
+                      let-i="rowIndex"
+                    >
+                      <tr>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ projectsData.projectName }}</td>
+                        <td>{{ projectsData.open }}</td>
+                        <td>{{ projectsData.closed }}</td>
+                        <td>{{ projectsData.inProgress }}</td>
+                        <td>{{ projectsData.AwaitingInformation }}</td>
+                        <td>{{ projectsData.totalTickets }}</td>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                      <tr *ngIf="!spinner">
+                        <td colspan="7" style="text-align: center">
+                          No Data Found
+                        </td>
+                      </tr>
+                      <tr *ngIf="spinner">
+                        <td colspan="7" style="text-align: center">
+                          <div
+                            class="col-md-12 text-center"
+                            *ngIf="spinner"
+                            style="display: block"
+                          >
+                            <i class="fa fa-spinner fa-spin fa-2x"></i>
+                          </div>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
