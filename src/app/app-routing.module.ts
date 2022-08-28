@@ -31,6 +31,7 @@ import { TicketingDetailsComponent } from './ticketing-details/ticketing-details
 import { EmployeeReportComponent } from './employee-report/employee-report.component';
 import { SummaryReportComponent } from './summary-report/summary-report.component';
 import { OtherComponent } from './other/other.component';
+import { OrgTicketsComponent } from './org-tickets/org-tickets.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
@@ -172,6 +173,11 @@ const routes: Routes = [
   {
     path: 'Other',
     component: OtherComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'orgTickets',
+    component: OrgTicketsComponent,
     canActivate: [AuthGuard],
   },
   { path: '', redirectTo: 'Dashboard', pathMatch: 'full' },

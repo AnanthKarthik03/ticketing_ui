@@ -127,7 +127,12 @@
           </li>
         </ul>
         </li>
-     
+        <li [ngClass]="{ active: pageType === 'orgTickets' }">
+          <a (click)="orgTickets()"
+            ><i class="fa fa-file-text" aria-hidden="true"></i>
+            <span>Org Tickets</span></a
+          >
+        </li>
     </ul>
   </nav>
   <!-- Client -->
@@ -156,7 +161,12 @@
           <span>Time Sheet</span></a
         >
       </li>
-     
+      <li [ngClass]="{ active: pageType === 'orgTickets' }">
+        <a (click)="orgTickets()"
+          ><i class="fa fa-file-text" aria-hidden="true"></i>
+          <span>Org Tickets</span></a
+        >
+      </li>
     </ul>
   </nav>
   <!-- Project Manager -->
@@ -217,6 +227,12 @@
             >
           </li>
         </ul>
+        </li>
+        <li [ngClass]="{ active: pageType === 'orgTickets' }">
+          <a (click)="orgTickets()"
+            ><i class="fa fa-file-text" aria-hidden="true"></i>
+            <span>Org Tickets</span></a
+          >
         </li>
     </ul>
   </nav>

@@ -127,6 +127,7 @@ export class SidebarComponent implements OnInit {
     $(document).ready(function () {
       'use strict';
       $('.sidebar-nav').metisMenu();
+      // if(this.orgTickets()){}
       $('.menu_toggle').on('click', function () {
         $('body').toggleClass('offcanvas-active');
       });
@@ -447,6 +448,10 @@ export class SidebarComponent implements OnInit {
   }
   timeSheet() {
     this.routers.navigate(['/timeSheet']);
+  }
+
+  orgTickets() {
+    this.routers.navigate(['/orgTickets']);
   }
 
   summaryReports() {

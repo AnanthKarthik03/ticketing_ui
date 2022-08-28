@@ -1,0 +1,150 @@
+<div id="main_content">
+  <app-sidebar></app-sidebar>
+  <div class="page">
+    <app-header></app-header>
+    <div class="section-body mt-3">
+      <div class="container-fluid p-0">
+        <div class="col-lg-12">
+          <div class="nav-container">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item" *ngIf="role === 'Admin'">
+                  <a (click)=" adminDashboard()">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item" *ngIf="role === 'superadmin'">
+                  <a (click)="dashboard()">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  Org Tickets
+                </li>
+                
+              </ol>
+
+            </nav>
+            <button
+              class="addButton1 btn btn-primary button-back"
+              (click)="dashboard()"
+            >
+              <span class="css-button-icon"
+                ><i class="fa fa-arrow-left" aria-hidden="true"></i
+              ></span>
+            </button>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-12">
+            <div class="mb-4">
+              <h4>Org Tickets</h4>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-lg-12 col-md-12 p-0">
+              <div class="card">
+                <div class="card-header card-heade-em-deshboard">
+                  <!--Size dropdown menu-->
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-auto text-left">
+                        <h5 class="my-2 text-report"><b>Org Tickets</b></h5>
+                      </div>
+  
+                      <div class="col-auto ml-3 view-port">
+                        <div class="row">
+                          <div class="font-size mt-2 pr-2">From:</div>
+                          <div class="mobile-v">
+                            <p-calendar
+                              [(ngModel)]="date3"
+                              [showIcon]="true"
+                              inputId="icon"
+                            ></p-calendar>
+                          </div>
+  
+                          <div class="font-size mt-2 px-2">To:</div>
+                          <div class="mobile-v">
+                            <p-calendar
+                              [(ngModel)]="date4"
+                              [showIcon]="true"
+                              inputId="icon"
+                              (onSelect)="doSomething(date4)"
+                            ></p-calendar>
+                          </div>
+  
+                          <div class="font-size mt-2 px-2">
+                            <span>Project : </span>
+                          </div>
+                          <div class="mobile-v pr-1">
+  
+                            <p-multiSelect
+                              (onChange)="projectReport($event.value)"
+                              [options]="selectProject"
+                              defaultLabel="Select a Project"
+                              [filter]="true"
+                              name="test"
+                              appendTo="body"
+                              [style]="{
+                                overflow: 'visible',
+                                width: '100%'
+                              }"
+                            >
+                            </p-multiSelect>
+                    
+                          </div>
+                        </div>
+                      </div>
+                       <div class="col">
+                        <a
+                        class="addButton float-right btn btn-primary"
+                        (click)="excelDownload()"
+                      >
+                        <span class="css-button-icon"
+                          ><i class="fa fa-download" aria-hidden="true"></i>
+                        </span>
+                      </a>
+                      </div> 
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body p-2">
+                  <table class="table-bordered" width="100%">
+                    <thead>
+                        <tr>
+                            <th>S.NO</th>
+                            <th>Ticket No.</th>
+                            <th>Assigned By</th>
+                            <th>Ticket Description</th>
+                            <th>Project Name</th>
+                            <th>Assigned To</th>
+                            <th>Category</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>PM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>210001</td>
+                            <td>Karthick</td>
+                            <td>Testing</td>
+                            <td>Tokyo</td>
+                            <td>Anuj</td>
+                            <td>UI Developer</td>
+                            <td>in progress</td>
+                            <td>low</td>
+                            <td>12/08/2022</td>
+                            <td>15/08/2022</td>
+                            <td>Lakshmipathi Raju</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
