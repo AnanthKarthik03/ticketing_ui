@@ -62,6 +62,8 @@ import { SummaryReportComponent } from './summary-report/summary-report.componen
 import { OtherComponent } from './other/other.component';
 import { ProjectSummaryComponent } from './project-summary/project-summary.component';
 import { OrgTicketsComponent } from './org-tickets/org-tickets.component';
+import { PracticeComponent } from './practice/practice.component';
+import { SubCategoryComponent } from './sub-category/sub-category.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -109,6 +111,8 @@ FullCalendarModule.registerPlugins([
     OtherComponent,
     ProjectSummaryComponent,
     OrgTicketsComponent,
+    PracticeComponent,
+    SubCategoryComponent,
   ],
   imports: [
     BrowserModule,

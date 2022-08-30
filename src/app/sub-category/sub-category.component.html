@@ -9,7 +9,7 @@
           <div class="col-lg-12 mt-3">
             <div class="row">
               <div class="col-lg-8">
-                <h4 class="pl-3">Category</h4>
+                <h4 class="pl-3">Sub Category</h4>
               </div>
               <div class="col-lg-4">
                 <button
@@ -80,7 +80,7 @@
                     </th>
                     <th>
                       <div class="p-d-flex p-jc-between p-ai-center">
-                        Practice
+                        Sub Category
                         <p-columnFilter
                           type="text"
                           field="practice"
@@ -109,7 +109,7 @@
                   <tr>
                     <td>{{ i + 1 }}</td>
                     <td>{{ categoryList.category }}</td>
-                    <td>{{ categoryList.practice }}</td>
+                    <td>{{ categoryList.sub_category }}</td>
                     <td>
                       {{ categoryList.status_name }}
                     </td>
@@ -158,7 +158,7 @@
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Category</h5>
+                <h5 class="modal-title" id="exampleModalLabel"> Sub Category</h5>
                 <button
                   type="button"
                   class="close close-button"
@@ -174,28 +174,18 @@
                     <div class="row">
                       <div class="col-4 pr-3">
                         <div class="form-group">
-                          <label>Practice<span style="color:red;">*</span></label>
-                          <!-- <input
-                            type="text"
-                            name="role"
-                            class="form-control"
-                            id="code"
-                            formControlName="category"
-                            [ngClass]="{
-                              'is-invalid': submitted && f.category.errors
-                            }"
-                            required
-                          /> -->
-                          <select name="p_id" class="form-control"
-                           formControlName="p_id">
-                            <option >Select practice</option>
-                            <option value="{{item.id}}" *ngFor = "let item of practiceList">{{item.practice}}</option>
+                          <label>Category<span style="color:red;">*</span></label>
+                          
+                          <select name="c_id" class="form-control"
+                           formControlName="c_id">
+                            <option >Select Category</option>
+                            <option value="{{item.id}}" *ngFor = "let item of practiceList">{{item.category}}</option>
                           </select>
                           <div
-                          *ngIf="submitted && f.p_id.errors"
+                          *ngIf="submitted && f.c_id.errors"
                           class="invalid-feedback"
                         >
-                          <div *ngIf="f.p_id.errors.required">
+                          <div *ngIf="f.c_id.errors.required">
                             Category is required
                           </div>
                         </div>
@@ -203,13 +193,13 @@
                       </div>
                       <div class="col-4 pr-3">
                         <div class="form-group">
-                          <label>Category<span style="color:red;">*</span></label>
+                          <label>Sub Category<span style="color:red;">*</span></label>
                           <input
                             type="text"
                             name="role"
                             class="form-control"
                             id="code"
-                            formControlName="category"
+                            formControlName="sub_category"
                             [ngClass]="{
                               'is-invalid': submitted && f.category.errors
                             }"

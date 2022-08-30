@@ -32,6 +32,8 @@ import { EmployeeReportComponent } from './employee-report/employee-report.compo
 import { SummaryReportComponent } from './summary-report/summary-report.component';
 import { OtherComponent } from './other/other.component';
 import { OrgTicketsComponent } from './org-tickets/org-tickets.component';
+import { PracticeComponent } from './practice/practice.component';
+import { SubCategoryComponent } from './sub-category/sub-category.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
@@ -178,6 +180,16 @@ const routes: Routes = [
   {
     path: 'orgTickets',
     component: OrgTicketsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'practice',
+    component: PracticeComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'subCategory',
+    component: SubCategoryComponent,
     canActivate: [AuthGuard],
   },
   { path: '', redirectTo: 'Dashboard', pathMatch: 'full' },

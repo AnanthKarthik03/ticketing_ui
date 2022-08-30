@@ -1,28 +1,50 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AppSettings } from 'src/app/app.settings';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { AppSettings } from "src/app/app.settings";
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class TicketingDetailsService {
   constructor(public http: HttpClient) {}
 
   adminTicketDetailsReport(companyId, projectId, d1, d2) {
     const url =
-      AppSettings.API.adminTicketDetailsReport + '/' + companyId + '/' + projectId + '/' + d1 + '/' + d2;
+      AppSettings.API.adminTicketDetailsReport +
+      "/" +
+      companyId +
+      "/" +
+      projectId +
+      "/" +
+      d1 +
+      "/" +
+      d2;
     return this.http.get(url, this.token());
   }
   employeeAdminReport(companyId, empId, d1, d2) {
     const url =
-      AppSettings.API.employeeAdminReport + '/' + companyId + '/' + empId + '/' + d1 + '/' + d2;
+      AppSettings.API.employeeAdminReport +
+      "/" +
+      companyId +
+      "/" +
+      empId +
+      "/" +
+      d1 +
+      "/" +
+      d2;
+    return this.http.get(url, this.token());
+  }
+
+  orgTickets(companyId, d1, d2) {
+    const url =
+      AppSettings.API.orgTickets + "/" + companyId + "/" + d1 + "/" + d2;
     return this.http.get(url, this.token());
   }
 
   token() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'BEARER ' + sessionStorage.getItem('token'),
+        "Content-Type": "application/json",
+        Authorization: "BEARER " + sessionStorage.getItem("token"),
       }),
     };
     return httpOptions;
@@ -31,7 +53,7 @@ export class TicketingDetailsService {
   token1() {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'BEARER ' + sessionStorage.getItem('token'),
+        Authorization: "BEARER " + sessionStorage.getItem("token"),
       }),
     };
 

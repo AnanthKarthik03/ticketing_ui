@@ -9,7 +9,7 @@
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item" *ngIf="role === 'Admin'">
-                  <a (click)=" adminDashboard()">Dashboard</a>
+                  <a (click)="adminDashboard()">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item" *ngIf="role === 'superadmin'">
                   <a (click)="dashboard()">Dashboard</a>
@@ -17,9 +17,7 @@
                 <li class="breadcrumb-item active" aria-current="page">
                   Org Tickets
                 </li>
-                
               </ol>
-
             </nav>
             <button
               class="addButton1 btn btn-primary button-back"
@@ -39,38 +37,38 @@
           </div>
         </div>
         <div class="row mb-4">
-            <div class="col-lg-12 col-md-12 p-0">
-              <div class="card">
-                <div class="card-header card-heade-em-deshboard">
-                  <!--Size dropdown menu-->
-                  <div class="col-md-12">
-                    <div class="row">
-                      <div class="col-auto text-left">
-                        <h5 class="my-2 text-report"><b>Org Tickets</b></h5>
-                      </div>
-  
-                      <div class="col-auto ml-3 view-port">
-                        <div class="row">
-                          <div class="font-size mt-2 pr-2">From:</div>
-                          <div class="mobile-v">
-                            <p-calendar
-                              [(ngModel)]="date3"
-                              [showIcon]="true"
-                              inputId="icon"
-                            ></p-calendar>
-                          </div>
-  
-                          <div class="font-size mt-2 px-2">To:</div>
-                          <div class="mobile-v">
-                            <p-calendar
-                              [(ngModel)]="date4"
-                              [showIcon]="true"
-                              inputId="icon"
-                              (onSelect)="doSomething(date4)"
-                            ></p-calendar>
-                          </div>
-  
-                          <div class="font-size mt-2 px-2">
+          <div class="col-lg-12 col-md-12 p-0">
+            <div class="card">
+              <div class="card-header card-heade-em-deshboard">
+                <!--Size dropdown menu-->
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-auto text-left">
+                      <h5 class="my-2 text-report"><b>Org Tickets</b></h5>
+                    </div>
+
+                    <div class="col-auto ml-3 view-port">
+                      <div class="row">
+                        <div class="font-size mt-2 pr-2">From:</div>
+                        <div class="mobile-v">
+                          <p-calendar
+                            [(ngModel)]="date3"
+                            [showIcon]="true"
+                            inputId="icon"
+                          ></p-calendar>
+                        </div>
+
+                        <div class="font-size mt-2 px-2">To:</div>
+                        <div class="mobile-v">
+                          <p-calendar
+                            [(ngModel)]="date4"
+                            [showIcon]="true"
+                            inputId="icon"
+                            (onSelect)="doSomething(date4)"
+                          ></p-calendar>
+                        </div>
+
+                        <!-- <div class="font-size mt-2 px-2">
                             <span>Project : </span>
                           </div>
                           <div class="mobile-v pr-1">
@@ -89,11 +87,11 @@
                             >
                             </p-multiSelect>
                     
-                          </div>
-                        </div>
+                          </div> -->
                       </div>
-                       <div class="col">
-                        <a
+                    </div>
+                    <div class="col">
+                      <a
                         class="addButton float-right btn btn-primary"
                         (click)="excelDownload()"
                       >
@@ -101,50 +99,158 @@
                           ><i class="fa fa-download" aria-hidden="true"></i>
                         </span>
                       </a>
-                      </div> 
                     </div>
                   </div>
                 </div>
-                <div class="card-body p-2">
-                  <table class="table-bordered" width="100%">
-                    <thead>
-                        <tr>
-                            <th>S.NO</th>
-                            <th>Ticket No.</th>
-                            <th>Assigned By</th>
-                            <th>Ticket Description</th>
-                            <th>Project Name</th>
-                            <th>Assigned To</th>
-                            <th>Category</th>
-                            <th>Priority</th>
-                            <th>Status</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>PM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>210001</td>
-                            <td>Karthick</td>
-                            <td>Testing</td>
-                            <td>Tokyo</td>
-                            <td>Anuj</td>
-                            <td>UI Developer</td>
-                            <td>in progress</td>
-                            <td>low</td>
-                            <td>12/08/2022</td>
-                            <td>15/08/2022</td>
-                            <td>Lakshmipathi Raju</td>
-                        </tr>
-                    </tbody>
+              </div>
+              <div class="card-body p-2">
+                <table
+                  class="table-bordered"
+                  width="100%"
+                  style="table-layout: fixed"
+                >
+                  <thead>
+                    <tr>
+                      <th>S.NO</th>
+                      <th>Ticket No.</th>
+                      <th>Assigned By</th>
+                      <th>Ticket Description</th>
+                      <th>Project Name</th>
+                      <th>Assigned To</th>
+                      <th>Category</th>
+                      <th>Priority</th>
+                      <th>Status</th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                      <th>PM</th>
+                      <th>Edit</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of ticketDetailsData; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ item.ticket_no }}</td>
+                      <td>{{ item.assigned_by }}</td>
+                      <td title="{{ item.ticket_desc }}">
+                        {{ item.ticket_desc }}
+                      </td>
+                      <td>{{ item.project_name }}</td>
+                      <td>{{ item.assigned_to }}</td>
+                      <td>{{ item.category_id }}</td>
+                      <td>
+                        <span
+                          *ngIf="item.priority == 0"
+                          class="tag tag-info"
+                          style="color: white"
+                        >
+                          Lower
+                        </span>
+                        <span
+                          *ngIf="item.priority == 1"
+                          class="tag tag-red"
+                          style="color: white"
+                        >
+                          High
+                        </span>
+                        <span
+                          *ngIf="item.priority == 2"
+                          class="tag tag-yellow"
+                          style="color: white"
+                        >
+                          Medium
+                        </span>
+                      </td>
+                      <td>{{ item.status_name }}</td>
+                      <td>{{ item.start_date | date }}</td>
+                      <td>{{ item.end_date | date }}</td>
+                      <td>{{ item.assigned_by }}</td>
+                      <td>
+                        <i
+                          *ngIf="item.status === 0"
+                          class="fa fa-edit"
+                          data-toggle="modal"
+                          data-target="#large-Modal"
+                          (click)="clickTicket(item)"
+                        ></i>
+                        <i
+                          *ngIf="item.status !== 0"
+                          class="fa fa-edit"
+                          style="color: red"
+                        ></i>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tbody>
+                    <tr *ngIf="ticketDetailsData.length === 0">
+                      <td colspan="12" style="text-align: center">
+                        No Data Found
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
-                </div>
               </div>
             </div>
           </div>
+        </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div
+  id="large-Modal"
+  class="modal fade bd-example-modal-lg"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Alert!</h5>
+        <button
+          type="button"
+          class="close close-button"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <div aria-hidden="true">&times;</div>
+        </button>
+      </div>
+      <form method="post" action="" role="form">
+        <div class="modal-body">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-12 pr-3">
+                <h4>
+                  Are you sure you want to work on this ticket ?
+                  <br />
+                  Once assigned cannot not be changed !!
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary footer-button"
+            data-dismiss="modal"
+            (click)="clear()"
+          >
+            Close
+          </button>
+          <button
+            data-dismiss="modal"
+            (click)="onSubmit()"
+            type="button"
+            class="btn btn-primary footer-button"
+          >
+            Save
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

@@ -47,17 +47,25 @@ export class TicketingAddComponent implements OnInit {
   projectName = "";
   roleId = "";
   categoryList = [];
+  categoryListD = [];
   category = [];
+  subCategoryList = [];
+  subCategoryListD = [];
+  subcategory = [];
+  praticeList = [];
+  pratice = [];
   ngOnInit() {
     this.getTicketList();
     this.getCategory();
-    this.companyId = sessionStorage.getItem('companyId');
-     this.getCompanyById(this.companyId);
-    this.customerId = sessionStorage.getItem('customerId');
+    this.getSubCategory();
+    this.getPratice();
+    this.companyId = sessionStorage.getItem("companyId");
+    this.getCompanyById(this.companyId);
+    this.customerId = sessionStorage.getItem("customerId");
     this.gitCustomerById(this.customerId);
-    
+
     this.projectId = sessionStorage.getItem("projectId");
-     this.companyId = sessionStorage.getItem("companyId");
+    this.companyId = sessionStorage.getItem("companyId");
     this.customerId = sessionStorage.getItem("customerId");
     this.projectId = sessionStorage.getItem("projectId");
     this.getProjectById(this.projectId);
@@ -79,11 +87,13 @@ export class TicketingAddComponent implements OnInit {
       status: 0,
       remarks: [""],
       files: [""],
+      practice_id: [""],
+      sub_category_id: [""],
       assigned_to: [""],
       assigned_by: parseInt(sessionStorage.getItem("id"), 10),
     });
   }
-  
+
   backToList() {
     this.router.navigate(["/ticketingList"]);
     this.spinner = false;
@@ -120,6 +130,9 @@ export class TicketingAddComponent implements OnInit {
         this.categoryList = data["data"].filter(
           (item) => parseInt(item.status, 10) === parseInt("0", 10)
         );
+        this.categoryListD = data["data"].filter(
+          (item) => parseInt(item.status, 10) === parseInt("0", 10)
+        );
         this.categoryList.forEach((element) => {
           this.category.push({
             label: element.category,
@@ -132,6 +145,54 @@ export class TicketingAddComponent implements OnInit {
     });
   }
 
+  getSubCategory() {
+    this.subcategory = [];
+    this.subcategory.unshift({
+      label: "Select Sub Category",
+      value: null,
+    });
+    this.categoryService.get_sub_category().subscribe((data) => {
+      if (data["success"]) {
+        this.subCategoryList = data["data"].filter(
+          (item) => parseInt(item.status, 10) === parseInt("0", 10)
+        );
+        this.subCategoryListD = data["data"].filter(
+          (item) => parseInt(item.status, 10) === parseInt("0", 10)
+        );
+        this.subCategoryList.forEach((element) => {
+          this.subcategory.push({
+            label: element.sub_category,
+            value: element.id,
+          });
+        });
+      } else {
+        this.subCategoryList = [];
+      }
+    });
+  }
+
+  getPratice() {
+    this.pratice = [];
+    this.pratice.unshift({
+      label: "Select Pratice",
+      value: null,
+    });
+    this.categoryService.get_practice().subscribe((data) => {
+      if (data["success"]) {
+        this.praticeList = data["data"].filter(
+          (item) => parseInt(item.status, 10) === parseInt("0", 10)
+        );
+        this.praticeList.forEach((element) => {
+          this.pratice.push({
+            label: element.practice,
+            value: element.id,
+          });
+        });
+      } else {
+        this.praticeList = [];
+      }
+    });
+  }
   assignedGroup(e) {
     let gd = "";
     console.log(e, this.groupData);
@@ -210,8 +271,8 @@ export class TicketingAddComponent implements OnInit {
   }
   getCompanyById(id) {
     this.companyService.get_company().subscribe((data) => {
-      if (data['success']) {
-        this.companyData = data['data'];
+      if (data["success"]) {
+        this.companyData = data["data"];
         const temp = _.filter(
           this.companyData,
           (item) => parseInt(item.id, 10) === parseInt(id, 10)
@@ -225,10 +286,10 @@ export class TicketingAddComponent implements OnInit {
   }
   gitCustomerById(id) {
     this.customerService
-      .get_customer(sessionStorage.getItem('companyId'))
+      .get_customer(sessionStorage.getItem("companyId"))
       .subscribe((data) => {
-        if (data['success']) {
-          this.customerData = data['data'];
+        if (data["success"]) {
+          this.customerData = data["data"];
           const temp = _.filter(
             this.customerData,
             (item) => parseInt(item.id, 10) === parseInt(id, 10)
@@ -243,12 +304,12 @@ export class TicketingAddComponent implements OnInit {
   getProjectById(id) {
     this.projectService
       .get_project(
-        sessionStorage.getItem('companyId'),
-        sessionStorage.getItem('customerId')
+        sessionStorage.getItem("companyId"),
+        sessionStorage.getItem("customerId")
       )
       .subscribe((data) => {
-        if (data['success']) {
-          this.projectData = data['data'];
+        if (data["success"]) {
+          this.projectData = data["data"];
           const temp = _.filter(
             this.projectData,
             (item) => parseInt(item.id, 10) === parseInt(id, 10)
@@ -313,6 +374,8 @@ export class TicketingAddComponent implements OnInit {
         status: this.addTicket.value.status,
         ticket_desc: this.addTicket.value.ticket_desc,
         ticket_no: this.addTicket.value.ticket_no,
+        practice_id: this.addTicket.value.practice_id,
+        sub_category_id: this.addTicket.value.sub_category_id,
       });
     });
 
@@ -350,6 +413,46 @@ export class TicketingAddComponent implements OnInit {
       } else {
         this.addTicket.controls["ticket_no"].setValue(this.projectId + "001");
       }
+    });
+  }
+  praticeChange(e) {
+    this.category = [];
+    console.log(e);
+    this.category.unshift({
+      label: "Select Category",
+      value: null,
+    });
+
+    this.categoryList = this.categoryListD.filter(
+      (item) =>
+        parseInt(item.status, 10) === parseInt("0", 10) &&
+        parseInt(item.p_id, 20) === parseInt(e, 10)
+    );
+    this.categoryList.forEach((element) => {
+      this.category.push({
+        label: element.category,
+        value: element.id,
+      });
+    });
+  }
+  categoryChange(e) {
+    this.subcategory = [];
+    console.log(e);
+    this.subcategory.unshift({
+      label: "Select Sub Category",
+      value: null,
+    });
+
+    this.subCategoryList = this.subCategoryListD.filter(
+      (item) =>
+        parseInt(item.status, 10) === parseInt("0", 10) &&
+        parseInt(item.c_id, 20) === parseInt(e, 10)
+    );
+    this.subCategoryList.forEach((element) => {
+      this.subcategory.push({
+        label: element.sub_category,
+        value: element.id,
+      });
     });
   }
 }

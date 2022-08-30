@@ -1,17 +1,16 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
-import { CategoryService } from "./category.service";
 import * as _ from "underscore";
+import { CategoryService } from "../category/category.service";
 import { XlsxToJsonService } from "../xlsx-to-json-service";
 declare var $: any;
-
 @Component({
-  selector: "app-category",
-  templateUrl: "./category.component.html",
-  styleUrls: ["./category.component.css"],
+  selector: "app-sub-category",
+  templateUrl: "./sub-category.component.html",
+  styleUrls: ["./sub-category.component.css"],
 })
-export class CategoryComponent implements OnInit {
+export class SubCategoryComponent implements OnInit {
   categoryForm!: FormGroup;
   submitted = false;
   spinner = false;
@@ -31,8 +30,8 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit() {
     this.categoryForm = this.fb.group({
-      category: ["", Validators.required],
-      p_id: ["", Validators.required],
+      sub_category: ["", Validators.required],
+      c_id: ["", Validators.required],
       status: ["", Validators.required],
     });
     this.getCategory();
@@ -41,14 +40,14 @@ export class CategoryComponent implements OnInit {
   practice() {
     this.practiceList = [];
     this.spinner = true;
-    this.service.get_practice().subscribe(
+    this.service.get_category().subscribe(
       (data) => {
         if (data["success"]) {
           // this.practiceList = data['data'];
           data["data"].forEach((ele) => {
             this.practiceList.push({
               id: ele.id,
-              practice: ele.practice,
+              category: ele.category,
             });
           });
           this.spinner = false;
@@ -65,7 +64,7 @@ export class CategoryComponent implements OnInit {
   getCategory() {
     this.categoryList = [];
     this.spinner = true;
-    this.service.get_category().subscribe(
+    this.service.get_sub_category().subscribe(
       (data) => {
         if (data["success"]) {
           // this.categoryList = data['data'];
@@ -74,9 +73,9 @@ export class CategoryComponent implements OnInit {
               id: ele.id,
               status: ele.status,
               status_name: ele.status === 0 ? "Active" : "In Active",
+              sub_category: ele.sub_category,
               category: ele.category,
-              practice: ele.practice,
-              p_id: ele.p_id,
+              c_id: ele.c_id,
             });
           });
           this.spinner = false;
@@ -97,7 +96,7 @@ export class CategoryComponent implements OnInit {
     this.spinner = true;
     this.submitted = true;
     console.log(this.categoryForm);
-    
+
     if (this.categoryForm.invalid) {
       $("#large-Modal").modal("show");
       // this.spinner = false;
@@ -109,7 +108,7 @@ export class CategoryComponent implements OnInit {
     if (this.editId) {
       body["id"] = this.editId;
     }
-    this.service.add_category(body).subscribe(
+    this.service.add_sub_category(body).subscribe(
       (data) => {
         console.log(data["data"]);
         if (data["success"]) {
@@ -146,8 +145,8 @@ export class CategoryComponent implements OnInit {
     this.spinner = false;
     this.editId = item.id;
     this.categoryForm.patchValue({
-      category: item.category,
-      p_id: parseInt(item.p_id, 10),
+      sub_category: item.sub_category,
+      c_id: parseInt(item.c_id, 10),
       status: item.status,
     });
   }
