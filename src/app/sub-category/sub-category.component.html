@@ -22,7 +22,7 @@
                     ><i class="fa fa-plus" aria-hidden="true"></i
                   ></span>
                 </button>
-                <a class="addButton float-right btn btn-primary" href="assets/excels/category.xlsx">
+                <a class="addButton float-right btn btn-primary" (click)="excelDownload()">
                   <span class="css-button-icon"
                     ><i class="fa fa-download" aria-hidden="true"></i>
                   </span>
@@ -177,7 +177,11 @@
                           <label>Category<span style="color:red;">*</span></label>
                           
                           <select name="c_id" class="form-control"
-                           formControlName="c_id">
+                           formControlName="c_id"
+                           [ngClass]="{
+                            'is-invalid': submitted && f.c_id.errors
+                          }"
+                           >
                             <option >Select Category</option>
                             <option value="{{item.id}}" *ngFor = "let item of practiceList">{{item.category}}</option>
                           </select>
@@ -201,15 +205,15 @@
                             id="code"
                             formControlName="sub_category"
                             [ngClass]="{
-                              'is-invalid': submitted && f.category.errors
+                              'is-invalid': submitted && f.sub_category.errors
                             }"
                             required
                           />
                           <div
-                          *ngIf="submitted && f.category.errors"
+                          *ngIf="submitted && f.sub_category.errors"
                           class="invalid-feedback"
                         >
-                          <div *ngIf="f.category.errors.required">
+                          <div *ngIf="f.sub_category.errors.required">
                             Category is required
                           </div>
                         </div>

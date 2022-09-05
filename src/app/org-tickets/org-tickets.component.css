@@ -48,12 +48,29 @@
   .font-size{
     font-size: 14px;
   }
+  .font-size-1{
+    font-size: 13px;
+  }
   .text-report{
     font-size: 14px;
   }
   .view-port{
     width: 82%;
   }
+  .mar_t{
+    margin-top: 9px;
+  }
+
+  .card-header {
+    padding: 10px 20px;
+    display: grid;
+    align-items: center;
+    border-color: #e6e9ed;
+}
+
+.lineHeight{
+  line-height: normal;
+}
   
 @media only screen and (max-width: 430px) {
   .excel1 {

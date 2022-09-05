@@ -22,11 +22,16 @@
                     ><i class="fa fa-plus" aria-hidden="true"></i
                   ></span>
                 </button>
-                <a class="addButton float-right btn btn-primary" href="assets/excels/practice.xlsx">
+
+                <a 
+                class="addButton float-right btn btn-primary"
+                (click)="excelDownload()"
+                >
                   <span class="css-button-icon"
                     ><i class="fa fa-download" aria-hidden="true"></i>
                   </span>
                 </a>
+                
                 <button
                   class="addButton float-right btn btn-primary"
                   data-toggle="modal"

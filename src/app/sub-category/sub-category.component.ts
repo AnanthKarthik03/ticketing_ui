@@ -4,6 +4,8 @@ import { ToastrService } from "ngx-toastr";
 import * as _ from "underscore";
 import { CategoryService } from "../category/category.service";
 import { XlsxToJsonService } from "../xlsx-to-json-service";
+import { ExcelService } from 'src/app/excel.service';
+import * as moment from 'moment';
 declare var $: any;
 @Component({
   selector: "app-sub-category",
@@ -25,7 +27,8 @@ export class SubCategoryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
-    public service: CategoryService
+    public service: CategoryService,
+    private excelService: ExcelService,
   ) {}
 
   ngOnInit() {
@@ -183,6 +186,21 @@ export class SubCategoryComponent implements OnInit {
       // this.saveExcel();
     });
     // }
+  }
+
+  excelDownload() {
+    this.excelData = [];
+    this.categoryList.forEach((ele) => {
+      this.excelData.push({
+        Sub_category: ele.sub_category,
+        Category: ele.category,
+        Status: ele.status === 0 ? 'Active' : 'InActive'
+      });
+    });
+    this.excelService.exportAsExcelFile(
+      this.excelData,
+      `Sub Category Report - ${moment().format('YYYY-MM-DD')} `
+    );
   }
 
   categoryUpload() {

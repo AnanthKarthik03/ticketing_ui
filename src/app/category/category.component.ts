@@ -4,6 +4,8 @@ import { ToastrService } from "ngx-toastr";
 import { CategoryService } from "./category.service";
 import * as _ from "underscore";
 import { XlsxToJsonService } from "../xlsx-to-json-service";
+import { ExcelService } from 'src/app/excel.service';
+import * as moment from 'moment';
 declare var $: any;
 
 @Component({
@@ -26,8 +28,9 @@ export class CategoryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
-    public service: CategoryService
-  ) {}
+    public service: CategoryService,
+    private excelService: ExcelService
+  ) { }
 
   ngOnInit() {
     this.categoryForm = this.fb.group({
@@ -68,20 +71,20 @@ export class CategoryComponent implements OnInit {
     this.service.get_category().subscribe(
       (data) => {
         if (data["success"]) {
-          // this.categoryList = data['data'];
-          data["data"].forEach((ele) => {
-            this.categoryList.push({
-              id: ele.id,
-              status: ele.status,
-              status_name: ele.status === 0 ? "Active" : "In Active",
-              category: ele.category,
-              practice: ele.practice,
-              p_id: ele.p_id,
-            });
-          });
+          this.categoryList = data['data'];
+          setTimeout(() => {
+            this.categoryList.forEach((ele) => (ele.id = ele.id));
+            this.categoryList.forEach((ele) => (ele.status = ele.status));
+            this.categoryList.forEach((ele) => (ele.status_name = ele.status === 0 ? 'Active' : 'In Active')
+            );
+            this.categoryList.forEach((ele) => (ele.category = ele.category));
+            this.categoryList.forEach((ele) => (ele.practice = ele.practice));
+            this.categoryList.forEach((ele) => (ele.p_id = ele.p_id));
+
+          }, 200);
           this.spinner = false;
         } else {
-          console.log(data["message"]);
+          //console.log(data["message"]);
           this.spinner = false;
         }
       },
@@ -97,7 +100,7 @@ export class CategoryComponent implements OnInit {
     this.spinner = true;
     this.submitted = true;
     console.log(this.categoryForm);
-    
+
     if (this.categoryForm.invalid) {
       $("#large-Modal").modal("show");
       // this.spinner = false;
@@ -184,6 +187,21 @@ export class CategoryComponent implements OnInit {
       // this.saveExcel();
     });
     // }
+  }
+
+  excelDownload() {
+    this.excelData = [];
+    this.categoryList.forEach((ele) => {
+      this.excelData.push({
+        category: ele.category,
+        Practice: ele.practice,
+        Status: ele.status === 0 ? 'Active' : 'InActive'
+      });
+    });
+    this.excelService.exportAsExcelFile(
+      this.excelData,
+      `Sub Category Report - ${moment().format('YYYY-MM-DD')} `
+    );
   }
 
   categoryUpload() {

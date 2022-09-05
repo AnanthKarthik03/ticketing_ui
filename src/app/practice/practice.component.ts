@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
- import * as _ from 'underscore';
+import * as _ from 'underscore';
 import { CategoryService } from '../category/category.service';
 import { XlsxToJsonService } from '../xlsx-to-json-service';
+import { ExcelService } from 'src/app/excel.service';
+import * as moment from 'moment';
 declare var $: any;
 @Component({
   selector: 'app-practice',
@@ -26,6 +28,7 @@ export class PracticeComponent implements OnInit {
     private fb: FormBuilder,
     private toastr: ToastrService,
     public service: CategoryService,
+    private excelService: ExcelService,
   ) { }
 
   ngOnInit() {
@@ -139,9 +142,8 @@ export class PracticeComponent implements OnInit {
 
       result1.forEach((ele) => {
         this.finalExcelData.push({
-              status: ele.status,
-              // status_name: ele.status === 0 ? 'Active' : 'In Active',
-              practice: ele.practice,
+          practice: ele.practice,
+          status: ele.status,
         });
       });
       console.log(this.finalExcelData);
@@ -152,6 +154,20 @@ export class PracticeComponent implements OnInit {
       // this.saveExcel();
     });
     // }
+  }
+
+  excelDownload() {
+    this.excelData = [];
+    this.practiceList.forEach((ele) => {
+      this.excelData.push({
+        Practice: ele.practice,
+        Status: ele.status === 0 ? 'Active' : 'InActive'
+      });
+    });
+    this.excelService.exportAsExcelFile(
+      this.excelData,
+      `Practice Report - ${moment().format('YYYY-MM-DD')} `
+    );
   }
 
   practiceUpload() {
