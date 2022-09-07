@@ -7,6 +7,7 @@
     "build": "ng build",
     "build-live": "ng build --prod --base-href=/tc/",
     "build-live-rostan": "ng build --prod --base-href=/RostanTicketingTool/",
+    "build-live-rostan-uat": "ng build --prod --base-href=/RostanTicketingToolUAT/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
