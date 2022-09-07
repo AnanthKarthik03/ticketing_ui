@@ -105,19 +105,18 @@ export class StateComponent implements OnInit {
     this.service.get_state().subscribe(
       (data) => {
         if (data['success']) {
-          // this.stateList = data['data'];
+           this.stateList = data['data'];
+          
+          setTimeout(() => {
+            this.stateList.forEach((ele) => (ele.id = ele.id));
+            this.stateList.forEach((ele) => (ele.country_id = ele.country_id));
+            this.stateList.forEach((ele) => (ele.country_name = ele.country_id));
+            this.stateList.forEach((ele) => (ele.city = ele.city));
+            this.stateList.forEach((ele) => (ele.gst_code = ele.gst_code));
+
+          }, 200);
           this.spinner = false;
-          data['data'].forEach((ele) => {
-            this.stateList.push({
-              id: ele.id,
-              country_id: ele.country_id,
-              country_name: this.getCountryName(ele.country_id),
-              state_name: ele.state_name,
-              city: ele.city,
-              gst_code: ele.gst_code,
-            });
-          });
-        } else {
+          } else {
           console.log(data['message']);
           this.spinner = false;
         }

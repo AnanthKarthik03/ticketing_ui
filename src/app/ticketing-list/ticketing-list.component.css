@@ -21,7 +21,7 @@
 .card-header_ticketing4 {
   background-color: #6bb06d;
 }
-div .b{
+div .b {
   word-wrap: break-word;
 }
 .card-header1 {
@@ -51,7 +51,8 @@ div .b{
   color: #ffffff;
 }
 
-.card-list-text .h6, h6 {
+.card-list-text .h6,
+h6 {
   font-size: 0.9rem;
 }
 
@@ -65,6 +66,11 @@ div .b{
 
 .card-body-white {
   border-radius: 0px;
+}
+
+.border_Color {
+  border: 0px;
+  color: #448fd8;
 }
 
 .addButtonlist {
@@ -439,10 +445,10 @@ a:hover {
 .desc-p {
   padding: 8px 0 8px 0;
   font-size: 12px;
- 
 }
-.text-wrap {font-size: 12px;
-  white-space: normal!important;
+.text-wrap {
+  font-size: 12px;
+  white-space: normal !important;
 }
 .footer-bt {
   border-top: 0px;
@@ -463,4 +469,3 @@ a:hover {
   background-color: #dad8d8;
   /* color: white; */
 }
-

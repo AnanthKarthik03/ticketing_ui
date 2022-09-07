@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
- import * as _ from 'underscore';
+import * as _ from 'underscore';
 import { CategoryService } from '../category/category.service';
 import { XlsxToJsonService } from '../xlsx-to-json-service';
+import { ExcelService } from 'src/app/excel.service';
+import * as moment from 'moment';
 declare var $: any;
 @Component({
   selector: 'app-practice',
@@ -26,6 +28,7 @@ export class PracticeComponent implements OnInit {
     private fb: FormBuilder,
     private toastr: ToastrService,
     public service: CategoryService,
+    private excelService: ExcelService,
   ) { }
 
   ngOnInit() {
@@ -41,15 +44,16 @@ export class PracticeComponent implements OnInit {
     this.service.get_practice().subscribe(
       (data) => {
         if (data['success']) {
-          // this.practiceList = data['data'];
-          data['data'].forEach((ele) => {
-            this.practiceList.push({
-              id: ele.id,
-              status: ele.status,
-              status_name: ele.status === 0 ? 'Active' : 'In Active',
-              practice: ele.practice,
-            });
-          });
+           this.practiceList = data['data'];
+           setTimeout(() => {
+            this.practiceList.forEach((ele) => (ele.id = ele.id));
+            this.practiceList.forEach((ele) => (ele.status = ele.status));
+            this.practiceList.forEach((ele) => (ele.status_name = ele.status === 0 ? 'Active' : 'In Active')
+            );
+            this.practiceList.forEach((ele) => (ele.practice = ele.practice));
+            
+          }, 200);
+        
           this.spinner = false;
         } else {
           console.log(data['message']);
@@ -139,9 +143,8 @@ export class PracticeComponent implements OnInit {
 
       result1.forEach((ele) => {
         this.finalExcelData.push({
-              status: ele.status,
-              // status_name: ele.status === 0 ? 'Active' : 'In Active',
-              practice: ele.practice,
+          practice: ele.practice,
+          status: ele.status,
         });
       });
       console.log(this.finalExcelData);
@@ -152,6 +155,20 @@ export class PracticeComponent implements OnInit {
       // this.saveExcel();
     });
     // }
+  }
+
+  excelDownload() {
+    this.excelData = [];
+    this.practiceList.forEach((ele) => {
+      this.excelData.push({
+        Practice: ele.practice,
+        Status: ele.status === 0 ? 'Active' : 'InActive'
+      });
+    });
+    this.excelService.exportAsExcelFile(
+      this.excelData,
+      `Practice Report - ${moment().format('YYYY-MM-DD')} `
+    );
   }
 
   practiceUpload() {

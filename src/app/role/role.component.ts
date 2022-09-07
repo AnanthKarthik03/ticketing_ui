@@ -42,15 +42,15 @@ export class RoleComponent implements OnInit {
     this.service.get_role().subscribe(
       (data) => {
         if (data['success']) {
-          // this.rolesList = data["data"];
-          data['data'].forEach((ele) => {
-            this.rolesList.push({
-              id: ele.id,
-              status: ele.status,
-              status_name: ele.status === 0 ? 'Active' : 'In Active',
-              role: ele.role,
-            });
-          });
+           this.rolesList = data["data"];
+           setTimeout(() => {
+            this.rolesList.forEach((ele) => (ele.id = ele.id));
+            this.rolesList.forEach((ele) => (ele.status = ele.status));
+            this.rolesList.forEach((ele) => (ele.status_name = ele.status === 0 ? 'Active' : 'In Active')
+            );
+            this.rolesList.forEach((ele) => (ele.role = ele.role));
+            }, 200);
+         
           this.spinner = false;
         } else {
           console.log(data['message']);

@@ -84,15 +84,15 @@ export class DepartmentComponent implements OnInit {
     this.service.get_department().subscribe(
       (data) => {
         if (data['success']) {
-          // this.depData = data['data'];
-          data["data"].forEach((ele) => {
-            this.depData.push({
-              id: ele.id,
-              status: ele.status,
-              status_name : ele.status === 0 ? "Active" : "In Active",
-              dept_name: ele.dept_name,
-            });
-          });
+         this.depData = data['data'];
+         setTimeout(() => {
+          this.depData.forEach((ele) => (ele.id = ele.id));
+          this.depData.forEach((ele) => (ele.status = ele.status));
+          this.depData.forEach((ele) => (ele.status_name = ele.status === 0 ? 'Active' : 'In Active')
+          );
+          this.depData.forEach((ele) => (ele.dept_name = ele.dept_name));
+         
+        }, 200);
           console.log(this.depData);
           this.spinner = false;
         } else {

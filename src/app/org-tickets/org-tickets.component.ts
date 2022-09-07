@@ -25,6 +25,9 @@ export class OrgTicketsComponent implements OnInit {
   empData = [];
   categoryList = [];
   selectProject = [];
+  selectCategory = [];
+  selectStatus = [];
+  selectAssignedTo = [];
   excelData = [];
   othersList = [];
   date3 = new Date();
@@ -42,13 +45,15 @@ export class OrgTicketsComponent implements OnInit {
     public othersService: OtherService,
     private excelService: ExcelService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.projectGet();
     this.getEmps();
     this.getCategory();
-    this.ticketDetails();
+    // this.ticketDetails();
+    this.categoryGet();
+    this.assignedToGet();
   }
 
   getEmps() {
@@ -108,11 +113,12 @@ export class OrgTicketsComponent implements OnInit {
     }
   }
 
-  ticketDetails() {
+  ticketDetails(id) {
     this.ticketDetailsData = [];
     this.service
-      .orgTickets(
+      .adminTicketDetailsReport(
         sessionStorage.getItem("companyId"),
+        id,
         moment(this.date3).format("YYYY-MM-DD"),
         moment(this.date4).format("YYYY-MM-DD")
       )
@@ -144,28 +150,28 @@ export class OrgTicketsComponent implements OnInit {
                   ele.priority === 0
                     ? "Lower"
                     : ele.priority === 1
-                    ? "High"
-                    : ele.priority === 2
-                    ? "Medium"
-                    : "Medium",
+                      ? "High"
+                      : ele.priority === 2
+                        ? "Medium"
+                        : "Medium",
                 start_date: ele.start_date,
                 status: ele.status,
                 status_name:
                   ele.status === 0
                     ? "Open"
                     : ele.status === 1
-                    ? "In-Progress"
-                    : ele.status === 2
-                    ? "Resolved"
-                    : ele.status === 3
-                    ? "Awaiting Information"
-                    : ele.status === 4
-                    ? "Approved"
-                    : ele.status === 5
-                    ? "Closed"
-                    : ele.status === 6
-                    ? "Hold"
-                    : "Reopen",
+                      ? "In-Progress"
+                      : ele.status === 2
+                        ? "Resolved"
+                        : ele.status === 3
+                          ? "Awaiting Information"
+                          : ele.status === 4
+                            ? "Approved"
+                            : ele.status === 5
+                              ? "Closed"
+                              : ele.status === 6
+                                ? "Hold"
+                                : "Reopen",
                 ticket_desc: ele.ticket_desc,
               });
             });
@@ -180,6 +186,24 @@ export class OrgTicketsComponent implements OnInit {
           this.spinner = false;
         }
       );
+  }
+
+  projectReport(id) {
+    console.log(id);
+    this.selectedProjects = id;
+    this.ticketDetails(id);
+  }
+
+  assignedToReport(id) {
+    console.log(id);
+    this.selectAssignedTo = id;
+    this.ticketDetails(id);
+  }
+
+  categoryReport(id) {
+    console.log(id);
+    this.selectCategory = id;
+    
   }
 
   projectGet() {
@@ -242,6 +266,59 @@ export class OrgTicketsComponent implements OnInit {
     }
   }
 
+  assignedToGet() {
+    this.spinner = true;
+    this.empService.get_employee(this.companyId).subscribe((data) => {
+      if (data["success"]) {
+        this.spinner = false;
+        this.empData = data["data"];
+        const filterDataById = _.uniq(data["data"], "id");
+        filterDataById.forEach((item) => {
+          this.selectAssignedTo.push({
+            label: item.name,
+            value: item.id,
+          });
+        });
+        console.log(data["data"]);
+      } else {
+        this.spinner = false;
+      }
+    },
+      (err) => {
+        this.spinner = false;
+      }
+    );
+
+  }
+
+  categoryGet() {
+    this.spinner = true;
+    this.categoryService
+      .get_category()
+      .subscribe(
+        (data) => {
+          if (data["success"]) {
+            this.spinner = false;
+            this.categoryList = data["data"];
+            const filterDataById = _.uniq(data["data"], "id");
+            filterDataById.forEach((item) => {
+              this.selectCategory.push({
+                label: item.category,
+                value: item.id,
+              });
+            });
+            console.log(data["data"]);
+          } else {
+            this.spinner = false;
+          }
+        },
+        (err) => {
+          this.spinner = false;
+        }
+      );
+
+  }
+
   getCategory() {
     this.categoryService.get_category().subscribe((data) => {
       if (data["success"]) {
@@ -286,10 +363,10 @@ export class OrgTicketsComponent implements OnInit {
           ele.priority === 0
             ? "Lower"
             : ele.priority === 1
-            ? "High"
-            : ele.priority === 2
-            ? "Medium"
-            : "Medium",
+              ? "High"
+              : ele.priority === 2
+                ? "Medium"
+                : "Medium",
         //start_date: ele.start_date,
         start_date: ele.start_date
           ? moment(ele.start_date).format("YYYY-MM-DD")
@@ -298,18 +375,18 @@ export class OrgTicketsComponent implements OnInit {
           ele.status === 0
             ? "Open"
             : ele.status === 1
-            ? "In-Progress"
-            : ele.status === 2
-            ? "Resolved"
-            : ele.status === 3
-            ? "Awaiting Information"
-            : ele.status === 4
-            ? "Approved"
-            : ele.status === 5
-            ? "Closed"
-            : ele.status === 6
-            ? "Hold"
-            : "Reopen",
+              ? "In-Progress"
+              : ele.status === 2
+                ? "Resolved"
+                : ele.status === 3
+                  ? "Awaiting Information"
+                  : ele.status === 4
+                    ? "Approved"
+                    : ele.status === 5
+                      ? "Closed"
+                      : ele.status === 6
+                        ? "Hold"
+                        : "Reopen",
         ticket_desc: ele.ticket_desc,
       });
     });
@@ -320,7 +397,7 @@ export class OrgTicketsComponent implements OnInit {
   }
 
   doSomething(e) {
-    this.ticketDetails();
+    this.ticketDetails(this.selectedProjects);
   }
   filterOthers(e) {
     const dd = _.filter(this.othersList, (item) => item.value === e);
@@ -337,7 +414,7 @@ export class OrgTicketsComponent implements OnInit {
   onSubmit() {
     const id = sessionStorage.getItem("id");
     this.categoryService.updateTicket(id, this.ticketId).subscribe((data) => {
-      this.ticketDetails();
+      this.ticketDetails(this.selectedProjects);
       this.toastr.success(`Ticket Assigned !`);
     });
   }

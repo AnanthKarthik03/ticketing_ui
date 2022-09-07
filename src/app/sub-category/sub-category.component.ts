@@ -4,6 +4,8 @@ import { ToastrService } from "ngx-toastr";
 import * as _ from "underscore";
 import { CategoryService } from "../category/category.service";
 import { XlsxToJsonService } from "../xlsx-to-json-service";
+import { ExcelService } from 'src/app/excel.service';
+import * as moment from 'moment';
 declare var $: any;
 @Component({
   selector: "app-sub-category",
@@ -25,7 +27,8 @@ export class SubCategoryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
-    public service: CategoryService
+    public service: CategoryService,
+    private excelService: ExcelService,
   ) {}
 
   ngOnInit() {
@@ -67,17 +70,18 @@ export class SubCategoryComponent implements OnInit {
     this.service.get_sub_category().subscribe(
       (data) => {
         if (data["success"]) {
-          // this.categoryList = data['data'];
-          data["data"].forEach((ele) => {
-            this.categoryList.push({
-              id: ele.id,
-              status: ele.status,
-              status_name: ele.status === 0 ? "Active" : "In Active",
-              sub_category: ele.sub_category,
-              category: ele.category,
-              c_id: ele.c_id,
-            });
-          });
+           this.categoryList = data['data'];
+           setTimeout(() => {
+            this.categoryList.forEach((ele) => (ele.id = ele.id));
+            this.categoryList.forEach((ele) => (ele.status = ele.status));
+            this.categoryList.forEach((ele) => (ele.status_name = ele.status === 0 ? 'Active' : 'In Active')
+            );
+            this.categoryList.forEach((ele) => (ele.sub_category = ele.sub_category));
+            this.categoryList.forEach((ele) => (ele.category = ele.category));
+            this.categoryList.forEach((ele) => (ele.c_id = ele.c_id));
+
+          }, 200);
+         
           this.spinner = false;
         } else {
           console.log(data["message"]);
@@ -183,6 +187,21 @@ export class SubCategoryComponent implements OnInit {
       // this.saveExcel();
     });
     // }
+  }
+
+  excelDownload() {
+    this.excelData = [];
+    this.categoryList.forEach((ele) => {
+      this.excelData.push({
+        Sub_category: ele.sub_category,
+        Category: ele.category,
+        Status: ele.status === 0 ? 'Active' : 'InActive'
+      });
+    });
+    this.excelService.exportAsExcelFile(
+      this.excelData,
+      `Sub Category Report - ${moment().format('YYYY-MM-DD')} `
+    );
   }
 
   categoryUpload() {

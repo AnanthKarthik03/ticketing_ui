@@ -1,3 +1,26 @@
+.p-multiselect .p-multiselect-label {
+  padding: 0.5rem 0.5rem;
+  overflow-x: hidden;
+  overflow-y:hidden;
+  text-overflow: ellipsis;
+  white-space:initial;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+} 
+.ui-dropdown-label-container {
+  width: 100%;
+  }
+  .ui-dropdown.ui-dropdown-clearable .ui-dropdown-label {
+  text-overflow: ellipsis;
+  padding-right: 2em !important;
+  }
+  .ui-dropdown .ui-dropdown-label {
+  text-overflow: ellipsis;
+  padding-right: 1em !important;
+  }
+  .page-filter-bar ::ng-deep .ui-dropdown .ui-dropdown-label {
+    text-overflow: ellipsis;
+    padding-right: 2em !important;
+}
   table thead {
     font-size: 11px;
   }
@@ -48,12 +71,29 @@
   .font-size{
     font-size: 14px;
   }
+  .font-size-1{
+    font-size: 13px;
+  }
   .text-report{
     font-size: 14px;
   }
   .view-port{
     width: 82%;
   }
+  .mar_t{
+    margin-top: 9px;
+  }
+
+  .card-header {
+    padding: 10px 20px;
+    display: grid;
+    align-items: center;
+    border-color: #e6e9ed;
+}
+
+.lineHeight{
+  line-height: normal;
+}
   
 @media only screen and (max-width: 430px) {
   .excel1 {

@@ -42,7 +42,10 @@ export class OtherComponent implements OnInit {
     this.service.get_other().subscribe(
       (data) => {
         if (data['success']) {
-          // this.otherList = data["data"];
+          this.otherList = data["data"];
+          setTimeout(() => {
+            
+          }, 200);
           data['data'].forEach((ele) => {
             this.otherList.push({
               id: ele.id,

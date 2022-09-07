@@ -43,53 +43,53 @@
                 <!--Size dropdown menu-->
                 <div class="col-md-12">
                   <div class="row">
-                    <div class="col-auto text-left">
-                      <h5 class="my-2 text-report"><b>Org Tickets</b></h5>
-                    </div>
-
-                    <div class="col-auto ml-3 view-port">
+                    <div class="col-auto text-left view-port" >
                       <div class="row">
-                        <div class="font-size mt-2 pr-2">From:</div>
+                        <div class="font-size-1 mar_t pr-2">From:</div>
                         <div class="mobile-v">
                           <p-calendar
                             [(ngModel)]="date3"
                             [showIcon]="true"
                             inputId="icon"
+                            class="lineHeight"
                           ></p-calendar>
                         </div>
 
-                        <div class="font-size mt-2 px-2">To:</div>
-                        <div class="mobile-v">
+                        <div class="font-size-1 ml-2 mar_t px-2">To:</div>
+                        <div class="mobile-v" >
                           <p-calendar
                             [(ngModel)]="date4"
                             [showIcon]="true"
                             inputId="icon"
                             (onSelect)="doSomething(date4)"
+                            class="lineHeight"
                           ></p-calendar>
                         </div>
 
-                        <!-- <div class="font-size mt-2 px-2">
-                            <span>Project : </span>
-                          </div>
-                          <div class="mobile-v pr-1">
-  
-                            <p-multiSelect
-                              (onChange)="projectReport($event.value)"
-                              [options]="selectProject"
-                              defaultLabel="Select a Project"
-                              [filter]="true"
-                              name="test"
-                              appendTo="body"
-                              [style]="{
-                                overflow: 'visible',
-                                width: '100%'
-                              }"
-                            >
-                            </p-multiSelect>
-                    
-                          </div> -->
+                        <div class="font-size-1 ml-2 mar_t px-2" >
+                          <span>Project : </span>
+                        </div>
+                        <div class="mobile-v pr-1" >
+                          <p-multiSelect
+                            (onChange)="projectReport($event.value)"
+                            [options]="selectProject"
+                            class="lineHeight multiselect-custom"
+                            defaultLabel="Select a Project"
+                            [filter]="true"
+                            name="test"
+                            [maxSelectedLabels]="2"
+                            appendTo="body"
+                           
+                            [style]="{
+                              overflow: 'hidden',
+                              width: '100%'
+                            }"
+                          >
+                          </p-multiSelect>
+                        </div>
                       </div>
                     </div>
+
                     <div class="col">
                       <a
                         class="addButton float-right btn btn-primary"
@@ -100,6 +100,70 @@
                         </span>
                       </a>
                     </div>
+                  </div>
+                </div>
+                <div class="col-md-12 mt-3">
+                  <div class="row">
+                    <div class="col-12 text-left">
+                      <div class="row">
+                        <div class="font-size-1 mar_t pr-2">Status:</div>
+                        <div class="mobile-v pr-1">
+                          <p-multiSelect
+                            (onChange)="projectReport($event.value)"
+                            [options]="status_name"
+                            defaultLabel="Select a Status"
+                            [filter]="true"
+                            class="lineHeight"
+                            name="test"
+                            appendTo="body"
+                            [style]="{
+                              overflow: 'visible',
+                              width: '100%'
+                            }"
+                          >
+                          </p-multiSelect>
+                        </div>
+
+                        <div class="font-size-1 ml-2 mar_t px-2">
+                          Assigned To:
+                        </div>
+                        <div class="mobile-v pr-1">
+                          <p-multiSelect
+                            (onChange)="assignedToReport($event.value)"
+                            [options]="selectAssignedTo"
+                            defaultLabel="Select a Assigned To"
+                            [filter]="true"
+                            class="lineHeight"
+                            name="test"
+                            appendTo="body"
+                            [style]="{
+                              overflow: 'visible',
+                              width: '100%'
+                            }"
+                          >
+                          </p-multiSelect>
+                        </div>
+
+                        <div class="font-size-1 ml-2 mar_t px-2">Category:</div>
+                        <div class="mobile-v pr-1">
+                          <p-multiSelect
+                            (onChange)="categoryReport($event.value)"
+                            [options]="selectCategory"
+                            defaultLabel="Select a Category"
+                            [filter]="true"
+                            class="lineHeight"
+                            name="test"
+                            appendTo="body"
+                            [style]="{
+                              overflow: 'visible',
+                              width: '100%'
+                            }"
+                          >
+                          </p-multiSelect>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-auto"></div>
                   </div>
                 </div>
               </div>
@@ -147,17 +211,17 @@
                         </span>
                         <span
                           *ngIf="item.priority == 1"
-                          class="tag tag-red"
-                          style="color: white"
-                        >
-                          High
-                        </span>
-                        <span
-                          *ngIf="item.priority == 2"
                           class="tag tag-yellow"
                           style="color: white"
                         >
                           Medium
+                        </span>
+                        <span
+                          *ngIf="item.priority == 2"
+                          class="tag tag-red"
+                          style="color: white"
+                        >
+                          High
                         </span>
                       </td>
                       <td>{{ item.status_name }}</td>
