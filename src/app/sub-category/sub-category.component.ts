@@ -70,17 +70,18 @@ export class SubCategoryComponent implements OnInit {
     this.service.get_sub_category().subscribe(
       (data) => {
         if (data["success"]) {
-          // this.categoryList = data['data'];
-          data["data"].forEach((ele) => {
-            this.categoryList.push({
-              id: ele.id,
-              status: ele.status,
-              status_name: ele.status === 0 ? "Active" : "In Active",
-              sub_category: ele.sub_category,
-              category: ele.category,
-              c_id: ele.c_id,
-            });
-          });
+           this.categoryList = data['data'];
+           setTimeout(() => {
+            this.categoryList.forEach((ele) => (ele.id = ele.id));
+            this.categoryList.forEach((ele) => (ele.status = ele.status));
+            this.categoryList.forEach((ele) => (ele.status_name = ele.status === 0 ? 'Active' : 'In Active')
+            );
+            this.categoryList.forEach((ele) => (ele.sub_category = ele.sub_category));
+            this.categoryList.forEach((ele) => (ele.category = ele.category));
+            this.categoryList.forEach((ele) => (ele.c_id = ele.c_id));
+
+          }, 200);
+         
           this.spinner = false;
         } else {
           console.log(data["message"]);

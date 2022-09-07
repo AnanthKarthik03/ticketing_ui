@@ -78,7 +78,11 @@ export class EmployeesComponent implements OnInit {
           if (data['success']) {
             this.spinner = false;
             console.log(data['data']);
+            //setTimeout(() => {
             this.employeeData = data['data'];
+          //}, 200);
+                    
+            this.spinner = false;
             // data['data'].forEach((ele) => {
             //   this.employeeData.push({
             //     id: ele.id,

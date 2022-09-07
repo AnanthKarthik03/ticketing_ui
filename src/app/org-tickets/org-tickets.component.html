@@ -43,7 +43,7 @@
                 <!--Size dropdown menu-->
                 <div class="col-md-12">
                   <div class="row">
-                    <div class="col-auto text-left view-port">
+                    <div class="col-auto text-left view-port" >
                       <div class="row">
                         <div class="font-size-1 mar_t pr-2">From:</div>
                         <div class="mobile-v">
@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="font-size-1 ml-2 mar_t px-2">To:</div>
-                        <div class="mobile-v">
+                        <div class="mobile-v" >
                           <p-calendar
                             [(ngModel)]="date4"
                             [showIcon]="true"
@@ -66,20 +66,22 @@
                           ></p-calendar>
                         </div>
 
-                        <div class="font-size-1 ml-2 mar_t px-2">
+                        <div class="font-size-1 ml-2 mar_t px-2" >
                           <span>Project : </span>
                         </div>
-                        <div class="mobile-v pr-1">
+                        <div class="mobile-v pr-1" >
                           <p-multiSelect
                             (onChange)="projectReport($event.value)"
                             [options]="selectProject"
-                            class="lineHeight"
+                            class="lineHeight multiselect-custom"
                             defaultLabel="Select a Project"
                             [filter]="true"
                             name="test"
+                            [maxSelectedLabels]="2"
                             appendTo="body"
+                           
                             [style]="{
-                              overflow: 'visible',
+                              overflow: 'hidden',
                               width: '100%'
                             }"
                           >

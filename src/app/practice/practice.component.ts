@@ -44,15 +44,16 @@ export class PracticeComponent implements OnInit {
     this.service.get_practice().subscribe(
       (data) => {
         if (data['success']) {
-          // this.practiceList = data['data'];
-          data['data'].forEach((ele) => {
-            this.practiceList.push({
-              id: ele.id,
-              status: ele.status,
-              status_name: ele.status === 0 ? 'Active' : 'In Active',
-              practice: ele.practice,
-            });
-          });
+           this.practiceList = data['data'];
+           setTimeout(() => {
+            this.practiceList.forEach((ele) => (ele.id = ele.id));
+            this.practiceList.forEach((ele) => (ele.status = ele.status));
+            this.practiceList.forEach((ele) => (ele.status_name = ele.status === 0 ? 'Active' : 'In Active')
+            );
+            this.practiceList.forEach((ele) => (ele.practice = ele.practice));
+            
+          }, 200);
+        
           this.spinner = false;
         } else {
           console.log(data['message']);

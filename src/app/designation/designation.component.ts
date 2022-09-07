@@ -41,15 +41,15 @@ export class DesignationComponent implements OnInit {
     this.service.get_designation().subscribe(
       (data) => {
         if (data['success']) {
-          // this.designationData = data['data'];
-          data['data'].forEach((ele) => {
-            this.designationData.push({
-              id: ele.id,
-              status: ele.status,
-              status_name: ele.status === 0 ? 'Active' : 'In Active',
-              designation: ele.designation,
-            });
-          });
+           this.designationData = data['data'];
+           setTimeout(() => {
+            this.designationData.forEach((ele) => (ele.id = ele.id));
+            this.designationData.forEach((ele) => (ele.status = ele.status));
+            this.designationData.forEach((ele) => (ele.status_name = ele.status === 0 ? 'Active' : 'In Active')
+            );
+            this.designationData.forEach((ele) => (ele.designation = ele.designation));
+           
+          }, 200);
           this.spinner = false;
         } else {
           console.log(data['message']);
