@@ -87,8 +87,8 @@ export class TicketingAddComponent implements OnInit {
       status: 0,
       remarks: [""],
       files: [""],
-      practice_id: [""],
-      sub_category_id: [""],
+      practice_id: ["",Validators.required],
+      sub_category_id: ["",Validators.required],
       assigned_to: [""],
       assigned_by: parseInt(sessionStorage.getItem("id"), 10),
     });
