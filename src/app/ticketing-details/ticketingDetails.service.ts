@@ -34,9 +34,17 @@ export class TicketingDetailsService {
     return this.http.get(url, this.token());
   }
 
-  orgTickets(companyId, d1, d2) {
+  orgTickets(companyId, pId, d1, d2) {
     const url =
-      AppSettings.API.orgTickets + "/" + companyId + "/" + d1 + "/" + d2;
+      AppSettings.API.orgTickets +
+      "/" +
+      companyId +
+      "/" +
+      pId +
+      "/" +
+      d1 +
+      "/" +
+      d2;
     return this.http.get(url, this.token());
   }
 
