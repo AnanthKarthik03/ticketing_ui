@@ -9,6 +9,7 @@ import * as moment from "moment";
 import { OtherService } from "src/app/other/other.service";
 import { TicketingDetailsService } from "../ticketing-details/ticketingDetails.service";
 import { ToastrService } from "ngx-toastr";
+import { CustomerService } from "../components/customer/customer.service";
 
 @Component({
   selector: "app-org-tickets",
@@ -20,6 +21,8 @@ export class OrgTicketsComponent implements OnInit {
   ticketDetailsData = [];
   projectsData = [];
   projectListData = [];
+  customerData = [];
+  selectClient = [];
   companyId = sessionStorage.getItem("companyId");
   customerId = sessionStorage.getItem("customerId");
   empData = [];
@@ -36,6 +39,7 @@ export class OrgTicketsComponent implements OnInit {
   selectedProjects = "";
   ticketDetailsDataD = [];
   ticketId = "";
+  customerName = "";
   constructor(
     public service: TicketingDetailsService,
     public projectService: ProjectReportService,
@@ -44,8 +48,9 @@ export class OrgTicketsComponent implements OnInit {
     public categoryService: CategoryService,
     public othersService: OtherService,
     private excelService: ExcelService,
+    public customerService: CustomerService,
     private toastr: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.projectGet();
@@ -54,6 +59,8 @@ export class OrgTicketsComponent implements OnInit {
     // this.ticketDetails();
     this.categoryGet();
     this.assignedToGet();
+    this.customerId = sessionStorage.getItem("customerId");
+    this.get_customer();
   }
 
   getEmps() {
@@ -150,28 +157,28 @@ export class OrgTicketsComponent implements OnInit {
                   ele.priority === 0
                     ? "Lower"
                     : ele.priority === 1
-                      ? "High"
-                      : ele.priority === 2
-                        ? "Medium"
-                        : "Medium",
+                    ? "High"
+                    : ele.priority === 2
+                    ? "Medium"
+                    : "Medium",
                 start_date: ele.start_date,
                 status: ele.status,
                 status_name:
                   ele.status === 0
                     ? "Open"
                     : ele.status === 1
-                      ? "In-Progress"
-                      : ele.status === 2
-                        ? "Resolved"
-                        : ele.status === 3
-                          ? "Awaiting Information"
-                          : ele.status === 4
-                            ? "Approved"
-                            : ele.status === 5
-                              ? "Closed"
-                              : ele.status === 6
-                                ? "Hold"
-                                : "Reopen",
+                    ? "In-Progress"
+                    : ele.status === 2
+                    ? "Resolved"
+                    : ele.status === 3
+                    ? "Awaiting Information"
+                    : ele.status === 4
+                    ? "Approved"
+                    : ele.status === 5
+                    ? "Closed"
+                    : ele.status === 6
+                    ? "Hold"
+                    : "Reopen",
                 ticket_desc: ele.ticket_desc,
               });
             });
@@ -186,6 +193,41 @@ export class OrgTicketsComponent implements OnInit {
           this.spinner = false;
         }
       );
+  }
+
+  get_customer() {
+    this.customerService
+      .get_customer(sessionStorage.getItem("companyId"))
+      .subscribe(
+        (data) => {
+          if (data["success"]) {
+            this.customerData = data["data"];
+            const filterDataById = _.uniq(data["data"], "id");
+            filterDataById.forEach((item) => {
+              this.selectClient.push({
+                label: item.customer_name_first,
+                value: item.id,
+              });
+            });
+            console.log(this.selectClient);
+          }
+        },
+        (err) => {
+          this.spinner = false;
+        }
+      );
+  }
+  getCustomerName(id) {
+    const data = _.filter(
+      this.selectClient,
+      (item) => parseInt(item.value, 10) === parseInt(id, 10)
+    );
+    console.log(data);
+    if (data.length > 0) {
+      return data[0].label;
+    } else {
+      return "-";
+    }
   }
 
   projectReport(id) {
@@ -203,7 +245,6 @@ export class OrgTicketsComponent implements OnInit {
   categoryReport(id) {
     console.log(id);
     this.selectCategory = id;
-    
   }
 
   projectGet() {
@@ -268,55 +309,52 @@ export class OrgTicketsComponent implements OnInit {
 
   assignedToGet() {
     this.spinner = true;
-    this.empService.get_employee(this.companyId).subscribe((data) => {
-      if (data["success"]) {
-        this.spinner = false;
-        this.empData = data["data"];
-        const filterDataById = _.uniq(data["data"], "id");
-        filterDataById.forEach((item) => {
-          this.selectAssignedTo.push({
-            label: item.name,
-            value: item.id,
+    this.empService.get_employee(this.companyId).subscribe(
+      (data) => {
+        if (data["success"]) {
+          this.spinner = false;
+          this.empData = data["data"];
+          const filterDataById = _.uniq(data["data"], "id");
+          filterDataById.forEach((item) => {
+            this.selectAssignedTo.push({
+              label: item.name,
+              value: item.id,
+            });
           });
-        });
-        console.log(data["data"]);
-      } else {
-        this.spinner = false;
-      }
-    },
+          console.log(data["data"]);
+        } else {
+          this.spinner = false;
+        }
+      },
       (err) => {
         this.spinner = false;
       }
     );
-
   }
 
   categoryGet() {
     this.spinner = true;
-    this.categoryService
-      .get_category()
-      .subscribe(
-        (data) => {
-          if (data["success"]) {
-            this.spinner = false;
-            this.categoryList = data["data"];
-            const filterDataById = _.uniq(data["data"], "id");
-            filterDataById.forEach((item) => {
-              this.selectCategory.push({
-                label: item.category,
-                value: item.id,
-              });
+    this.categoryService.get_category().subscribe(
+      (data) => {
+        if (data["success"]) {
+          this.spinner = false;
+          this.categoryList = data["data"];
+          const filterDataById = _.uniq(data["data"], "id");
+          filterDataById.forEach((item) => {
+            this.selectCategory.push({
+              label: item.category,
+              value: item.id,
             });
-            console.log(data["data"]);
-          } else {
-            this.spinner = false;
-          }
-        },
-        (err) => {
+          });
+          console.log(data["data"]);
+        } else {
           this.spinner = false;
         }
-      );
-
+      },
+      (err) => {
+        this.spinner = false;
+      }
+    );
   }
 
   getCategory() {
@@ -363,10 +401,10 @@ export class OrgTicketsComponent implements OnInit {
           ele.priority === 0
             ? "Lower"
             : ele.priority === 1
-              ? "High"
-              : ele.priority === 2
-                ? "Medium"
-                : "Medium",
+            ? "High"
+            : ele.priority === 2
+            ? "Medium"
+            : "Medium",
         //start_date: ele.start_date,
         start_date: ele.start_date
           ? moment(ele.start_date).format("YYYY-MM-DD")
@@ -375,18 +413,18 @@ export class OrgTicketsComponent implements OnInit {
           ele.status === 0
             ? "Open"
             : ele.status === 1
-              ? "In-Progress"
-              : ele.status === 2
-                ? "Resolved"
-                : ele.status === 3
-                  ? "Awaiting Information"
-                  : ele.status === 4
-                    ? "Approved"
-                    : ele.status === 5
-                      ? "Closed"
-                      : ele.status === 6
-                        ? "Hold"
-                        : "Reopen",
+            ? "In-Progress"
+            : ele.status === 2
+            ? "Resolved"
+            : ele.status === 3
+            ? "Awaiting Information"
+            : ele.status === 4
+            ? "Approved"
+            : ele.status === 5
+            ? "Closed"
+            : ele.status === 6
+            ? "Hold"
+            : "Reopen",
         ticket_desc: ele.ticket_desc,
       });
     });
