@@ -1,30 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
-import { CompanyService } from './company.service';
-import { environment } from 'src/environments/environment';
-import { ToastrService } from 'ngx-toastr';
-import * as _ from 'underscore';
+import { Component, OnInit } from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
+import { FormBuilder } from "@angular/forms";
+import { Validators } from "@angular/forms";
+import { CompanyService } from "./company.service";
+import { environment } from "src/environments/environment";
+import { ToastrService } from "ngx-toastr";
+import * as _ from "underscore";
 @Component({
-  selector: 'app-company',
-  templateUrl: './company.component.html',
-  styleUrls: ['./company.component.css'],
+  selector: "app-company",
+  templateUrl: "./company.component.html",
+  styleUrls: ["./company.component.css"],
 })
 export class CompanyComponent implements OnInit {
   viewCompany = false;
   companyForm = new FormGroup({});
   typeOfBusiness = [];
-  itemImage = '';
+  itemImage = "";
   companyData = [];
-  imagePath = '';
-  editId = '';
+  imagePath = "";
+  editId = "";
   submitted = false;
   spinner = false;
   employeeId = false;
-  role = '';
-  cId = '';
+  role = "";
+  cId = "";
   constructor(
     public router: Router,
     private formBuilder: FormBuilder,
@@ -32,42 +32,38 @@ export class CompanyComponent implements OnInit {
     private toastr: ToastrService
   ) {}
   ngOnInit() {
-    this.role = sessionStorage.getItem('role');
-    this.cId = sessionStorage.getItem('companyId');
+    this.role = sessionStorage.getItem("role");
+    this.cId = sessionStorage.getItem("companyId");
     this.get_company();
     this.typeOfBusiness.push(
       {
-        label: 'Select Buisness Type',
+        label: "Select Buisness Type",
         value: null,
       },
-      { label: 'Business', value: '0' },
-      { label: 'Individual', value: '1' }
+      { label: "Business", value: "0" },
+      { label: "Individual", value: "1" }
     );
     this.valiDate();
     this.imagePath = environment.company_logo;
   }
   dashboard() {
-    this.router.navigate(['/Dashboard']);
-    if(this.role === 'Admin'){
-      this.router.navigate(['/adminDashboard']);
+    this.router.navigate(["/Dashboard"]);
+    if (this.role === "Admin") {
+      this.router.navigate(["/adminDashboard"]);
     }
   }
   adminDashboard() {
-    this.router.navigate(['/adminDashboard']);
+    this.router.navigate(["/adminDashboard"]);
   }
   customer(item) {
-    console.log(item);
-
-    sessionStorage.setItem('companyId', item.id);
-    sessionStorage.setItem('emp_prefix', item.emp_prefix);
-    this.router.navigate(['/customer']);
+    sessionStorage.setItem("companyId", item.id);
+    sessionStorage.setItem("emp_prefix", item.emp_prefix);
+    this.router.navigate(["/customer"]);
   }
   employee(item) {
-    console.log(item);
-
-    sessionStorage.setItem('companyId', item.id);
-    sessionStorage.setItem('emp_prefix', item.emp_prefix);
-    this.router.navigate(['/employees']);
+    sessionStorage.setItem("companyId", item.id);
+    sessionStorage.setItem("emp_prefix", item.emp_prefix);
+    this.router.navigate(["/employees"]);
   }
   showEmployeeId() {
     this.employeeId = true;
@@ -81,11 +77,11 @@ export class CompanyComponent implements OnInit {
     this.companyForm.reset();
     this.submitted = false;
     this.spinner = false;
-  }
+  };
   showCompanyList = () => {
     this.viewCompany = false;
     this.spinner = false;
-  }
+  };
   get f() {
     return this.companyForm.controls;
   }
@@ -93,40 +89,40 @@ export class CompanyComponent implements OnInit {
   // Validation Funcation of company Form
   valiDate() {
     this.companyForm = this.formBuilder.group({
-      id: [''],
-      company_logo: [''],
-      company_name: ['', Validators.required],
-      company_contact_details: ['', Validators.required],
-      company_email_id: ['', [Validators.required, Validators.email]],
-      company_legal_name: ['', Validators.required],
-      company_website: ['', Validators.required],
-      type_of_business: ['', Validators.required],
-      company_identification_number: ['', Validators.required],
-      office_address_line1: ['', Validators.required],
-      office_address_line2: [''],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      pincode: ['', Validators.required],
-      tan: ['', Validators.required],
-      pan: ['', Validators.required],
-      tan_circle_number: ['', Validators.required],
-      form_16_signatory: [''],
-      gst_number: ['', Validators.required],
-      pf_signatory: [''],
-      pf_number: ['', Validators.required],
-      pt_signatory: [''],
-      pf_signatory_father: [''],
-      pf_signatory_designation: [''],
-      esi_number: ['', Validators.required],
-      esi_signatory_designation: ['', Validators.required],
-      esi_signatory: [''],
-      pt_number: ['', Validators.required],
-      esi_signatory_father: [''],
+      id: [""],
+      company_logo: [""],
+      company_name: ["", Validators.required],
+      company_contact_details: ["", Validators.required],
+      company_email_id: ["", [Validators.required, Validators.email]],
+      company_legal_name: ["", Validators.required],
+      company_website: ["", Validators.required],
+      type_of_business: ["", Validators.required],
+      company_identification_number: ["", Validators.required],
+      office_address_line1: ["", Validators.required],
+      office_address_line2: [""],
+      city: ["", Validators.required],
+      state: ["", Validators.required],
+      pincode: ["", Validators.required],
+      tan: ["", Validators.required],
+      pan: ["", Validators.required],
+      tan_circle_number: ["", Validators.required],
+      form_16_signatory: [""],
+      gst_number: ["", Validators.required],
+      pf_signatory: [""],
+      pf_number: ["", Validators.required],
+      pt_signatory: [""],
+      pf_signatory_father: [""],
+      pf_signatory_designation: [""],
+      esi_number: ["", Validators.required],
+      esi_signatory_designation: ["", Validators.required],
+      esi_signatory: [""],
+      pt_number: ["", Validators.required],
+      esi_signatory_father: [""],
       date_of_incorporation: [new Date(), Validators.required],
       pf_registration_date: [new Date(), Validators.required],
       esi_registration_date: [new Date(), Validators.required],
       pt_registration_date: [new Date(), Validators.required],
-      emp_prefix: [''],
+      emp_prefix: [""],
     });
   }
 
@@ -137,13 +133,13 @@ export class CompanyComponent implements OnInit {
       this.spinner = false;
       return;
     }
-    console.log(this.companyForm.value);
+
     if (this.editId) {
       this.companyForm.value.id = this.editId;
     }
     const body = this.prepareSave();
     this.service.add_company(body).subscribe((data) => {
-      if (data['success']) {
+      if (data["success"]) {
         this.spinner = false;
         if (this.editId) {
           this.toastr.success(`Updated Successfully`);
@@ -151,12 +147,12 @@ export class CompanyComponent implements OnInit {
           this.toastr.success(`Company Added Successfully`);
         }
         this.companyForm.reset();
-        this.editId = '';
+        this.editId = "";
         this.showCompanyList();
         this.get_company();
       } else {
         this.spinner = false;
-        this.toastr.warning(data['message']);
+        this.toastr.warning(data["message"]);
       }
     });
   }
@@ -164,16 +160,16 @@ export class CompanyComponent implements OnInit {
     this.spinner = true;
     this.service.get_company().subscribe(
       (data) => {
-        if (data['success']) {
+        if (data["success"]) {
           this.spinner = false;
-          console.log(data['data']);
-          if (this.role === 'Admin') {
+
+          if (this.role === "Admin") {
             this.companyData = _.filter(
-              data['data'],
+              data["data"],
               (item) => parseInt(item.id, 10) === parseInt(this.cId, 10)
             );
           } else {
-            this.companyData = data['data'];
+            this.companyData = data["data"];
           }
         } else {
           this.spinner = false;
@@ -187,7 +183,6 @@ export class CompanyComponent implements OnInit {
   onFileChange(event) {
     // const reader = new FileReader();
 
-    console.log(event);
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.itemImage = file;
@@ -196,14 +191,14 @@ export class CompanyComponent implements OnInit {
 
   private prepareSave(): any {
     const input = new FormData();
-    input.append('logo', this.itemImage);
-    input.append('data', JSON.stringify(this.companyForm.value));
+    input.append("logo", this.itemImage);
+    input.append("data", JSON.stringify(this.companyForm.value));
     return input;
   }
 
   edit(item) {
     this.spinner = false;
-    console.log(item);
+
     this.editId = item.id;
     this.showCompanyForm();
     this.companyForm.patchValue({

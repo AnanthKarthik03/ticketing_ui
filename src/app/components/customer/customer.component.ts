@@ -32,7 +32,7 @@ export class CustomerComponent implements OnInit {
   cityList = [];
   companyData = [];
   companyName = "";
-  role = ''
+  role = "";
   constructor(
     public router: Router,
     private fb: FormBuilder,
@@ -101,7 +101,7 @@ export class CustomerComponent implements OnInit {
           this.companyData,
           (item) => parseInt(item.id, 10) === parseInt(id, 10)
         );
-        console.log(this.companyName);
+
         if (temp.length > 0) {
           this.companyName = temp[0].company_name;
         }
@@ -116,7 +116,6 @@ export class CustomerComponent implements OnInit {
         if (data["success"]) {
           this.spinner = false;
           this.customerData = data["data"];
-          console.log(data["data"]);
         } else {
           this.spinner = false;
         }
@@ -138,13 +137,11 @@ export class CustomerComponent implements OnInit {
       this.spinner = false;
       return;
     }
-    console.log(this.myForm.value);
-    console.log(this.editId);
+
     if (this.editId) {
       this.myForm.value.id = this.editId;
     }
     const body = this.prepareSave();
-    console.log(body);
 
     this.service.add_customer(body).subscribe((data) => {
       if (data["success"]) {
@@ -167,7 +164,6 @@ export class CustomerComponent implements OnInit {
   onFileChange(event) {
     // const reader = new FileReader();
 
-    console.log(event);
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.itemImage = file;
@@ -205,7 +201,7 @@ export class CustomerComponent implements OnInit {
 
   edit(item) {
     this.spinner = false;
-    console.log(item);
+
     this.editId = item.id;
     this.showCustomerForm();
     this.myForm.patchValue({
@@ -235,7 +231,6 @@ export class CustomerComponent implements OnInit {
 
   countryDetails() {
     this.countryService.get_country().subscribe((data) => {
-      console.log(data["data"]);
       if (data["success"]) {
         this.countryList.unshift({
           label: "Select Country",
@@ -253,7 +248,6 @@ export class CustomerComponent implements OnInit {
 
   getState() {
     this.stateService.get_state().subscribe((data) => {
-      console.log(data["data"]);
       if (data["success"]) {
         this.stateListDummy = data["data"];
 
@@ -272,7 +266,6 @@ export class CustomerComponent implements OnInit {
   }
 
   countryChange(e) {
-    console.log(this.stateListDummy);
     this.stateList = [];
     const temp = _.filter(
       this.stateListDummy,
@@ -297,7 +290,6 @@ export class CustomerComponent implements OnInit {
         label: "No State Found",
         value: null,
       });
-      console.log(temp);
     }
   }
 

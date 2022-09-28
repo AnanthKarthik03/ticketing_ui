@@ -52,13 +52,13 @@ export class ProfileComponent implements OnInit {
   dashboard() {
     this.router.navigate(["/dashboard"]);
   }
-  adminDashboard(){
+  adminDashboard() {
     this.router.navigate(["/adminDashboard"]);
   }
-  pmDashboard(){
+  pmDashboard() {
     this.router.navigate(["/pmDashboard"]);
   }
-  employeeDashboard(){
+  employeeDashboard() {
     this.router.navigate(["/employeeDashboard"]);
   }
 
@@ -101,7 +101,6 @@ export class ProfileComponent implements OnInit {
   onProfileUpload(event) {
     // const reader = new FileReader();
 
-    console.log(event);
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.itemImage = file;
@@ -121,10 +120,9 @@ export class ProfileComponent implements OnInit {
 
   changePassword() {
     const body = this.myForm.value;
-    console.log(body);
+
     this.changePasswordService.resetPassword(body).subscribe((data) => {
       if (data["success"]) {
-        console.log(data);
         this.toastr.success("Password Change Successful");
         this.router.navigate(["/login"]);
       } else {
@@ -136,15 +134,12 @@ export class ProfileComponent implements OnInit {
     this.service.get_company().subscribe(
       (data) => {
         if (data["success"]) {
-          console.log(data["data"]);
           this.empData = data["data"];
           this.userProfile = this.empData[0].profile_image;
           this.mobile = this.empData[0].phone;
         }
       },
-      (err) => {
-        console.log(err);
-      }
+      (err) => {}
     );
   }
 
@@ -155,10 +150,9 @@ export class ProfileComponent implements OnInit {
       if (data["success"]) {
         this.employeeDetails();
         this.toastr.success("Profile Updated!");
-        
+
         this.showProfileForm();
         this.showProfileDetails();
-        
       }
     });
   }

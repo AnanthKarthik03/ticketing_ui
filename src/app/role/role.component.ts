@@ -53,7 +53,7 @@ export class RoleComponent implements OnInit {
          
           this.spinner = false;
         } else {
-          console.log(data['message']);
+        
           this.spinner = false;
         }
       },
@@ -74,7 +74,7 @@ export class RoleComponent implements OnInit {
       // this.spinner = false;
       return;
     }
-    console.log(this.rolesForm.value);
+   
     const body = this.rolesForm.value;
     body.status = JSON.parse(body.status);
     if (this.editId) {
@@ -82,7 +82,7 @@ export class RoleComponent implements OnInit {
     }
     this.service.add_role(body).subscribe(
       (data) => {
-        console.log(data['data']);
+       
         if (data['success']) {
           this.spinner = false;
           if (this.editId) {
@@ -146,7 +146,7 @@ export class RoleComponent implements OnInit {
           role: ele.role,
         });
       });
-      console.log(this.finalExcelData);
+     
       setTimeout(() => {
         event = null;
       }, 3000);

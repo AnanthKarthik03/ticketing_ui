@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, } from "@angular/core";
 import { EmployeesService } from "../employees/employees.service";
 import { ProjectService } from "../project-list/project-list.service";
 import { ProjectReportService } from "../project-report/projectReport.service";
@@ -10,6 +10,8 @@ import { OtherService } from "src/app/other/other.service";
 import { TicketingDetailsService } from "../ticketing-details/ticketingDetails.service";
 import { ToastrService } from "ngx-toastr";
 import { CustomerService } from "../components/customer/customer.service";
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: "app-org-tickets",
@@ -49,7 +51,9 @@ export class OrgTicketsComponent implements OnInit {
     public othersService: OtherService,
     private excelService: ExcelService,
     public customerService: CustomerService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public routers: Router, public router: ActivatedRoute
+    
   ) {}
 
   ngOnInit() {
@@ -61,8 +65,47 @@ export class OrgTicketsComponent implements OnInit {
     this.assignedToGet();
     this.customerId = sessionStorage.getItem("customerId");
     this.get_customer();
+    
   }
-
+  get_customer() {
+    this.selectClient = [];
+    
+    this.customerService
+      .get_customer(sessionStorage.getItem('companyId'))
+      .subscribe(
+        (data) => {
+          if (data['success']) {
+            this.customerData = data['data'];
+            const filterDataById = _.uniq(data['data'], 'id');
+            filterDataById.forEach((item) => {
+              this.selectClient.push({
+                label: item.customer_name_first,
+                value: item.id,
+              });
+            });
+          console.log(this.selectClient);
+          } else {
+           
+            this.spinner = false;
+          }
+        },
+        (err) => {
+          this.spinner = false;
+        }
+      );
+  }
+  getcustomerName(id) {
+    const data = _.filter(
+      this.selectClient,(item) => parseInt(item.value, 10)
+    );
+console.log(this.selectClient);
+console.log(data);
+    if (data.length > 0) {
+      return data[0].label;
+    } else {
+      return "-";
+    }
+  }
   getEmps() {
     this.empService.get_employee(this.companyId).subscribe((data) => {
       if (data["success"]) {
@@ -77,11 +120,12 @@ export class OrgTicketsComponent implements OnInit {
       this.empData,
       (item) => parseInt(item.id, 10) === parseInt(id, 10)
     );
-    console.log(data);
+
     if (data.length > 0) {
       return data[0].name;
     }
   }
+
   getOther() {
     this.othersList = [];
     this.spinner = true;
@@ -97,7 +141,6 @@ export class OrgTicketsComponent implements OnInit {
           this.othersList = data["data"];
           this.spinner = false;
         } else {
-          console.log(data["message"]);
           this.spinner = false;
         }
       },
@@ -112,7 +155,7 @@ export class OrgTicketsComponent implements OnInit {
       this.othersList,
       (item) => parseInt(item.id, 10) === parseInt(id, 10)
     );
-    console.log(othersNameFilter);
+
     if (othersNameFilter.length > 0) {
       return othersNameFilter[0].others;
     } else {
@@ -134,7 +177,7 @@ export class OrgTicketsComponent implements OnInit {
           if (data["success"]) {
             // this.ticketDetailsData = data['data'];
             console.log(data["data"]);
-
+            const arr = data["data"].concat(data["others"]);
             data["data"].forEach((ele) => {
               this.ticketDetailsData.push({
                 //ticket_no: ele.ticket_no,
@@ -181,8 +224,6 @@ export class OrgTicketsComponent implements OnInit {
               });
             });
             this.ticketDetailsDataD = this.ticketDetailsData;
-
-            console.log(this.ticketDetailsData);
           } else {
             this.ticketDetailsData = [];
           }
@@ -193,40 +234,7 @@ export class OrgTicketsComponent implements OnInit {
       );
   }
 
-  get_customer() {
-    this.customerService
-      .get_customer(sessionStorage.getItem("companyId"))
-      .subscribe(
-        (data) => {
-          if (data["success"]) {
-            this.customerData = data["data"];
-            const filterDataById = _.uniq(data["data"], "id");
-            filterDataById.forEach((item) => {
-              this.selectClient.push({
-                label: item.customer_name_first,
-                value: item.id,
-              });
-            });
-            console.log(this.selectClient);
-          }
-        },
-        (err) => {
-          this.spinner = false;
-        }
-      );
-  }
-  getCustomerName(id) {
-    const data = _.filter(
-      this.selectClient,
-      (item) => parseInt(item.value, 10) === parseInt(id, 10)
-    );
-    console.log(data);
-    if (data.length > 0) {
-      return data[0].label;
-    } else {
-      return "-";
-    }
-  }
+ 
 
   projectReport(id) {
     this.selectedProjects = id;
@@ -234,13 +242,11 @@ export class OrgTicketsComponent implements OnInit {
   }
 
   assignedToReport(id) {
-    console.log(id);
     this.selectAssignedTo = id;
     this.ticketDetails(id);
   }
 
   categoryReport(id) {
-    console.log(id);
     this.selectCategory = id;
   }
 
@@ -265,7 +271,6 @@ export class OrgTicketsComponent implements OnInit {
                   value: item.id,
                 });
               });
-              console.log(data["data"]);
             } else {
               this.spinner = false;
             }
@@ -292,7 +297,7 @@ export class OrgTicketsComponent implements OnInit {
                   value: item.id,
                 });
               });
-              console.log(data["data"]);
+             // console.log(data["data"]);
             } else {
               this.spinner = false;
             }
@@ -307,6 +312,7 @@ export class OrgTicketsComponent implements OnInit {
   assignedToGet() {
     this.spinner = true;
     this.empService.get_employee(this.companyId).subscribe(
+
       (data) => {
         if (data["success"]) {
           this.spinner = false;
@@ -318,7 +324,6 @@ export class OrgTicketsComponent implements OnInit {
               value: item.id,
             });
           });
-          console.log(data["data"]);
         } else {
           this.spinner = false;
         }
@@ -343,7 +348,6 @@ export class OrgTicketsComponent implements OnInit {
               value: item.id,
             });
           });
-          console.log(data["data"]);
         } else {
           this.spinner = false;
         }
@@ -358,7 +362,6 @@ export class OrgTicketsComponent implements OnInit {
     this.categoryService.get_category().subscribe((data) => {
       if (data["success"]) {
         this.categoryList = data["data"];
-        console.log(this.categoryList);
       } else {
         this.categoryList = [];
       }
@@ -370,7 +373,7 @@ export class OrgTicketsComponent implements OnInit {
       this.categoryList,
       (item) => parseInt(item.id, 10) === parseInt(id, 10)
     );
-    console.log(data);
+
     if (data.length > 0) {
       return data[0].category;
     } else {
@@ -443,7 +446,6 @@ export class OrgTicketsComponent implements OnInit {
     }
   }
   clickTicket(item) {
-    console.log(item.id);
     this.ticketId = item.id;
   }
   onSubmit() {
@@ -452,5 +454,8 @@ export class OrgTicketsComponent implements OnInit {
       this.ticketDetails(this.selectedProjects);
       this.toastr.success(`Ticket Assigned !`);
     });
+  }
+  ticketingList() {
+    this.routers.navigate(['/ticketingList']);
   }
 }

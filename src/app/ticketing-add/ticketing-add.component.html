@@ -130,6 +130,7 @@
                             <label>Practice</label>
                             <p-dropdown
                               formControlName="practice_id"
+                              [(ngModel)]="selectedpratice"
                               [options]="pratice"
                               (onChange)="praticeChange($event.value)"
                               name="test"
@@ -159,10 +160,13 @@
                             <label>Category</label>
                             <p-dropdown
                               formControlName="category_id"
+                                                     
                               (onChange)="categoryChange($event.value)"
+
                               [options]="category"
                               name="test"
                               appendTo="body"
+                              
                               [style]="{
                                 overflow: 'visible',
                                 width: '100%'

@@ -161,7 +161,7 @@ h6 {
   color: #ffffff;
   text-decoration: none;
   text-shadow: 0px 1px 0px #283966;
-  float: right;
+  
   margin-right: 6px;
 }
 
@@ -242,7 +242,14 @@ h2 {
   height: 100%;
   margin: 0;
 }
-
+.modal-dialog1{
+  width: 50%;
+  height: 50%;
+  max-width: none;
+  
+  margin: 10%;
+  margin-left: 30%;
+}
 .modal-content {
   height: 100%;
   border: 0;

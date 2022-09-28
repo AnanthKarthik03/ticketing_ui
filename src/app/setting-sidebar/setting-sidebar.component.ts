@@ -182,7 +182,7 @@ export class SettingSidebarComponent implements OnInit {
           })
           .get()
           .join(" ");
-        console.log(others);
+      
         $("body").removeClass(others).addClass(this.value);
       });
     });

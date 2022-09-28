@@ -136,3 +136,442 @@
     font-size: 14px;
   }
 }
+.card-ticketing {
+  background: #e8ecef;
+}
+
+.card-header_ticketing {
+  background-color: #9bc5c3;
+}
+
+.card-header_ticketing1 {
+  background-color: #f9a947;
+}
+
+.card-header_ticketing2 {
+  background-color: #627ab7;
+}
+
+.card-header_ticketing3 {
+  background-color: #cdbf40;
+}
+
+.card-header_ticketing4 {
+  background-color: #6bb06d;
+}
+div .b {
+  word-wrap: break-word;
+}
+.card-header1 {
+  padding: 10px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  font-size: 0.67em;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 10px;
+}
+
+.card-list {
+  font-size: 0.67em;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  border: none;
+  margin-bottom: 40px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.card-list-text {
+  padding-top: 30px;
+  color: #ffffff;
+}
+
+.card-list-text .h6,
+h6 {
+  font-size: 0.9rem;
+}
+
+.card-body-list {
+  flex: 1 1 auto;
+  position: relative;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 10px;
+}
+
+.card-body-white {
+  border-radius: 0px;
+}
+
+.border_Color {
+  border: 0px;
+  color: #448fd8;
+}
+
+.addButtonlist {
+  background-color: #ffffff;
+  border: 1px solid #fff;
+  display: inline-block;
+  cursor: pointer;
+  color: #000;
+  font-family: Arial;
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.addButtonlist:hover {
+  background-color: #fff;
+  border: 1px solid #fff;
+  color: rgb(50, 77, 230);
+}
+
+.alignleft {
+  float: left;
+}
+
+.alignright {
+  float: right;
+}
+
+#ticketing .card {
+  background: #e8ecef;
+}
+
+#example-1 .card {
+  background: #fff;
+}
+
+.nav-container {
+  position: relative;
+}
+
+.button-back {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Ticketing Styles */
+
+.ticketing-styles {
+  column-count: 2;
+  column-gap: 40px;
+}
+
+.ticketing-styles .ms-1 {
+  padding-left: 10px;
+}
+
+.ticketing-styles .status {
+  width: 90%;
+}
+
+.ticketing-styles-form {
+  background: #ffffff;
+}
+
+/* employee Group styles */
+
+.cancleButton {
+  background-color: #2e964a;
+  border: 1px solid #18ab29;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  margin-right: 6px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #2f6627;
+}
+
+.cancleButton:hover {
+  background-color: #2e964a;
+}
+
+
+
+
+
+h2 {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.card-body1 {
+  padding: 0px;
+  position: relative;
+}
+
+.readio {
+  border: none;
+}
+
+.edit-button {
+  background-color: rgb(21, 105, 214);
+  border-radius: 5px;
+  border: 1px solid #29668f;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  margin-right: 20px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #3d768a;
+  font-size: x-small;
+}
+
+.close:focus {
+  outline: none;
+}
+
+.dropdown {
+  border: none;
+}
+
+.nav-container {
+  position: relative;
+}
+
+.button-back {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.modal-dialog {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  margin: 0;
+}
+
+.modal-content {
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+}
+
+.modal-body {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.btn-open-modal {
+  margin-bottom: 0.5em;
+}
+
+.tabs-section {
+  overflow: hidden;
+  background-color: #fff;
+  padding: 0px 0px;
+}
+
+.tabs-section .nav-tabs {
+  border: 0;
+}
+
+.tabs-section .nav-link {
+  border: 0;
+  padding: 11px 15px;
+  transition: 0.3s;
+  color: #000;
+  border-radius: 0;
+}
+
+.tabs-section .nav-link:hover {
+  color: #fff;
+  background: #656262;
+  width: 100%;
+}
+
+.tabs-section .nav-link.active {
+  color: #fff;
+  background: #656262;
+  width: 100%;
+}
+
+.tabs-section .nav-link:hover {
+  background: #656262;
+  color: #fff;
+  width: 100%;
+}
+
+.open-background {
+  background: #f1f1f1;
+}
+
+.tabs-section .tab-pane.active {
+  -webkit-animation: fadeIn 0.5s ease-out;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.tabs-section .details h3 {
+  color: #656262;
+}
+
+.tabs-section .details p {
+  color: #aaaaaa;
+}
+
+.modal-header {
+  background: #e0e0e0;
+}
+
+.modal-padding {
+  padding-right: 1px !important;
+}
+
+/* modal styles */
+
+.list-group {
+  margin: auto;
+}
+
+.cement {
+  background: #f1f1f1;
+}
+
+.list-group-item:first-child {
+  border-top-left-radius: initial !important;
+  border-top-right-radius: initial !important;
+}
+
+a:hover {
+  color: #fff;
+  background: #656262;
+}
+
+.nav-tabs .nav-link.active {
+  border-color: #2185d0 !important;
+  color: #2185d0 !important;
+  background: 0 0;
+}
+
+/* .card-collapsed:hover {
+  border-color: #17a2b8;
+} */
+
+.sky-blue {
+  background-color: #e0eaf1;
+}
+
+.normal-blue {
+  background-color: #ede0f1;
+}
+
+.brown {
+  background-color: #e4d8c5;
+}
+
+.modal-header1 {
+  background-color: #9bc5c3;
+}
+
+.fa-2 {
+  font-size: 16px !important;
+}
+
+.enabledStatus {
+  background-color: #21ba45;
+  color: #fff;
+}
+
+.space {
+  display: block;
+  border-bottom: 0px;
+}
+
+.container-padd {
+  padding: 0px;
+}
+
+.all-card {
+  border-radius: 0px;
+}
+
+.all-header {
+  background-color: #4374b7;
+  color: white;
+  display: flex;
+  justify-content: center;
+  padding: 14px 0px;
+}
+
+#header-border1 {
+  border-bottom: 4px solid #f7c8c9;
+}
+
+#header-border2 {
+  border-bottom: 4px solid #cd004b;
+}
+
+#header-border3 {
+  border-bottom: 4px solid #f6b128;
+}
+
+#header-border4 {
+  border-bottom: 4px solid #057855;
+}
+
+#header-border5 {
+  border-bottom: 4px solid #85c446;
+}
+
+#header-border6 {
+  border-bottom: 4px solid #a25016;
+}
+
+#header-border7 {
+  border-bottom: 4px solid #94cecb;
+}
+
+#header-border8 {
+  border-bottom: 4px solid #fb8a2e;
+}
+
+#header-border9 {
+  border-bottom: 4px solid #00b2a9;
+}
+
+.ticket-font {
+  font-size: 13px;
+  display: flex;
+  color: royalblue;
+}
+
+.assigne {
+  font-size: 11px;
+  display: flex;
+}
+
+.desc-p {
+  padding: 8px 0 8px 0;
+  font-size: 12px;
+}
+.text-wrap {
+  font-size: 12px;
+  white-space: normal !important;
+}
+.footer-bt {
+  border-top: 0px;
+}
+
+.add-bugs {
+  border-style: dotted;
+  width: 100%;
+  border-radius: 5px;
+  color: royalblue;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  outline: none;
+  border-color: darkgray;
+}
+
+.add-bugs:hover {
+  background-color: #dad8d8;
+  /* color: white; */
+}

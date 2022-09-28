@@ -92,7 +92,7 @@ export class TimeSheetComponent implements OnInit {
     this.getTimeSheet();
     this.getTicketList();
 
-    console.log(`123`);
+   
   }
 
   getOther() {
@@ -109,7 +109,7 @@ export class TimeSheetComponent implements OnInit {
           });
           this.spinner = false;
         } else {
-          console.log(data['message']);
+         
           this.spinner = false;
         }
       },
@@ -121,7 +121,7 @@ export class TimeSheetComponent implements OnInit {
 
 
   calenderOptions() {
-    console.log(this.fData);
+  
 
     return this.fData;
   }
@@ -134,7 +134,7 @@ export class TimeSheetComponent implements OnInit {
   handleDateSelect(selectInfo: DateSelectArg) {
     this.myTime.reset();
     this.submitted = false;
-    console.log(selectInfo.startStr);
+  
     this.date = selectInfo.startStr;
     this.myTime.controls['date'].setValue(this.date);
     $('#large-Modal').modal('show');
@@ -164,7 +164,7 @@ export class TimeSheetComponent implements OnInit {
       (item) =>
         parseInt(item.id, 10) === parseInt(clickInfo.event._def.publicId, 10)
     );
-    console.log(this.ticketsData2);
+   
     this.editId = this.ticketsData2[0].id;
     this.projectChange(this.ticketsData2[0].project_id ? this.ticketsData2[0].project_id.toString() : '0');
     this.myTime.patchValue({
@@ -179,7 +179,7 @@ export class TimeSheetComponent implements OnInit {
       customer_id: sessionStorage.getItem('customerId'),
       others: parseInt(this.ticketsData2[0].others, 10)
     });
-    console.log(this.myTime.value);
+  
   }
 
   handleEvents(events: EventApi[]) { }
@@ -191,7 +191,7 @@ export class TimeSheetComponent implements OnInit {
     const projectId = sessionStorage.getItem('projectId');
     this.projectService.get_ticket(cId, cusId, projectId).subscribe((data) => {
       if (data['success']) {
-        console.log(data['data']);
+       
 
         const dd = _.filter(
           data['data'],
@@ -205,7 +205,7 @@ export class TimeSheetComponent implements OnInit {
             value: item.id,
           });
         });
-        console.log(this.ticketsData);
+      
       }
     });
   }
@@ -217,7 +217,7 @@ export class TimeSheetComponent implements OnInit {
           this.companyData,
           (item) => parseInt(item.id, 10) === parseInt(id, 10)
         );
-        console.log(this.companyName);
+       
         if (temp.length > 0) {
           this.companyName = temp[0].company_name;
         }
@@ -234,7 +234,7 @@ export class TimeSheetComponent implements OnInit {
             this.customerData,
             (item) => parseInt(item.id, 10) === parseInt(id, 10)
           );
-          console.log(this.customerName);
+         
           if (temp.length > 0) {
             this.customerName = temp[0].company_name;
           }
@@ -260,7 +260,7 @@ export class TimeSheetComponent implements OnInit {
             });
           });
 
-          console.log(data['data']);
+        
         }
       });
     // this.projectService
@@ -328,7 +328,7 @@ export class TimeSheetComponent implements OnInit {
             this.toastr.success(`Time Sheet Added Successfully`);
           }
           this.spinner = false;
-          console.log(data);
+        
           $('#large-Modal').modal('hide');
           this.myTime.reset();
           this.getTimeSheet();
@@ -341,7 +341,7 @@ export class TimeSheetComponent implements OnInit {
         this.spinner = false;
       }
     );
-    console.log(body);
+  
   }
 
   getTimeSheet() {
@@ -357,7 +357,7 @@ export class TimeSheetComponent implements OnInit {
       .subscribe((data) => {
         if (data['success']) {
           this.ticketsData1 = data['data'];
-          console.log(data['data']);
+         
 
           data['data'].forEach((ele, i) => {
             this.fData.push({
@@ -384,12 +384,12 @@ export class TimeSheetComponent implements OnInit {
             });
           });
 
-          console.log(this.calendarOptions);
+        
 
           this.currentEvents = newTimeOffEvent;
 
           // setTimeout(() => {
-          console.log(`in settime`);
+        
           this.calendarOptions = {
             headerToolbar: {
               left: 'prev,next today',
@@ -409,7 +409,7 @@ export class TimeSheetComponent implements OnInit {
             eventsSet: this.handleEvents.bind(this),
           };
 
-          console.log(this.calendarOptions);
+      
 
           // }, 2000);
         } else {
@@ -435,18 +435,18 @@ export class TimeSheetComponent implements OnInit {
   }
 
   projectChange(e) {
-    console.log(e, typeof e);
+   
 
     this.othersDisbale = false;
     this.ticketsData = [];
     let cust = null;
-    console.log(this.projectData);
+  
 
     const custId = _.filter(
       this.projectData,
       (item) => parseInt(item.id, 10) === parseInt(e, 10)
     );
-    console.log(custId);
+  
     if (custId.length > 0) {
       cust = custId[0].customer_id;
       this.myTime.controls['customer_id'].setValue(cust);
@@ -457,7 +457,7 @@ export class TimeSheetComponent implements OnInit {
       this.myTime.controls['project_id'].setValue(0);
 
       this.othersDisbale = true;
-      console.log('others');
+    
       if (this.ticketsData2.length > 0) {
         this.myTime.controls['others'].setValue(this.ticketsData2[0].others);
       }
@@ -467,7 +467,7 @@ export class TimeSheetComponent implements OnInit {
         this.myTime.controls['project_id'].setValue(e);
         this.othersDisbale = false;
         this.myTime.controls['ticket_id'].enable();
-        console.log(e);
+       
         const cId = sessionStorage.getItem('companyId');
         const cusId = cust;
         const id = sessionStorage.getItem('id');
@@ -475,7 +475,7 @@ export class TimeSheetComponent implements OnInit {
         this.projectService
           .get_ticket(cId, cusId, projectId)
           .subscribe((data) => {
-            console.log(data['data']);
+           
             const dd = _.filter(
               data['data'],
               (item) => parseInt(item.assigned_to, 10) === parseInt(id, 10)
@@ -494,7 +494,7 @@ export class TimeSheetComponent implements OnInit {
       } else {
         this.myTime.controls['project_id'].setValue(e);
         this.othersDisbale = false;
-        console.log(e);
+      
         this.myTime.controls['ticket_id'].setValue(0);
         this.myTime.controls['ticket_id'].disable();
       }

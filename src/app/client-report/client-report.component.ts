@@ -52,7 +52,7 @@ export class ClientReportComponent implements OnInit {
                 value: item.id,
               });
             });
-            console.log(data['data']);
+           
           } else {
             this.projectReport(this.customerData[0].id);
             this.spinner = false;
@@ -72,7 +72,7 @@ export class ClientReportComponent implements OnInit {
         (data) => {
           if (data['success']) {
             this.spinner = false;
-            console.log(data['data']);
+           
             this.clientReportData = data['data'];
             const arr = data['data'];
             arr.forEach((ele) => {

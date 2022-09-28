@@ -20,7 +20,7 @@ export class LoginserService {
         // login bem-sucedido se houver um token jwt na resposta
         if (user && user.token) {
           this.userData = user.data;
-          console.log( this.userData);
+         
 
           sessionStorage.setItem('token', user.token);
           sessionStorage.setItem('emp_id', user.data.emp_code);
