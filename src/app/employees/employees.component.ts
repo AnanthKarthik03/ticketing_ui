@@ -64,6 +64,8 @@ export class EmployeesComponent implements OnInit {
       ctc_per_month: ["", Validators.required],
       gender: ["", Validators.required],
       raise_bug: ["", Validators.required],
+      user_type: ["", Validators.required],
+
     });
   }
 
@@ -167,6 +169,7 @@ export class EmployeesComponent implements OnInit {
       ctc_per_month: item.ctc_per_month,
       gender: item.gender.toString(),
       raise_bug: item.raise_bug.toString(),
+      user_type: item.user_type,
     });
   }
 
