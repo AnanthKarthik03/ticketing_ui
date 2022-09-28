@@ -1750,14 +1750,39 @@
                                                 {{ bugView.assigned_to_name }}
                                                 <button
                                                   class="border_Color"
-                                                  data-toggle="modal"
-                                                  data-target="#myModal"
+                                                  (click)="reAssign()"
                                                 >
                                                   <i
                                                     class="fa fa-pencil"
                                                     aria-hidden="true"
                                                   ></i>
                                                 </button>
+                                              </div>
+
+                                              <div
+                                                class="col-6 py-1"
+                                                *ngIf="reassignField"
+                                              >
+                                                <strong>Re Assign To:</strong>
+                                              </div>
+                                              <div
+                                                class="col-6 py-1"
+                                                *ngIf="reassignField"
+                                              >
+                                                <div class="form-group">
+                                                  <select
+                                                  (change)="reAssignChange($event.target.value)"                                                    class="form-control"
+                                                  >
+                                                    <option
+                                                      *ngFor="
+                                                        let item of assignedToEmp
+                                                      "
+                                                      value="{{ item.value }}"
+                                                    >
+                                                      {{ item.label }}
+                                                    </option>
+                                                  </select>
+                                                </div>
                                               </div>
                                               <div class="col-6 py-1">
                                                 <strong>Due on:</strong>
@@ -2014,106 +2039,6 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div
-      id="myModal"
-      class="modal fade"
-      tabindex="-1"
-      role="dialog"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog1 modal-sm">
-        <div class="modal-content">
-          <div class="modal-header modal-header1">
-            <h5 class="modal-title" id="exampleModalLabel">Role</h5>
-            <button
-              type="button"
-              class="close close-button"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <div aria-hidden="true">&times;</div>
-            </button>
-          </div>
-          <form method="post" action="" role="form" [formGroup]="rolesForm">
-            <div class="modal-body">
-              <div class="col-lg-12">
-                <div class="row">
-                  <div class="col-3 pr-3">
-                    <div class="form-group">
-                      <label>Role Name <span style="color: red">*</span></label>
-                      <input
-                        type="text"
-                        name="role"
-                        class="form-control"
-                        id="code"
-                        formControlName="role"
-                        [ngClass]="{
-                          'is-invalid': submitted && f.role.errors
-                        }"
-                        required
-                      />
-                      <div
-                        *ngIf="submitted && f.role.errors"
-                        class="invalid-feedback"
-                      >
-                        <div *ngIf="f.role.errors.required">
-                          Role Name is required
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-3 pl-3">
-                    <div class="form-group">
-                      <label>Status <span style="color: red">*</span></label>
-                      <select
-                        name="select"
-                        formControlName="status"
-                        class="form-control"
-                        [ngClass]="{
-                          'is-invalid': submitted && f.status.errors
-                        }"
-                      >
-                        <option value="" selected>Select Status</option>
-                        <option value="0">Active</option>
-                        <option value="1">InActive</option>
-                      </select>
-                      <div
-                        *ngIf="submitted && f.status.errors"
-                        class="invalid-feedback"
-                      >
-                        <div *ngIf="f.status.errors.required">
-                          Status is required
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary footer-button"
-                data-dismiss="modal"
-                (click)="clear()"
-              >
-                Close
-              </button>
-              <button
-                [disabled]="spinner"
-                (click)="onSubmit()"
-                type="button"
-                class="btn btn-primary footer-button"
-              >
-                Save
-              </button>
-            </div>
-          </form>
         </div>
       </div>
     </div>

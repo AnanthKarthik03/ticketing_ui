@@ -19,12 +19,12 @@ export class SidebarComponent implements OnInit {
   roleId = '';
   pageType = '';
   ngOnInit() {
+    this.userType = sessionStorage.getItem('user_type');
     this.pageType = this.router.snapshot.url[0].path;
 
     this.roleId = sessionStorage.getItem('role');
     this.userProfile = sessionStorage.getItem('user_image');
     this.userName = sessionStorage.getItem('name');
-    this.userType = sessionStorage.getItem('user_type');
     console.log(this.userType);
 
     sessionStorage.setItem('projectId', null);

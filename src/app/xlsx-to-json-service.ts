@@ -39,14 +39,14 @@ export class XlsxToJsonService {
   }
 
   parseSheet(sheet, readCells) {
-    const range = XLSX.Utils.decode_range(sheet['!ref']);
+    const range = XLSX.utils.decode_range(sheet['!ref']);
     const sheetData = [];
 
     if (readCells === true) {
       _.forEachRight(_.range(range.s.r, range.e.r + 1), (row) => {
         const rowData = [];
         _.forEachRight(_.range(range.s.c, range.e.c + 1), (column) => {
-          const cellIndex = XLSX.Utils.encode_cell({
+          const cellIndex = XLSX.utils.encode_cell({
             c: column,
             r: row,
           });
@@ -68,7 +68,7 @@ export class XlsxToJsonService {
   to_json(workbook) {
     const result = {};
     workbook.SheetNames.forEach((sheetName) => {
-      const roa = XLSX.Utils.sheet_to_json(workbook.Sheets[sheetName]);
+      const roa = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
       if (roa.length > 0) {
         result[sheetName] = roa;
       }

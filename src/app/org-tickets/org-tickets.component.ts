@@ -451,7 +451,7 @@ console.log(data);
   onSubmit() {
     const id = sessionStorage.getItem("id");
     this.categoryService.updateTicket(id, this.ticketId).subscribe((data) => {
-      this.ticketDetails(this.selectedProjects);
+      this.ticketDetails(this.selectedProjects.length > 0 ? this.selectedProjects : '9999');
       this.toastr.success(`Ticket Assigned !`);
     });
   }

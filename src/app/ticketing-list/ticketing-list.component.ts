@@ -62,6 +62,9 @@ export class TicketingListComponent implements OnInit {
   reOpen = [];
   empFilter = [];
   allTicketsData = [];
+  assignedToEmp = [];
+  assignedToEmpDummy = [];
+  reassignField = false;
   constructor(
     public router: Router,
     private fb: FormBuilder,
@@ -88,10 +91,33 @@ export class TicketingListComponent implements OnInit {
     this.gitCustomerById(this.customerId);
     this.projectId = sessionStorage.getItem("projectId");
     this.getProjectById(this.projectId);
+    this.getEmpLinking();
 
     this.empTicket = this.fb.group({
       comments: ["", Validators.required],
     });
+  }
+  getEmpLinking() {
+    this.ticketService
+      .get_employees_link(sessionStorage.getItem("projectId"))
+      .subscribe((data) => {
+        if (data["success"]) {
+          this.assignedToEmpDummy = data["data"];
+          this.assignedToEmp.unshift({
+            label: "Select Employee",
+            value: null,
+          });
+          data["data"].forEach((item) => {
+            this.assignedToEmp.push({
+              label: item.emp_code + "-" + item.name,
+              value: item.id,
+            });
+          });
+          // this.addTicket.value;
+        } else {
+          this.assignedToEmp = [];
+        }
+      });
   }
   getCompanyById(id) {
     this.companyService.get_company().subscribe((data) => {
@@ -288,12 +314,11 @@ export class TicketingListComponent implements OnInit {
     }
   }
   viewTicket(item) {
+    this.reassignField = false;
     this.submitted = false;
     this.bugView = item;
-
     this.status = item.status;
     this.status_dummy = item.status;
-
     this.ticketService.getTicketHistory(item.id).subscribe((data) => {
       if (data["success"]) {
         this.historyData = data["data"];
@@ -405,6 +430,7 @@ export class TicketingListComponent implements OnInit {
   }
 
   statusSubmit() {
+    this.reassignField = false;
     this.spinner = true;
     this.submitted = true;
     if (this.empTicket.invalid) {
@@ -466,5 +492,19 @@ export class TicketingListComponent implements OnInit {
     input.append("logo", this.itemImage);
     input.append("data", JSON.stringify(body));
     return input;
+  }
+
+  reAssign() {
+    this.reassignField = true;
+  }
+
+  reAssignChange(id) {
+    this.categoryService
+      .updateTicket(id, this.bugView["id"])
+      .subscribe((data) => {
+        $("#modal-fullscreen").modal("hide");
+        this.clear();
+        this.toastr.success(`Ticket Re Assigned Assigned !`);
+      });
   }
 }

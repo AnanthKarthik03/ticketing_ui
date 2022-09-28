@@ -127,7 +127,7 @@
           </li>
         </ul>
         </li>
-        <li [ngClass]="{ active: pageType === 'orgTickets' }">
+        <li *ngIf = "userType === 'I'" [ngClass]="{ active: pageType === 'orgTickets' }">
           <a (click)="orgTickets()"
             ><i class="fa fa-file-text" aria-hidden="true"></i>
             <span>Org Tickets</span></a
@@ -161,7 +161,7 @@
           <span>Time Sheet</span></a
         >
       </li> -->
-      <li [ngClass]="{ active: pageType === 'orgTickets' }" >
+      <li *ngIf = "userType === 'I'" [ngClass]="{ active: pageType === 'orgTickets' }">
         <a (click)="orgTickets()"
           ><i class="fa fa-file-text" aria-hidden="true"></i>
           <span>Org Tickets</span></a
@@ -228,7 +228,7 @@
           </li>
         </ul>
         </li>
-        <li [ngClass]="{ active: pageType === 'orgTickets' }">
+        <li *ngIf = "userType === 'I'" [ngClass]="{ active: pageType === 'orgTickets' }">
           <a (click)="orgTickets()"
             ><i class="fa fa-file-text" aria-hidden="true"></i>
             <span>Org Tickets</span></a

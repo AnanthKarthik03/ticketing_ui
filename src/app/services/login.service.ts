@@ -30,6 +30,7 @@ export class LoginserService {
           sessionStorage.setItem('user_image', user.data.profile_image);
           sessionStorage.setItem('raise_bug', user.data.raise_bug);
           sessionStorage.setItem('companyId', user.data.company_id);
+          sessionStorage.setItem('user_type', user.data.user_type);
         }
 
         return user;
