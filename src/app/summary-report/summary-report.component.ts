@@ -38,7 +38,7 @@ export class SummaryReportComponent implements OnInit {
   }
 
   getempReport(date) {
-    console.log(date);
+   
 
     this.service
       .getempReport(moment(date).format("YYYY-MM"))
@@ -64,7 +64,7 @@ export class SummaryReportComponent implements OnInit {
               value: item.id,
             });
           });
-          console.log(data["data"]);
+        
         } else {
         }
       },
@@ -79,7 +79,7 @@ export class SummaryReportComponent implements OnInit {
         moment(this.date2).format("YYYY-MM-DD")
       )
       .subscribe((data) => {
-        console.log(this.role, this.emp_id);
+      
 
         if (data["success"]) {
           let otherData = [];
@@ -92,7 +92,7 @@ export class SummaryReportComponent implements OnInit {
             otherData = data["data"];
           }
 
-          console.log(otherData);
+        
           this.summaryData = otherData;
           this.calculateHrs();
         } else {
@@ -101,13 +101,13 @@ export class SummaryReportComponent implements OnInit {
           this.totalHrs === 0;
           this.summaryData = [];
 
-          console.log(this.totalHrs, this.summaryData.length);
+        
         }
       });
   }
 
   doSomething() {
-    console.log(moment(this.date1).format("YYYY-MM"));
+   
     this.getempReport(moment(this.date1).format("YYYY-MM"));
     // this.calculateHrs();
     // this.projectReport();
@@ -117,7 +117,7 @@ export class SummaryReportComponent implements OnInit {
       .reduce((s, f) => s + parseFloat(f.totalHrs ? f.totalHrs : 0), 0)
       .toFixed(2);
 
-    console.log(this.totalHrs, this.summaryData.length);
+   
   }
 
   filterdays(e) {

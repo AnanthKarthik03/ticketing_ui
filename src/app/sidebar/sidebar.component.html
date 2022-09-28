@@ -83,12 +83,12 @@
           ><i class="fa fa-building"></i><span>Company</span></a
         >
       </li>
-      <li [ngClass]="{ active: pageType === 'timeSheet' }">
+      <!-- <li [ngClass]="{ active: pageType === 'timeSheet' }">
         <a (click)="timeSheet()"
           ><i class="fa fa-calendar" aria-hidden="true"></i>
           <span>Time Sheet</span></a
         >
-      </li>
+      </li> -->
       <li>
         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-calendar-check-o"></i><span>Reports</span></a>
         <ul>
@@ -147,7 +147,7 @@
     </ul>
   </nav>
   <!-- User -->
-  <nav id="left-sidebar-nav" class="sidebar-nav" *ngIf="roleId === 'User'">
+  <nav id="left-sidebar-nav" class="sidebar-nav" *ngIf="roleId === 'User'" >
     <ul class="metismenu">
       <li class="g_heading">User</li>
       <li class="active">
@@ -155,13 +155,13 @@
           ><i class="fa fa-dashboard"></i><span>Dashboard</span></a
         >
       </li>
-      <li [ngClass]="{ active: pageType === 'timeSheet' }">
+      <!-- <li [ngClass]="{ active: pageType === 'timeSheet' }">
         <a (click)="timeSheet()"
           ><i class="fa fa-calendar" aria-hidden="true"></i>
           <span>Time Sheet</span></a
         >
-      </li>
-      <li [ngClass]="{ active: pageType === 'orgTickets' }">
+      </li> -->
+      <li [ngClass]="{ active: pageType === 'orgTickets' }" >
         <a (click)="orgTickets()"
           ><i class="fa fa-file-text" aria-hidden="true"></i>
           <span>Org Tickets</span></a
@@ -184,12 +184,12 @@
           <span>Projects</span></a
         >
       </li>
-      <li [ngClass]="{ active: pageType === 'timeSheet' }">
+      <!-- <li [ngClass]="{ active: pageType === 'timeSheet' }">
         <a (click)="timeSheet()"
           ><i class="fa fa-calendar" aria-hidden="true"></i>
           <span>Time Sheet</span></a
         >
-      </li>
+      </li> -->
       <li>
         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-calendar-check-o"></i><span>Reports</span></a>
         <ul>

@@ -199,8 +199,7 @@
                       <td title="{{ item.ticket_desc }}">
                         {{ item.ticket_desc }}
                       </td>
-                      <td> {{get_customer(item.customerId
-                        ) }}</td>
+                      <td> {{getcustomerName(item.customer_id )}}</td>
                       <td>{{ item.project_name }}</td>
                       <td>{{ item.assigned_to }}</td>
                       <td>{{ item.category_id }}</td>
@@ -230,17 +229,18 @@
                       <td>{{ item.status_name }}</td>
                       <td>{{ item.start_date | date }}</td>
                       <td>{{ item.end_date | date }}</td>
-                      <td>{{ item.assigned_by }}</td>
+                      <td>{{ item.pm }}</td>
                       <td>
                         <i
-                          *ngIf="item.status === 0"
+                          *ngIf="item.status === 0 || item.status === 1 "
                           class="fa fa-edit"
                           data-toggle="modal"
                           data-target="#large-Modal"
                           (click)="clickTicket(item)"
+                          
                         ></i>
                         <i
-                          *ngIf="item.status !== 0"
+                          *ngIf="item.status !== 0 &&  item.status !== 1"
                           class="fa fa-edit"
                           style="color: red"
                         ></i>
@@ -274,8 +274,8 @@
 >
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Alert!</h5>
+      <div class="modal-header modal-header1">
+        <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
         <button
           type="button"
           class="close close-button"
@@ -285,7 +285,8 @@
           <div aria-hidden="true">&times;</div>
         </button>
       </div>
-      <form method="post" action="" role="form">
+      
+      <!-- <form method="post" action="" role="form">
         <div class="modal-body">
           <div class="col-lg-12">
             <div class="row">
@@ -293,7 +294,7 @@
                 <h4>
                   Are you sure you want to work on this ticket ?
                   <br />
-                  <!-- Once assigned cannot not be changed !! -->
+                  
                 </h4>
               </div>
             </div>
@@ -317,7 +318,7 @@
             Save
           </button>
         </div>
-      </form>
+      </form> -->
     </div>
   </div>
 </div>

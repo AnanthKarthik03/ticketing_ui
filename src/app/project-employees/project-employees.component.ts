@@ -87,7 +87,7 @@ export class ProjectEmployeesComponent implements OnInit {
             this.customerData,
             (item) => parseInt(item.id, 10) === parseInt(id, 10)
           );
-          console.log(this.customerName);
+
           if (temp.length > 0) {
             this.customerName = temp[0].company_name;
           }
@@ -107,7 +107,7 @@ export class ProjectEmployeesComponent implements OnInit {
             this.projectData,
             (item) => parseInt(item.id, 10) === parseInt(id, 10)
           );
-          console.log(this.projectName);
+
           if (temp.length > 0) {
             this.projectName = temp[0].project_name;
           }
@@ -149,8 +149,7 @@ export class ProjectEmployeesComponent implements OnInit {
       return;
     }
     const body = this.employeesForm.value;
-    console.log(this.editId);
-    console.log(body);
+
     if (this.editId) {
       body["id"] = this.editId;
     }
@@ -185,7 +184,7 @@ export class ProjectEmployeesComponent implements OnInit {
       .subscribe((data) => {
         if (data["success"]) {
           this.empLinkData = data["data"];
-          console.log(this.empLinkData);
+
           this.pmNames = _.uniq(this.empLinkData, "pm");
         }
       });
@@ -234,7 +233,6 @@ export class ProjectEmployeesComponent implements OnInit {
 
           this.spinner = false;
         } else {
-          console.log(data["message"]);
           this.spinner = false;
         }
       },
@@ -247,8 +245,6 @@ export class ProjectEmployeesComponent implements OnInit {
     const dd = this.getUsernames(item.pm);
 
     this.spinner = false;
-    console.log(item);
-    console.log(`asdasdasd`, dd);
 
     this.editId = item.id;
 
@@ -269,12 +265,9 @@ export class ProjectEmployeesComponent implements OnInit {
     dd.forEach((ele) => {
       ff.push(ele.id);
     });
-    console.log(ff);
 
     this.employeesForm.patchValue({
       emp_id: ff,
     });
-    console.log(this.employeesForm);
-    // console.log(this.employeesForm)
   }
 }

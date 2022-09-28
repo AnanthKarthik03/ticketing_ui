@@ -57,7 +57,7 @@ export class ProjectSummaryComponent implements OnInit {
           this.othersList = data['data'];
           this.spinner = false;
         } else {
-          console.log(data['message']);
+        
           this.spinner = false;
         }
       },
@@ -73,7 +73,7 @@ export class ProjectSummaryComponent implements OnInit {
       (item) =>
         parseInt(item.id, 10) === parseInt(id, 10)
     );
-    console.log(othersNameFilter);
+   
     if (othersNameFilter.length > 0 ) {
       return othersNameFilter[0].others;
     } else {
@@ -82,7 +82,7 @@ export class ProjectSummaryComponent implements OnInit {
   }
 
   getempReport(date) {
-    console.log(date);
+   
 
     this.service
       .getempReport(moment(date).format("YYYY-MM"))
@@ -108,7 +108,7 @@ export class ProjectSummaryComponent implements OnInit {
               value: item.id,
             });
           });
-          console.log(data["data"]);
+        
         } else {
         }
       },
@@ -123,7 +123,7 @@ export class ProjectSummaryComponent implements OnInit {
         moment(this.date2).format("YYYY-MM-DD")
       )
       .subscribe((data) => {
-        console.log(this.role, this.emp_id);
+      
 
         if (data["success"]) {
           let otherData = [];
@@ -136,7 +136,7 @@ export class ProjectSummaryComponent implements OnInit {
             otherData = data["data"];
           }
 
-          console.log(otherData);
+        
           this.summaryData = otherData;
           this.calculateHrs();
         } else {
@@ -145,13 +145,13 @@ export class ProjectSummaryComponent implements OnInit {
           this.totalHrs === 0;
           this.summaryData = [];
 
-          console.log(this.totalHrs, this.summaryData.length);
+        
         }
       });
   }
 
   doSomething() {
-    console.log(moment(this.date1).format("YYYY-MM"));
+   
     this.getempReport(moment(this.date1).format("YYYY-MM"));
     // this.calculateHrs();
     // this.projectReport();
@@ -161,7 +161,7 @@ export class ProjectSummaryComponent implements OnInit {
       .reduce((s, f) => s + parseFloat(f.totalHrs ? f.totalHrs : 0), 0)
       .toFixed(2);
 
-    console.log(this.totalHrs, this.summaryData.length);
+   
   }
 
   filterdays(e) {

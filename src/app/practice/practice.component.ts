@@ -6,6 +6,7 @@ import { CategoryService } from '../category/category.service';
 import { XlsxToJsonService } from '../xlsx-to-json-service';
 import { ExcelService } from 'src/app/excel.service';
 import * as moment from 'moment';
+//import { Console } from "console";
 declare var $: any;
 @Component({
   selector: 'app-practice',
@@ -56,7 +57,7 @@ export class PracticeComponent implements OnInit {
         
           this.spinner = false;
         } else {
-          console.log(data['message']);
+         
           this.spinner = false;
         }
       },
@@ -76,7 +77,7 @@ export class PracticeComponent implements OnInit {
       // this.spinner = false;
       return;
     }
-    console.log(this.practiceForm.value);
+  
     const body = this.practiceForm.value;
     body.status = JSON.parse(body.status);
     if (this.editId) {
@@ -84,7 +85,7 @@ export class PracticeComponent implements OnInit {
     }
     this.service.add_practice(body).subscribe(
       (data) => {
-        console.log(data['data']);
+      
         if (data['success']) {
           this.spinner = false;
           if (this.editId) {
@@ -115,7 +116,7 @@ export class PracticeComponent implements OnInit {
     this.fileUpload = '';
   }
   edit(item) {
-    console.log(item);
+  
     this.spinner = false;
     this.editId = item.id;
     this.practiceForm.patchValue({
@@ -147,7 +148,7 @@ export class PracticeComponent implements OnInit {
           status: ele.status,
         });
       });
-      console.log(this.finalExcelData);
+     
       setTimeout(() => {
         event = null;
       }, 3000);

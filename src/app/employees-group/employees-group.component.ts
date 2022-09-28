@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { EmployeesGroupService } from './employees-group.service';
-import { ToastrService } from 'ngx-toastr';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { SelectItem } from 'primeng/api';
-import { CompanyService } from '../components/company/company.service';
-import { CustomerService } from '../components/customer/customer.service';
-import { ProjectService } from '../project-list/project-list.service';
-import * as _ from 'underscore';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { EmployeesGroupService } from "./employees-group.service";
+import { ToastrService } from "ngx-toastr";
+import { IDropdownSettings } from "ng-multiselect-dropdown";
+import { SelectItem } from "primeng/api";
+import { CompanyService } from "../components/company/company.service";
+import { CustomerService } from "../components/customer/customer.service";
+import { ProjectService } from "../project-list/project-list.service";
+import * as _ from "underscore";
 
 @Component({
-  selector: 'app-employees-group',
-  templateUrl: './employees-group.component.html',
-  styleUrls: ['./employees-group.component.css'],
+  selector: "app-employees-group",
+  templateUrl: "./employees-group.component.html",
+  styleUrls: ["./employees-group.component.css"],
 })
 export class EmployeesGroupComponent implements OnInit {
   employeesForm!: FormGroup;
@@ -21,22 +21,22 @@ export class EmployeesGroupComponent implements OnInit {
   submitted = false;
   spinner = false;
   employeesData = [];
-  editId = '';
+  editId = "";
   selectedEmployees: string;
   employeeId: any[];
   items: SelectItem[];
   item: string;
   groupData = [];
   groupNames = [];
-  companyId = '';
+  companyId = "";
   companyData = [];
-  companyName = '';
-  customerId = '';
+  companyName = "";
+  customerId = "";
   customerData = [];
-  customerName = '';
-  projectId = '';
+  customerName = "";
+  projectId = "";
   projectData = [];
-  projectName = '';
+  projectName = "";
   role = "";
   constructor(
     public router: Router,
@@ -50,29 +50,29 @@ export class EmployeesGroupComponent implements OnInit {
 
   ngOnInit() {
     this.role = sessionStorage.getItem("role");
-    this.companyId = sessionStorage.getItem('companyId');
+    this.companyId = sessionStorage.getItem("companyId");
     this.getCompanyById(this.companyId);
-    this.customerId = sessionStorage.getItem('customerId');
+    this.customerId = sessionStorage.getItem("customerId");
     this.gitCustomerById(this.companyId);
-    this.projectId = sessionStorage.getItem('projectId');
+    this.projectId = sessionStorage.getItem("projectId");
     this.getProjectById(this.projectId);
     this.getEmpGroup();
     this.employeesForm = this.fb.group({
-      project_id: sessionStorage.getItem('projectId'),
-      group_name: ['', Validators.required],
-      emp_id: ['', Validators.required],
+      project_id: sessionStorage.getItem("projectId"),
+      group_name: ["", Validators.required],
+      emp_id: ["", Validators.required],
     });
     this.getEmployees();
   }
   getCompanyById(id) {
     this.companyService.get_company().subscribe((data) => {
-      if (data['success']) {
-        this.companyData = data['data'];
+      if (data["success"]) {
+        this.companyData = data["data"];
         const temp = _.filter(
           this.companyData,
           (item) => parseInt(item.id, 10) === parseInt(id, 10)
         );
-        console.log(this.companyName);
+
         if (temp.length > 0) {
           this.companyName = temp[0].company_name;
         }
@@ -81,17 +81,15 @@ export class EmployeesGroupComponent implements OnInit {
   }
   gitCustomerById(id) {
     this.customerService
-      .get_customer(sessionStorage.getItem('companyId'))
+      .get_customer(sessionStorage.getItem("companyId"))
       .subscribe((data) => {
-        if (data['success']) {
-          this.customerData = data['data'];
+        if (data["success"]) {
+          this.customerData = data["data"];
           const temp = _.filter(
             this.customerData,
             (item) => parseInt(item.company_id, 10) === parseInt(id, 10)
           );
-          console.log(temp);
 
-          console.log(this.customerName);
           if (temp.length > 0) {
             this.customerName = temp[0].company_name;
           }
@@ -101,17 +99,17 @@ export class EmployeesGroupComponent implements OnInit {
   getProjectById(id) {
     this.projectService
       .get_project(
-        sessionStorage.getItem('companyId'),
-        sessionStorage.getItem('customerId')
+        sessionStorage.getItem("companyId"),
+        sessionStorage.getItem("customerId")
       )
       .subscribe((data) => {
-        if (data['success']) {
-          this.projectData = data['data'];
+        if (data["success"]) {
+          this.projectData = data["data"];
           const temp = _.filter(
             this.projectData,
             (item) => parseInt(item.id, 10) === parseInt(id, 10)
           );
-          console.log(this.projectName);
+
           if (temp.length > 0) {
             this.projectName = temp[0].project_name;
           }
@@ -122,12 +120,11 @@ export class EmployeesGroupComponent implements OnInit {
   getEmpGroup() {
     this.groupData = [];
     this.service
-      .getProjectGroup(sessionStorage.getItem('projectId'))
+      .getProjectGroup(sessionStorage.getItem("projectId"))
       .subscribe((data) => {
-        if (data['success']) {
-          this.groupData = data['data'];
-          this.groupNames = _.uniq(this.groupData, 'group_name');
-          console.log(this.groupNames);
+        if (data["success"]) {
+          this.groupData = data["data"];
+          this.groupNames = _.uniq(this.groupData, "group_name");
         }
       });
   }
@@ -144,26 +141,24 @@ export class EmployeesGroupComponent implements OnInit {
       this.spinner = false;
       return;
     }
-   // console.log(this.employeesForm.value);
 
     // this.service.addProjectGroup(body).subscribe((data) => {
     //   if (data["success"]) {
-    //     console.log(`success`);
+
     //   }
     //console.log(this.employeesForm.value);
     //if (this.editId) {
-      //this.employeesForm.value.id = this.editId;
+    //this.employeesForm.value.id = this.editId;
     //}
     const body = this.employeesForm.value;
-    console.log(this.editId);
-    console.log(body);
+
     if (this.editId) {
-      body['id'] = this.editId;
+      body["id"] = this.editId;
     }
-    
+
     this.service.addProjectGroup(body).subscribe(
       (data) => {
-        if (data['success']) {
+        if (data["success"]) {
           this.spinner = false;
           if (this.editId) {
             this.toastr.success(`Updated Successfully`);
@@ -171,13 +166,13 @@ export class EmployeesGroupComponent implements OnInit {
             this.toastr.success(`Employee ID Added Successfully`);
           }
           this.employeesForm.reset();
-          this.editId = '';
+          this.editId = "";
           this.showEmployeeGroupList();
           this.getEmployees();
           this.getEmpGroup();
         } else {
           this.spinner = false;
-          this.toastr.error(data['message']);
+          this.toastr.error(data["message"]);
         }
       },
       (err) => {
@@ -190,7 +185,7 @@ export class EmployeesGroupComponent implements OnInit {
     //   }
     //   this.service.add_employees(body).subscribe(
     //     (data) => {
-    //       console.log(data['data']);
+
     //       if (data['success']) {
     //         this.spinner = false;
     //         if (this.editId) {
@@ -215,7 +210,7 @@ export class EmployeesGroupComponent implements OnInit {
 
   clear() {
     this.employeesForm.reset();
-    this.editId = '';
+    this.editId = "";
     this.getEmployees();
     this.spinner = false;
     this.submitted = false;
@@ -223,7 +218,7 @@ export class EmployeesGroupComponent implements OnInit {
   // edit(item) {
   //   this.spinner = false;
   //   this.editId = item.id;
-  //   console.log(item);
+
   //   this.showEmployeeGroupForm();
   //   this.employeesForm.patchValue({
   //     group_name: item.group_name,
@@ -234,33 +229,27 @@ export class EmployeesGroupComponent implements OnInit {
     const dd = this.getUsernames(item.group_name);
 
     this.spinner = false;
-    console.log(item);
-    console.log(`asdasdasd`, dd);
 
     this.editId = item.id;
 
     this.showEmployeeGroupForm();
-        this.employeesForm.patchValue({
+    this.employeesForm.patchValue({
       group_name: item.group_name,
-     
     });
     const ff = [];
     dd.forEach((ele) => {
       ff.push(ele.id);
-    }); 
-    console.log(ff);
+    });
 
     this.employeesForm.patchValue({
       emp_id: ff,
     });
-    console.log(this.employeesForm);
-    // console.log(this.employeesForm)
   }
   showEmployeeGroupForm() {
     this.viewEmployeeGroup = true;
     this.employeesForm.reset();
-    this.employeesForm.controls['project_id'].setValue(
-      sessionStorage.getItem('projectId')
+    this.employeesForm.controls["project_id"].setValue(
+      sessionStorage.getItem("projectId")
     );
     this.submitted = false;
     this.spinner = false;
@@ -273,12 +262,12 @@ export class EmployeesGroupComponent implements OnInit {
   getEmpLinking() {
     this.employeesData = [];
     this.service
-      .get_employees_link(sessionStorage.getItem('projectId'))
+      .get_employees_link(sessionStorage.getItem("projectId"))
       .subscribe((data) => {
-        if (data['success']) {
-          data['data'].forEach((item) => {
+        if (data["success"]) {
+          data["data"].forEach((item) => {
             this.employeesData.push({
-              label: item.emp_code + '-' + item.name,
+              label: item.emp_code + "-" + item.name,
               value: item.id,
             });
           });
@@ -288,7 +277,7 @@ export class EmployeesGroupComponent implements OnInit {
 
   getUsernames(id) {
     const data = _.filter(this.groupData, (item) => item.group_name === id);
-    console.log(this.groupData);
+
     if (data.length > 0) {
       return data;
     }
@@ -296,18 +285,17 @@ export class EmployeesGroupComponent implements OnInit {
 
   getEmployees() {
     this.spinner = true;
-    this.service.get_employees(sessionStorage.getItem('companyId')).subscribe(
+    this.service.get_employees(sessionStorage.getItem("companyId")).subscribe(
       (data) => {
-        if (data['success']) {
-          data['data'].forEach((item) => {
+        if (data["success"]) {
+          data["data"].forEach((item) => {
             this.employeesData.push({
-              label: item.emp_code + '-' + item.name,
+              label: item.emp_code + "-" + item.name,
               value: item.id,
             });
           });
           this.spinner = false;
         } else {
-          console.log(data['message']);
           this.spinner = false;
         }
       },
@@ -317,9 +305,9 @@ export class EmployeesGroupComponent implements OnInit {
     );
   }
   company() {
-    this.router.navigate(['/company']);
+    this.router.navigate(["/company"]);
   }
   customer() {
-    this.router.navigate(['/customer']);
+    this.router.navigate(["/customer"]);
   }
 }

@@ -8,6 +8,7 @@ import { CompanyService } from "../components/company/company.service";
 import { CustomerService } from "../components/customer/customer.service";
 import { ProjectService } from "../project-list/project-list.service";
 import { CategoryService } from "../category/category.service";
+import { CompileShallowModuleMetadata } from "@angular/compiler";
 
 @Component({
   selector: "app-ticketing-add",
@@ -54,6 +55,8 @@ export class TicketingAddComponent implements OnInit {
   subcategory = [];
   praticeList = [];
   pratice = [];
+  
+  selectedpratice: string;
   ngOnInit() {
     this.getTicketList();
     this.getCategory();
@@ -63,13 +66,15 @@ export class TicketingAddComponent implements OnInit {
     this.getCompanyById(this.companyId);
     this.customerId = sessionStorage.getItem("customerId");
     this.gitCustomerById(this.customerId);
-
     this.projectId = sessionStorage.getItem("projectId");
     this.companyId = sessionStorage.getItem("companyId");
     this.customerId = sessionStorage.getItem("customerId");
     this.projectId = sessionStorage.getItem("projectId");
     this.getProjectById(this.projectId);
+    this.selectedpratice = this.getPratice[0];
+    this.praticeChange (this.selectedpratice);
     this.roleId = sessionStorage.getItem("role");
+    
     this.getEmpGroup();
     this.getEmpLinking();
     this.addTicket = this.fb.group({
@@ -139,7 +144,7 @@ export class TicketingAddComponent implements OnInit {
             value: element.id,
           });
         });
-        console.log(this.category);
+       
       } else {
         this.categoryList = [];
       }
@@ -166,8 +171,10 @@ export class TicketingAddComponent implements OnInit {
             value: element.id,
           });
         });
+       // console.log(this.subcategory);
       } else {
         this.subCategoryList = [];
+       
       }
     });
   }
@@ -196,13 +203,13 @@ export class TicketingAddComponent implements OnInit {
   }
   assignedGroup(e) {
     let gd = "";
-    console.log(e, this.groupData);
+   
     const fData = _.filter(
       this.groupData,
       (item) => parseInt(item.value, 10) === e
     );
     if (fData.length) {
-      console.log(fData[0].label);
+    
       gd = fData[0].label;
     } else {
     }
@@ -217,7 +224,7 @@ export class TicketingAddComponent implements OnInit {
             label: "Select Employee",
             value: null,
           });
-          console.log(data["data"]);
+         
           data["data"].forEach((item) => {
             this.assignedToEmp.push({
               label: item.emp_code + "-" + item.name,
@@ -258,7 +265,7 @@ export class TicketingAddComponent implements OnInit {
   onFileChange(event) {
     // const reader = new FileReader();
 
-    console.log(event);
+   
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.itemImage = file;
@@ -278,7 +285,7 @@ export class TicketingAddComponent implements OnInit {
           this.companyData,
           (item) => parseInt(item.id, 10) === parseInt(id, 10)
         );
-        console.log(this.companyName);
+       
         if (temp.length > 0) {
           this.companyName = temp[0].company_name;
         }
@@ -295,7 +302,7 @@ export class TicketingAddComponent implements OnInit {
             this.customerData,
             (item) => parseInt(item.id, 10) === parseInt(id, 10)
           );
-          console.log(this.customerName);
+
           if (temp.length > 0) {
             this.customerName = temp[0].company_name;
           }
@@ -315,7 +322,7 @@ export class TicketingAddComponent implements OnInit {
             this.projectData,
             (item) => parseInt(item.id, 10) === parseInt(id, 10)
           );
-          console.log(this.projectName);
+        
           if (temp.length > 0) {
             this.projectName = temp[0].project_name;
           }
@@ -353,7 +360,7 @@ export class TicketingAddComponent implements OnInit {
       return;
     }
     this.finalArray = [];
-    console.log(this.addTicket.value);
+   
 
     this.addTicket.value.assigned_to.forEach((item) => {
       this.finalArray.push({
@@ -380,7 +387,7 @@ export class TicketingAddComponent implements OnInit {
       });
     });
 
-    console.log(this.finalArray);
+   
 
     const body = this.prepareSave();
     this.service.addTicket(body).subscribe((data) => {
@@ -406,10 +413,10 @@ export class TicketingAddComponent implements OnInit {
     const projectId = sessionStorage.getItem("projectId");
     this.projectService.get_ticket(cId, cusId, projectId).subscribe((data) => {
       if (data["success"]) {
-        console.log(data["data"]);
+       
         const latestTicket = parseFloat(data["data"][0]["ticket_no"]) + 1;
 
-        console.log(latestTicket);
+      
         this.addTicket.controls["ticket_no"].setValue(latestTicket);
       } else {
         this.addTicket.controls["ticket_no"].setValue(this.projectId + "001");
@@ -418,7 +425,7 @@ export class TicketingAddComponent implements OnInit {
   }
   praticeChange(e) {
     this.category = [];
-    console.log(e);
+   
     this.category.unshift({
       label: "Select Category",
       value: null,
@@ -438,17 +445,17 @@ export class TicketingAddComponent implements OnInit {
   }
   categoryChange(e) {
     this.subcategory = [];
-    console.log(e);
-    this.subcategory.unshift({
+   // console.log(this.subcategory);
+       this. subcategory.unshift({
       label: "Select Sub Category",
       value: null,
     });
-
     this.subCategoryList = this.subCategoryListD.filter(
       (item) =>
         parseInt(item.status, 10) === parseInt("0", 10) &&
         parseInt(item.c_id, 20) === parseInt(e, 10)
     );
+    console.log(this.subCategoryList );
     this.subCategoryList.forEach((element) => {
       this.subcategory.push({
         label: element.sub_category,
@@ -456,4 +463,9 @@ export class TicketingAddComponent implements OnInit {
       });
     });
   }
+ // projectReport(id) {
+    //this.selectedProjects = id;
+    //this.ticketDetails(id);
+  //}
+
 }

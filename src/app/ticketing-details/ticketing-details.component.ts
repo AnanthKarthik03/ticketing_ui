@@ -49,7 +49,7 @@ export class TicketingDetailsComponent implements OnInit {
   getEmps() {
     this.empService.get_employee(this.companyId).subscribe((data) => {
       if (data['success']) {
-        console.log(data['data']);
+       
         this.empData = data['data'];
       }
     });
@@ -61,7 +61,7 @@ export class TicketingDetailsComponent implements OnInit {
       this.empData,
       (item) => parseInt(item.id, 10) === parseInt(id, 10)
     );
-    console.log(data);
+   
     if (data.length > 0) {
       return data[0].name;
     }
@@ -81,7 +81,7 @@ export class TicketingDetailsComponent implements OnInit {
           this.othersList = data['data'];
           this.spinner = false;
         } else {
-          console.log(data['message']);
+         
           this.spinner = false;
         }
       },
@@ -97,7 +97,7 @@ export class TicketingDetailsComponent implements OnInit {
       (item) =>
         parseInt(item.id, 10) === parseInt(id, 10)
     );
-    console.log(othersNameFilter);
+   
     if (othersNameFilter.length > 0 ) {
       return othersNameFilter[0].others;
     } else {
@@ -119,7 +119,7 @@ export class TicketingDetailsComponent implements OnInit {
         (data) => {
           if (data['success']) {
             // this.ticketDetailsData = data['data'];
-            console.log(data['data']);
+           
             
             const arr = data['data'].concat(data['others']);
 
@@ -170,7 +170,7 @@ export class TicketingDetailsComponent implements OnInit {
             });
             this.ticketDetailsDataD = this.ticketDetailsData;
 
-            console.log(this.ticketDetailsData);
+           
           } else {
             this.ticketDetailsData = [];
           }
@@ -182,7 +182,7 @@ export class TicketingDetailsComponent implements OnInit {
   }
 
   projectReport(id) {
-    console.log(id);
+   
     this.selectedProjects = id;
     this.ticketDetails(id);
   }
@@ -208,7 +208,7 @@ export class TicketingDetailsComponent implements OnInit {
                   value: item.id,
                 });
               });
-              console.log(data['data']);
+             
               this.ticketDetails(this.projectListData[0].id);
             } else {
               this.spinner = false;
@@ -235,7 +235,7 @@ export class TicketingDetailsComponent implements OnInit {
                 value: item.id,
               });
             });
-            console.log(data['data']);
+        
             this.ticketDetails(this.projectListData[0].id);
           } else {
             this.spinner = false;
@@ -252,7 +252,7 @@ export class TicketingDetailsComponent implements OnInit {
     this.categoryService.get_category().subscribe((data) => {
       if (data['success']) {
         this.categoryList = data['data'];
-        console.log(this.categoryList);
+       
       } else {
         this.categoryList = [];
       }
@@ -264,7 +264,7 @@ export class TicketingDetailsComponent implements OnInit {
       this.categoryList,
       (item) => parseInt(item.id, 10) === parseInt(id, 10)
     );
-    console.log(data);
+   
     if (data.length > 0) {
       return data[0].category;
     } else {

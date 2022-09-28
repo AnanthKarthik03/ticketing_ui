@@ -59,7 +59,7 @@ export class TimeReportComponent implements OnInit {
                   value: item.id,
                 });
               });
-              console.log(data["data"]);
+             
             } else {
               this.timeSheetReport(0);
               this.spinner = false;
@@ -89,7 +89,7 @@ export class TimeReportComponent implements OnInit {
                   value: item.id,
                 });
               });
-              console.log(data["data"]);
+             
             } else {
               this.timeSheetReport(this.projectListData[0].id);
               this.spinner = false;
@@ -138,7 +138,7 @@ export class TimeReportComponent implements OnInit {
     this.timeSheetDataD = [];
     this.empFilter = [];
     this.spinner = true;
-    console.log(id);
+   
     this.projectsId = id;
 
     if (id >= 0) {
@@ -172,7 +172,7 @@ export class TimeReportComponent implements OnInit {
 
               const arr = mainData.concat(otherData);
 
-              console.log(data["data"]);
+             
               this.timeSheetData = arr;
               this.timeSheetDataD = arr;
               this.calculateHrs();
@@ -203,8 +203,7 @@ export class TimeReportComponent implements OnInit {
     }
   }
   filterData(id) {
-    console.log(id, this.timeSheetData.length);
-
+   
     if (id === '0') {
       this.timeSheetData = this.timeSheetDataD;
     } else if (id === '1') {
@@ -214,7 +213,7 @@ export class TimeReportComponent implements OnInit {
           moment(item.date).format('YYYY-MM-DD') ===
           moment().format('YYYY-MM-DD')
       );
-      console.log(dayData);
+     
 
       if (dayData.length > 0) {
         this.timeSheetData = dayData;
@@ -230,14 +229,9 @@ export class TimeReportComponent implements OnInit {
           moment(item.date).format('YYYY-MM-DD') >= dateFrom &&
           moment(item.date).format('YYYY-MM-DD') <= dateTo
       );
-      console.log(dayData);
+     
 
-      console.log(
-        moment().format('YYYY-MM-DD'),
-        dateTo,
-        moment().format('YYYY-MM-DD'),
-        dateFrom
-      );
+     
 
       if (dayData.length > 0) {
         this.timeSheetData = dayData;
@@ -245,10 +239,7 @@ export class TimeReportComponent implements OnInit {
         this.timeSheetData = [];
       }
     } else if (id === '3') {
-      console.log(
-        moment(this.timeSheetDataD[0].date).format('MM'),
-        moment().format('MM')
-      );
+    
       const dayData = _.filter(
         this.timeSheetDataD,
         (item) => moment(item.date).format('MM') === moment().format('MM')
@@ -265,7 +256,7 @@ export class TimeReportComponent implements OnInit {
         (item) =>
           moment(item.date).format('YYYY') === moment().format('YYYY')
       );
-      console.log(dayData);
+     
 
       if (dayData.length > 0) {
         this.timeSheetData = dayData;
@@ -283,10 +274,10 @@ export class TimeReportComponent implements OnInit {
   // }
 
   selectEmpProject(id) {
-    console.log(this.timeSheetDataD, id, id.length);
+   
     if (id.length === 0) {
       this.timeSheetData = this.timeSheetDataD;
-      console.log(this.timeSheetDataD, id, id.length, "1234");
+     
     } else {
       if (id === "all") {
         this.timeSheetData = this.timeSheetDataD;
@@ -302,7 +293,7 @@ export class TimeReportComponent implements OnInit {
       }
     }
 
-    console.log(this.timeSheetData);
+  
     this.calculateHrs();
   }
 
@@ -314,7 +305,7 @@ export class TimeReportComponent implements OnInit {
     this.totalHrs = this.timeSheetData
       .reduce((s, f) => s + parseFloat(f.hrs ? f.hrs : 0), 0)
       .toFixed(2);
-    console.log(this.totalHrs);
+   
   }
 
   excelDownload() {

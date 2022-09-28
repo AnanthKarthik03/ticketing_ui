@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { CompanyService } from "../components/company/company.service";
 import { CustomerService } from "../components/customer/customer.service";
-import { ProjectService } from "../project-list/project-list.service";import * as _ from "underscore";
+import { ProjectService } from "../project-list/project-list.service";
+import * as _ from "underscore";
 import { ToastrService } from "ngx-toastr";
 import { environment } from "src/environments/environment";
 import { TicketingAddService } from "../ticketing-add/ticketing-add.service";
@@ -49,7 +50,7 @@ export class TicketingListComponent implements OnInit {
   pratice = [];
   practiceData = [];
   role = "";
-  categoryData1=[];
+  categoryData1 = [];
   path = environment.ticketingFiles;
   itemImage = "";
   ticketAdd = "";
@@ -69,22 +70,21 @@ export class TicketingListComponent implements OnInit {
     public projectService: ProjectService,
     public toastr: ToastrService,
     public ticketService: TicketingAddService,
-    public categoryService: CategoryService,
+    public categoryService: CategoryService
   ) {}
 
   ngOnInit() {
     this.role = sessionStorage.getItem("role");
     this.empId = sessionStorage.getItem("id");
     this.ticketAdd = sessionStorage.getItem("raise_bug");
-    console.log(`11111111111111`, sessionStorage.getItem("companyId"));
-    
-    this.companyId = sessionStorage.getItem('companyId');
+
+    this.companyId = sessionStorage.getItem("companyId");
     this.getTicketList();
     this.categoryDetails();
     this.getSubCategory();
     this.getPratice();
     this.getCompanyById(this.companyId);
-    this.customerId = sessionStorage.getItem('customerId');
+    this.customerId = sessionStorage.getItem("customerId");
     this.gitCustomerById(this.customerId);
     this.projectId = sessionStorage.getItem("projectId");
     this.getProjectById(this.projectId);
@@ -95,13 +95,13 @@ export class TicketingListComponent implements OnInit {
   }
   getCompanyById(id) {
     this.companyService.get_company().subscribe((data) => {
-      if (data['success']) {
-        this.companyData = data['data'];
+      if (data["success"]) {
+        this.companyData = data["data"];
         const temp = _.filter(
           this.companyData,
           (item) => parseInt(item.id, 10) === parseInt(id, 10)
         );
-        console.log(this.companyName);
+
         if (temp.length > 0) {
           this.companyName = temp[0].company_name;
         }
@@ -111,36 +111,36 @@ export class TicketingListComponent implements OnInit {
 
   gitCustomerById(id) {
     this.customerService
-      .get_customer(sessionStorage.getItem('companyId'))
+      .get_customer(sessionStorage.getItem("companyId"))
       .subscribe((data) => {
-        if (data['success']) {
-          this.customerData = data['data'];
+        if (data["success"]) {
+          this.customerData = data["data"];
           const temp = _.filter(
             this.customerData,
             (item) => parseInt(item.id, 10) === parseInt(id, 10)
           );
-          console.log(this.customerName);
+
           if (temp.length > 0) {
             this.customerName = temp[0].company_name;
           }
         }
       });
   }
-  
+
   getProjectById(id) {
     this.projectService
       .get_project(
-        sessionStorage.getItem('companyId'),
-        sessionStorage.getItem('customerId')
+        sessionStorage.getItem("companyId"),
+        sessionStorage.getItem("customerId")
       )
       .subscribe((data) => {
-        if (data['success']) {
-          this.projectData = data['data'];
+        if (data["success"]) {
+          this.projectData = data["data"];
           const temp = _.filter(
             this.projectData,
             (item) => parseInt(item.id, 10) === parseInt(id, 10)
           );
-          console.log(this.projectName);
+
           if (temp.length > 0) {
             this.projectName = temp[0].project_name;
           }
@@ -150,8 +150,6 @@ export class TicketingListComponent implements OnInit {
   get f() {
     return this.empTicket.controls;
   }
-
-  
 
   ticketingAdd() {
     this.router.navigate(["/ticketingAdd"]);
@@ -206,26 +204,25 @@ export class TicketingListComponent implements OnInit {
   //     }
   //   });
   //}
-  
+
   company() {
     this.router.navigate(["/company"]);
   }
   customer() {
     this.router.navigate(["/customer"]);
   }
- 
+
   project() {
     if (this.role === "Admin") {
-      this.router.navigate(['/projects']);
+      this.router.navigate(["/projects"]);
     }
     if (this.role === "Pm") {
       this.router.navigate(["/projects"]);
-    } 
-    else {
-      this.router.navigate(['/employeeDashboard']);
+    } else {
+      this.router.navigate(["/employeeDashboard"]);
     }
   }
-  
+
   getTicketList() {
     this.empFilter = [];
     this.empFilter.unshift(
@@ -243,18 +240,15 @@ export class TicketingListComponent implements OnInit {
     const projectId = sessionStorage.getItem("projectId");
     this.projectService.get_ticket(cId, cusId, projectId).subscribe((data) => {
       if (data["success"]) {
-        console.log(data["data"]);
-      this.allTicketsData = data["data"];
-        
+        this.allTicketsData = data["data"];
+
         const filterDataById = _.uniq(data["data"], "assigned_to");
         filterDataById.forEach((item) => {
           this.empFilter.push({
             label: item.assigned_to_name,
             value: item.assigned_to,
-           
-             });
+          });
         });
-        
 
         this.openData = _.filter(data["data"], (item) => item.status === 0);
         this.InPorgressData = _.filter(
@@ -274,11 +268,8 @@ export class TicketingListComponent implements OnInit {
       }
     });
   }
- 
 
   filterByEmployee(e) {
-    console.log(e);
-
     if (e === "all" || e === null) {
       this.getTicketList();
     } else {
@@ -299,24 +290,23 @@ export class TicketingListComponent implements OnInit {
   viewTicket(item) {
     this.submitted = false;
     this.bugView = item;
-    console.log(item);
+
     this.status = item.status;
     this.status_dummy = item.status;
-    
+
     this.ticketService.getTicketHistory(item.id).subscribe((data) => {
       if (data["success"]) {
         this.historyData = data["data"];
-        
       }
     });
   }
   categoryDetails() {
-       this.categoryService.get_category().subscribe((data) => {
-      if (data['success']) {
+    this.categoryService.get_category().subscribe((data) => {
+      if (data["success"]) {
         //this.categoryList = data['data'];
         //console.log(data['data']);
-        this.categoryData1 = data['data'].filter(
-          (item) => parseInt(item.status, 10) === parseInt('0', 10)
+        this.categoryData1 = data["data"].filter(
+          (item) => parseInt(item.status, 10) === parseInt("0", 10)
         );
         //console.log(this.categoryData1);
         this.categoryData1.forEach((item) => {
@@ -329,31 +319,31 @@ export class TicketingListComponent implements OnInit {
         this.categoryList = [];
       }
     });
-      
   }
 
   getCategoryName(id) {
     //console.log(this.categoryList)
     const data = _.filter(
-      this.categoryList, (item) => item.value === id
+      this.categoryList,
+      (item) => item.value === id
       //(item) => parseInt(item.id, 10) === parseInt(id, 10)
     );
     //console.log(this.categoryList);
     if (data.length > 0) {
       return data[0].label;
     } else {
-      return '-';
+      return "-";
     }
   }
   getSubCategory() {
     this.subcategory = [];
-    
+
     this.categoryService.get_sub_category().subscribe((data) => {
       if (data["success"]) {
         this.subCategoryList = data["data"].filter(
           (item) => parseInt(item.status, 10) === parseInt("0", 10)
         );
-        
+
         this.subCategoryList.forEach((element) => {
           this.subcategory.push({
             label: element.sub_category,
@@ -369,22 +359,21 @@ export class TicketingListComponent implements OnInit {
   getSubCategoryName(id) {
     //console.log(this.subCategoryList)
     const data = _.filter(
-      this.subcategory, 
+      this.subcategory,
       //(item) => item.value === id
       (item) => parseInt(item.value, 10) === parseInt(id, 10)
     );
     //console.log( this.subCategoryList);
     if (data.length > 0) {
       return data[0].label;
-      } else {
-      return '-';
+    } else {
+      return "-";
     }
-    
   }
-  
+
   getPratice() {
     //this.pratice = [];
-   
+
     this.categoryService.get_practice().subscribe((data) => {
       if (data["success"]) {
         this.praticeList = data["data"].filter(
@@ -394,8 +383,7 @@ export class TicketingListComponent implements OnInit {
         this.praticeList.forEach((item) => {
           this.pratice.push({
             label: item.practice,
-            value: item.id
-            
+            value: item.id,
           });
         });
       } else {
@@ -404,22 +392,17 @@ export class TicketingListComponent implements OnInit {
     });
   }
   getPraticeName(id) {
-   
     const data = _.filter(
       this.pratice, //(item) => item.value === id
       (item) => parseInt(item.value, 10) === parseInt(id, 10)
     );
-    console.log( this.pratice)
-    console.log(id)
+
     if (data.length > 0) {
       return data[0].label;
     } else {
-      return '-';
+      return "-";
     }
   }
-
-
- 
 
   statusSubmit() {
     this.spinner = true;
@@ -429,7 +412,6 @@ export class TicketingListComponent implements OnInit {
       $("#modal-fullscreen").modal("show");
       return;
     }
-    console.log(this.status);
 
     // if (
     //  ( parseInt(this.empId, 10) === parseInt(this.bugView["assigned_to"], 10) &&
@@ -438,22 +420,20 @@ export class TicketingListComponent implements OnInit {
     //   parseInt(this.status, 10) !== 6 &&
     //   parseInt(this.status, 10) !== 7) ||  parseInt(this.empId, 10) === parseInt(this.bugView["assigned_by"], 10)
     // ) {
-      const body = this.prepareSave();
+    const body = this.prepareSave();
 
-      this.ticketService.ticket_history(body).subscribe((data) => {
-        if (data["success"]) {
-          console.log(data);
-
-          this.spinner = false;
-          this.toastr.success(`Ticket Updated Successfully`);
-          $("#modal-fullscreen").modal("hide");
-          this.clear();
-        } else {
-          this.spinner = false;
-          this.toastr.error(data["message"]);
-          this.toastr.warning(`You are not authorised to close this ticket`);
-        }
-      });
+    this.ticketService.ticket_history(body).subscribe((data) => {
+      if (data["success"]) {
+        this.spinner = false;
+        this.toastr.success(`Ticket Updated Successfully`);
+        $("#modal-fullscreen").modal("hide");
+        this.clear();
+      } else {
+        this.spinner = false;
+        this.toastr.error(data["message"]);
+        this.toastr.warning(`You are not authorised to close this ticket`);
+      }
+    });
     // } else {
     //   this.spinner = false;
     //   this.toastr.warning(`You are not authorised to close this ticket`);
@@ -470,7 +450,6 @@ export class TicketingListComponent implements OnInit {
   onFileChange(event) {
     // const reader = new FileReader();
 
-    console.log(event);
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.itemImage = file;
@@ -482,9 +461,6 @@ export class TicketingListComponent implements OnInit {
       status: this.status,
       comments: this.comments,
       category: this.bugView["category_id"],
-      
-      
-
     };
     const input = new FormData();
     input.append("logo", this.itemImage);

@@ -59,7 +59,7 @@ export class ProjectReportComponent implements OnInit {
                   value: item.id,
                 });
               });
-              console.log(data['data']);
+            
             } else {
               this.getProjectsList(this.projectListData[0].id);
               this.spinner = false;
@@ -83,7 +83,7 @@ export class ProjectReportComponent implements OnInit {
                 value: item.id,
               });
             });
-            console.log(data['data']);
+          
           } else {
             this.getProjectsList(this.projectListData[0].id);
             this.spinner = false;
@@ -104,8 +104,7 @@ export class ProjectReportComponent implements OnInit {
         (data) => {
           if (data['success']) {
             this.projectsData = data['data'][0];
-            console.log(data['data']);
-            console.log(this.projectsData);
+          
             this.spinner = false;
             const arr = data['data'];
             arr.forEach((ele) => {
@@ -125,7 +124,7 @@ export class ProjectReportComponent implements OnInit {
           } else {
             this.projectsData = [];
             this.projectsData1 = [];
-            console.log(data['message']);
+          
             this.spinner = false;
           }
         },
@@ -135,7 +134,7 @@ export class ProjectReportComponent implements OnInit {
       );
   }
   projectReport(id) {
-    console.log(id);
+   
     this.projectsData1 = [];
     this.getProjectsList(id);
   }

@@ -59,16 +59,16 @@ export class StateComponent implements OnInit {
       $('#large-Modal').modal('show');
       return;
     }
-    console.log(this.stateForm.value);
+    
     const body = this.stateForm.value;
-    console.log(this.editId);
+   
     if (this.editId) {
       body['id'] = this.editId;
     }
-    console.log(body);
+
     this.service.add_state(body).subscribe(
       (data) => {
-        console.log(data['data']);
+      
         if (data['success']) {
           this.getState();
           this.spinner = false;
@@ -117,7 +117,7 @@ export class StateComponent implements OnInit {
           }, 200);
           this.spinner = false;
           } else {
-          console.log(data['message']);
+        
           this.spinner = false;
         }
       },
@@ -128,7 +128,7 @@ export class StateComponent implements OnInit {
   }
 
   edit(item) {
-    console.log(item);
+   
     this.spinner = false;
     this.editId = item.id;
     this.stateForm.patchValue({
@@ -161,7 +161,7 @@ export class StateComponent implements OnInit {
     this.countryService.get_country().subscribe((data) => {
       if (data['success']) {
         this.countryList = data['data'];
-        console.log(this.countryList);
+      
       } else {
         this.countryList = [];
       }
@@ -173,7 +173,7 @@ export class StateComponent implements OnInit {
       this.countryList,
       (item) => parseInt(item.id, 10) === parseInt(id, 10)
     );
-    console.log(data);
+   
     if (data.length > 0) {
       return data[0].country_name;
     } else {
@@ -181,11 +181,11 @@ export class StateComponent implements OnInit {
     }
   }
   handleFile(event) {
-    // console.log(event);
+    
     this.excelData = [];
     let result1 = [];
     if (event) {
-      // console.log(`1`);
+      
     }
 
     const file = event.target.files[0];
@@ -205,7 +205,7 @@ export class StateComponent implements OnInit {
           gst_code: ele.gst_code,
         });
       });
-      console.log(this.finalExcelData);
+     
       setTimeout(() => {
         event = null;
       }, 3000);

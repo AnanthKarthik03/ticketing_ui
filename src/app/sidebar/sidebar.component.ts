@@ -13,6 +13,7 @@ export class SidebarComponent implements OnInit {
   userName: any;
   userProfile: any;
   itemImage = '';
+  userType= '';
   imagePath = environment.employee_logo;
   constructor(public routers: Router, public router: ActivatedRoute) {}
   roleId = '';
@@ -23,6 +24,9 @@ export class SidebarComponent implements OnInit {
     this.roleId = sessionStorage.getItem('role');
     this.userProfile = sessionStorage.getItem('user_image');
     this.userName = sessionStorage.getItem('name');
+    this.userType = sessionStorage.getItem('user_type');
+    console.log(this.userType);
+
     sessionStorage.setItem('projectId', null);
     $(document).ready(function () {
       'use strict';
@@ -184,7 +188,7 @@ export class SidebarComponent implements OnInit {
           })
           .get()
           .join(' ');
-        console.log(others);
+       
         $('body').removeClass(others).addClass(this.value);
       });
     });
@@ -397,7 +401,7 @@ export class SidebarComponent implements OnInit {
   onFileChange(event) {
     // const reader = new FileReader();
 
-    console.log(event);
+  
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.itemImage = file;

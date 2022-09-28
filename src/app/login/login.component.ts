@@ -1,16 +1,16 @@
-import { Validators } from '@angular/forms';
-import { FormBuilder } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { LoginserService } from '../services/login.service';
-import { ForgotService } from '../services/forgot.service';
+import { Validators } from "@angular/forms";
+import { FormBuilder } from "@angular/forms";
+import { FormGroup } from "@angular/forms";
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
+import { LoginserService } from "../services/login.service";
+import { ForgotService } from "../services/forgot.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"],
 })
 export class LoginComponent implements OnInit {
   myForm = new FormGroup({});
@@ -32,14 +32,14 @@ export class LoginComponent implements OnInit {
   // Validation Funcation of Login
   valiDate() {
     this.myForm = this.formbuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+      username: ["", Validators.required],
+      password: ["", Validators.required],
     });
   }
   // Validation Funcation of Login
   resetPass() {
     this.resetForm = this.formbuilder.group({
-      empCode: ['', Validators.required],
+      empCode: ["", Validators.required],
     });
   }
 
@@ -57,36 +57,34 @@ export class LoginComponent implements OnInit {
     const body = this.myForm.value;
     this.loginService.adminLogin(body).subscribe(
       (data) => {
-        if (data['success']) {
-          console.log(data['data'].role);
-
+        if (data["success"]) {
           this.spinner = false;
-          this.toastr.success('Login Successfull');
+          this.toastr.success("Login Successfull");
 
           // data["data"].role.
-          if (data['data'].role === 'SuperAdmin') {
-            this.router.navigate(['/dashboard']);
-          } else if (data['data'].role === 'User') {
-            this.router.navigate(['/employeeDashboard']);
-          } else if (data['data'].role === 'Admin') {
-            sessionStorage.setItem('companyId', data['data'].company_id);
-            this.router.navigate(['/adminDashboard']);
-          } else if (data['data'].role === 'Pm') {
-            sessionStorage.setItem('companyId', data['data'].company_id);
-            sessionStorage.setItem('customerId', data['data'].customer_id);
+          if (data["data"].role === "SuperAdmin") {
+            this.router.navigate(["/dashboard"]);
+          } else if (data["data"].role === "User") {
+            this.router.navigate(["/employeeDashboard"]);
+          } else if (data["data"].role === "Admin") {
+            sessionStorage.setItem("companyId", data["data"].company_id);
+            this.router.navigate(["/adminDashboard"]);
+          } else if (data["data"].role === "Pm") {
+            sessionStorage.setItem("companyId", data["data"].company_id);
+            sessionStorage.setItem("customerId", data["data"].customer_id);
             // this.router.navigate(['/projects']);
-            this.router.navigate(['/pmDashboard']);
-          } else if (data['data'].role === 'Client') {
-            this.router.navigate(['/clientDashboard']);
+            this.router.navigate(["/pmDashboard"]);
+          } else if (data["data"].role === "Client") {
+            this.router.navigate(["/clientDashboard"]);
           }
         } else {
           this.spinner = false;
-          this.toastr.error(' Incorrect UserID or Password');
+          this.toastr.error(" Incorrect UserID or Password");
         }
       },
       (err) => {
         this.spinner = false;
-        this.toastr.error('Network Error');
+        this.toastr.error("Network Error");
       }
     );
   }
@@ -94,23 +92,22 @@ export class LoginComponent implements OnInit {
     this.viewSignIn = true;
     this.myForm.reset();
     this.resetForm.reset();
-  }
+  };
   signOut = () => {
     this.viewSignIn = false;
     this.myForm.reset();
     this.resetForm.reset();
-  }
+  };
 
   forgetPass() {
     const body = this.resetForm.value;
-    console.log(this.resetForm.value);
+
     this.service.forget(body).subscribe((data) => {
-      if (data['success']) {
-        console.log(data);
-        this.toastr.success('New Password sent to Admin');
+      if (data["success"]) {
+        this.toastr.success("New Password sent to Admin");
         this.viewSignIn = false;
       } else {
-        this.toastr.error(data['message']);
+        this.toastr.error(data["message"]);
       }
     });
   }

@@ -55,7 +55,7 @@ export class SubCategoryComponent implements OnInit {
           });
           this.spinner = false;
         } else {
-          console.log(data["message"]);
+        
           this.spinner = false;
         }
       },
@@ -84,7 +84,7 @@ export class SubCategoryComponent implements OnInit {
          
           this.spinner = false;
         } else {
-          console.log(data["message"]);
+         
           this.spinner = false;
         }
       },
@@ -99,14 +99,14 @@ export class SubCategoryComponent implements OnInit {
   onSubmit() {
     this.spinner = true;
     this.submitted = true;
-    console.log(this.categoryForm);
+   
 
     if (this.categoryForm.invalid) {
       $("#large-Modal").modal("show");
       // this.spinner = false;
       return;
     }
-    console.log(this.categoryForm.value);
+   
     const body = this.categoryForm.value;
     body.status = JSON.parse(body.status);
     if (this.editId) {
@@ -114,7 +114,7 @@ export class SubCategoryComponent implements OnInit {
     }
     this.service.add_sub_category(body).subscribe(
       (data) => {
-        console.log(data["data"]);
+       
         if (data["success"]) {
           this.spinner = false;
           if (this.editId) {
@@ -145,7 +145,7 @@ export class SubCategoryComponent implements OnInit {
     this.fileUpload = "";
   }
   edit(item) {
-    console.log(item);
+  
     this.spinner = false;
     this.editId = item.id;
     this.categoryForm.patchValue({
@@ -179,7 +179,7 @@ export class SubCategoryComponent implements OnInit {
           category: ele.category,
         });
       });
-      console.log(this.finalExcelData);
+    
       setTimeout(() => {
         event = null;
       }, 3000);

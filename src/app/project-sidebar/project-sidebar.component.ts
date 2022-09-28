@@ -19,7 +19,6 @@ export class ProjectSidebarComponent implements OnInit {
     this.pageType = this.routers.snapshot.url[0].path;
     this.sidebar();
     this.userProfile = sessionStorage.getItem('user_image');
-
     this.roleId = sessionStorage.getItem('role');
     this.userName = sessionStorage.getItem('name');
   }
@@ -211,7 +210,7 @@ export class ProjectSidebarComponent implements OnInit {
           })
           .get()
           .join(' ');
-        console.log(others);
+       
         $('body').removeClass(others).addClass(this.value);
       });
     });
@@ -294,7 +293,7 @@ export class ProjectSidebarComponent implements OnInit {
     }
     $(window)
       .bind('resize', function () {
-        // console.log($(this).width())
+       
         if ($(this).width() < 1201) {
           $('.horizontal').removeClass('h_menu');
         } else {
