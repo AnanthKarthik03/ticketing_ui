@@ -179,6 +179,7 @@
                       <th>Ticket No.</th>
                       <th>Assigned By</th>
                       <th>Ticket Description</th>
+                      <th>Client Name</th>
                       <th>Project Name</th>
                       <th>Assigned To</th>
                       <th>Category</th>
@@ -198,6 +199,8 @@
                       <td title="{{ item.ticket_desc }}">
                         {{ item.ticket_desc }}
                       </td>
+                      <td> {{get_customer(item.customerId
+                        ) }}</td>
                       <td>{{ item.project_name }}</td>
                       <td>{{ item.assigned_to }}</td>
                       <td>{{ item.category_id }}</td>
@@ -290,7 +293,7 @@
                 <h4>
                   Are you sure you want to work on this ticket ?
                   <br />
-                  Once assigned cannot not be changed !!
+                  <!-- Once assigned cannot not be changed !! -->
                 </h4>
               </div>
             </div>

@@ -139,6 +139,7 @@ export class TicketingAddComponent implements OnInit {
             value: element.id,
           });
         });
+        console.log(this.category);
       } else {
         this.categoryList = [];
       }
