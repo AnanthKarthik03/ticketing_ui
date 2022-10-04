@@ -486,7 +486,6 @@ export class TicketingListComponent implements OnInit {
       ticket_id: this.bugView["id"],
       status: this.status,
       comments: this.comments,
-      category: this.bugView["category_id"],
     };
     const input = new FormData();
     input.append("logo", this.itemImage);
@@ -506,5 +505,9 @@ export class TicketingListComponent implements OnInit {
         this.clear();
         this.toastr.success(`Ticket Re Assigned Assigned !`);
       });
+  }
+  statusChange(e) {
+    console.log(e);
+    this.status = e;
   }
 }
