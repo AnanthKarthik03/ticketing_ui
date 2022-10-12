@@ -7,7 +7,7 @@ export const environment = {
   // ticketingFiles: 'https://rostan.rostantechnologies.com/ticketing_tool/server/ticketingFiles/',
 
 
-  // Rostan Live
+  // Rostan Live server
 
   apiUrl: 'https://rstapi.rostantechnologies.com:9990/',
   company_logo: 'http://129.154.38.81/ticketing_tool/rostan_server/company_logo/',
