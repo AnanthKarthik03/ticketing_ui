@@ -2014,6 +2014,80 @@
                                             </div>
                                           </div>
                                         </div>
+                                        <div class="row clearfix" style="clear:both; margin-top: 30px;margin-bottom: 30px;">
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label
+                                              >Cause
+                                              <span style="color: red">* </span>
+                                              <span style="color: red ;font-size: 10px;">Mandatory before closing </span>
+                                            </label>
+                                            <textarea
+                                              name="cause"
+                                              [(ngModel)]="cause"
+                                              id=""
+                                              cols="30"
+                                              rows="3"
+                                              formControlName="cause"
+                                              class="form-control"
+                                              [ngClass]="{
+                                                'is-invalid':
+                                                  submitted && f.cause.errors
+                                              }"
+                                              required
+                                            ></textarea>
+                                            <div
+                                              *ngIf="
+                                                submitted && f.cause.errors
+                                              "
+                                              class="invalid-feedback"
+                                            >
+                                              <div
+                                                *ngIf="
+                                                  f.cause.errors.required
+                                                "
+                                              >
+                                              Cause is required
+                                              </div>
+                                            </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <label
+                                              >Resolution
+                                              <span style="color: red">* </span>
+                                              <span style="color: red ;font-size: 10px;">Mandatory before closing </span>
+                                            </label>
+                                            <textarea
+                                              name="resolution"
+                                              [(ngModel)]="resolution"
+                                              id=""
+                                              cols="30"
+                                              rows="3"
+                                              formControlName="resolution"
+                                              class="form-control"
+                                              [ngClass]="{
+                                                'is-invalid':
+                                                  submitted && f.resolution.errors
+                                              }"
+                                              required
+                                            ></textarea>
+                                            <div
+                                              *ngIf="
+                                                submitted && f.resolution.errors
+                                              "
+                                              class="invalid-feedback"
+                                            >
+                                              <div
+                                                *ngIf="
+                                                  f.resolution.errors.required
+                                                "
+                                              >
+                                              Resolution is required
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
                                       </form>
                                       <div class="mt-3 float-right">
                                         <button
