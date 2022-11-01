@@ -40,6 +40,8 @@ export class TicketingListComponent implements OnInit {
   status = "";
   status_dummy = "";
   comments = "";
+  cause="";
+  resolution="";
   categoryList = [];
   //categoryListD = [];
   category = [];
@@ -93,8 +95,17 @@ export class TicketingListComponent implements OnInit {
     this.getProjectById(this.projectId);
     this.getEmpLinking();
 
+    // this.empTicket = this.fb.group({
+    //   comments: ["", Validators.required],
+    //   resolution: ["", Validators.required],
+    //   cause: ["", Validators.required],
+
+    // });
     this.empTicket = this.fb.group({
       comments: ["", Validators.required],
+      resolution: ["", Validators.required],
+      cause: ["", Validators.required],
+
     });
   }
   getEmpLinking() {
@@ -486,6 +497,8 @@ export class TicketingListComponent implements OnInit {
       ticket_id: this.bugView["id"],
       status: this.status,
       comments: this.comments,
+      resolution: this.resolution,
+      cause: this.cause,
     };
     const input = new FormData();
     input.append("logo", this.itemImage);

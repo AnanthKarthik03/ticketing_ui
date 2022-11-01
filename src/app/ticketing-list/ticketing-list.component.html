@@ -2014,7 +2014,16 @@
                                             </div>
                                           </div>
                                         </div>
-                                        <div class="row clearfix" style="clear:both; margin-top: 30px;margin-bottom: 30px;">
+                                        <div class="row clearfix" style="clear:both; margin-top: 30px;margin-bottom: 30px;"
+                                        *ngIf="
+                                        status_dummy === 4 ||
+                                        status_dummy === 7 ||
+                                        status_dummy === 5
+                                      "
+                                      (click)="statusChange(5)"
+                                      class="ml-2 tag "
+                                      [ngClass]="{ enabledStatus1: status === 5 }"
+                                    >
                                           <div class="col-md-6">
                                             <div class="form-group">
                                               <label
