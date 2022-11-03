@@ -95,19 +95,15 @@ export class TicketingListComponent implements OnInit {
     this.getProjectById(this.projectId);
     this.getEmpLinking();
 
-    // this.empTicket = this.fb.group({
-    //   comments: ["", Validators.required],
-    //   resolution: ["", Validators.required],
-    //   cause: ["", Validators.required],
-
-    // });
     this.empTicket = this.fb.group({
       comments: ["", Validators.required],
-      resolution: ["", Validators.required],
-      cause: ["", Validators.required],
+      resolution: ["",],
+      cause: ["",],
 
     });
+    
   }
+  
   getEmpLinking() {
     this.ticketService
       .get_employees_link(sessionStorage.getItem("projectId"))
@@ -523,4 +519,5 @@ export class TicketingListComponent implements OnInit {
     console.log(e);
     this.status = e;
   }
+  
 }

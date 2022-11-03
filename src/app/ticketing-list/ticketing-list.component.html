@@ -1723,8 +1723,7 @@
                                               let i = index
                                             "
                                           >
-                                            {{ i + 1 }}. {{ items.comments }} -
-                                            {{ items.created_at | date }}
+                                            {{ i + 1 }}.  {{ items.created_at | date }} - {{ items.comments }} 
                                           </div>
                                           <b
                                             *ngIf="historyData.length === 0"
@@ -1994,7 +1993,7 @@
                                               class="form-control"
                                               [ngClass]="{
                                                 'is-invalid':
-                                                  submitted && f.comments.errors
+                                                  submitted &&  f.comments.errors
                                               }"
                                               required
                                             ></textarea>
@@ -2014,12 +2013,8 @@
                                             </div>
                                           </div>
                                         </div>
-                                        <div class="row clearfix" style="clear:both; margin-top: 30px;margin-bottom: 30px;"
-                                        *ngIf="
-                                        status_dummy === 4 ||
-                                        status_dummy === 7 ||
-                                        status_dummy === 5
-                                      "
+                                        <div class="row clearfix" id="dis" style="clear:both; margin-top: 30px;margin-bottom: 30px;"
+                                        *ngIf=" status_dummy === 5 "
                                       (click)="statusChange(5)"
                                       class="ml-2 tag "
                                       [ngClass]="{ enabledStatus1: status === 5 }"
@@ -2031,23 +2026,24 @@
                                               <span style="color: red">* </span>
                                               <span style="color: red ;font-size: 10px;">Mandatory before closing </span>
                                             </label>
-                                            <textarea
-                                              name="cause"
-                                              [(ngModel)]="cause"
-                                              id=""
-                                              cols="30"
-                                              rows="3"
-                                              formControlName="cause"
-                                              class="form-control"
-                                              [ngClass]="{
-                                                'is-invalid':
-                                                  submitted && f.cause.errors
-                                              }"
-                                              required
-                                            ></textarea>
+                                            <input
+                                            type="file"
+                                            (change)="onFileChange($event)"
+                                            name="cause"
+                                            [(ngModel)]="cause"
+                                            formControlName="cause"
+                                            class="form-control"
+                                            placeholder=""
+                                            [ngClass]="{
+                                              'is-invalid':
+                                                submitted && status === 5 && f.cause.errors
+                                            }"
+                                            required
+                                          />
+                                            
                                             <div
                                               *ngIf="
-                                                submitted && f.cause.errors
+                                                submitted && status === 5 && f.cause.errors
                                               "
                                               class="invalid-feedback"
                                             >
@@ -2067,23 +2063,24 @@
                                               <span style="color: red">* </span>
                                               <span style="color: red ;font-size: 10px;">Mandatory before closing </span>
                                             </label>
-                                            <textarea
-                                              name="resolution"
-                                              [(ngModel)]="resolution"
-                                              id=""
-                                              cols="30"
-                                              rows="3"
-                                              formControlName="resolution"
-                                              class="form-control"
-                                              [ngClass]="{
-                                                'is-invalid':
-                                                  submitted && f.resolution.errors
-                                              }"
-                                              required
-                                            ></textarea>
+                                            <input
+                                            type="file"
+                                            (change)="onFileChange($event)"
+                                            name="resolution"
+                                            [(ngModel)]="resolution"
+                                            formControlName="resolution"
+                                            class="form-control"
+                                            placeholder=""
+                                            [ngClass]="{
+                                              'is-invalid':
+                                                submitted && status === 5 && f.resolution.errors
+                                            }"
+                                            required
+                                          />
+                                            
                                             <div
                                               *ngIf="
-                                                submitted && f.resolution.errors
+                                                submitted && status === 5 && f.resolution.errors
                                               "
                                               class="invalid-feedback"
                                             >
