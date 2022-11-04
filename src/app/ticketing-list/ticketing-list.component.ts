@@ -323,6 +323,8 @@ export class TicketingListComponent implements OnInit {
   viewTicket(item) {
     this.reassignField = false;
     this.submitted = false;
+    this.historyData = [];
+    this.comments = "";
     this.bugView = item;
     this.status = item.status;
     this.status_dummy = item.status;
