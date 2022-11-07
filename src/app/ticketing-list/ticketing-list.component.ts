@@ -38,7 +38,7 @@ export class TicketingListComponent implements OnInit {
   closed = [];
   bugView = {};
   status = "";
-  status_dummy = "";
+  status_live = "";
   comments = "";
   cause="";
   resolution="";
@@ -65,7 +65,7 @@ export class TicketingListComponent implements OnInit {
   empFilter = [];
   allTicketsData = [];
   assignedToEmp = [];
-  assignedToEmpDummy = [];
+  assignedToEmpLive = [];
   reassignField = false;
   constructor(
     public router: Router,
@@ -109,7 +109,7 @@ export class TicketingListComponent implements OnInit {
       .get_employees_link(sessionStorage.getItem("projectId"))
       .subscribe((data) => {
         if (data["success"]) {
-          this.assignedToEmpDummy = data["data"];
+          this.assignedToEmpLive = data["data"];
           this.assignedToEmp.unshift({
             label: "Select Employee",
             value: null,
@@ -325,7 +325,7 @@ export class TicketingListComponent implements OnInit {
     this.submitted = false;
     this.bugView = item;
     this.status = item.status;
-    this.status_dummy = item.status;
+    this.status_live = item.status;
     this.ticketService.getTicketHistory(item.id).subscribe((data) => {
       if (data["success"]) {
         this.historyData = data["data"];
@@ -511,7 +511,7 @@ export class TicketingListComponent implements OnInit {
       .updateTicket(id, this.bugView["id"])
       .subscribe((data) => {
         $("#modal-fullscreen").modal("hide");
-        this.clear();
+         this.clear();
         this.toastr.success(`Ticket Re Assigned Assigned !`);
       });
   }
