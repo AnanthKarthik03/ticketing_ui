@@ -35,7 +35,10 @@ div .b {
   padding-left: 15px;
   padding-top: 10px;
 }
+.tag2{
+  background-color: #fff;
 
+}
 .card-list {
   font-size: 0.67em;
   border-top-left-radius: 25px;
