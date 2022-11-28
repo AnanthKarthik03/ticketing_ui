@@ -1370,7 +1370,7 @@
                     </button>
                     <button *ngIf="status_live === 2 || status_live === 4" (click)="statusChange(4)"
                       class="ml-2 tag tag-gray" [ngClass]="{ enabledStatus: status === 4 }">
-                      Approved
+                      Approved 
                     </button>
                     <button *ngIf="
                         status_live === 4 ||
@@ -1653,7 +1653,7 @@
                                         </div>
                                         <div class="row clearfix" id="dis"
                                           style="clear:both; margin-top: 30px;margin-bottom: 30px; background-color:#fff ;"
-                                          *ngIf="status_live === 5  " (click)="statusChange(6)"
+                                          *ngIf="status_live === 4  " (click)="statusChange(5)"
                                           class="ml-2 tag " [ngClass]="{ enabledStatus1: status === 6 }">
                                           <div class="col-md-6">
                                             <div class="form-group">

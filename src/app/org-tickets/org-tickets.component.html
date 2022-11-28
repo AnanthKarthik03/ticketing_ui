@@ -37,11 +37,11 @@
           </div>
         </div>
         <div class="row mb-4">
-          <div class="col-lg-12 col-md-12 p-0">
-            <div class="card">
-              <div class="card-header card-heade-em-deshboard">
+          <div class="col-lg-12 col-md-12 p-0"   >
+            <div class="card" style="overflow-x:scroll">
+              <div class="card-header card-heade-em-deshboard" >
                 <!--Size dropdown menu-->
-                <div class="col-md-12">
+                <div class="col-md-12" >
                   <div class="row">
                     <div class="col-auto text-left view-port" >
                       <div class="row">
@@ -52,6 +52,7 @@
                             [showIcon]="true"
                             inputId="icon"
                             class="lineHeight"
+                            appendTo="body"
                           ></p-calendar>
                         </div>
 
@@ -63,6 +64,8 @@
                             inputId="icon"
                             (onSelect)="doSomething(date4)"
                             class="lineHeight"
+                            
+                            appendTo="body"
                           ></p-calendar>
                         </div>
 
@@ -171,21 +174,24 @@
                 <table
                   class="table-bordered table_style"
                   width="100%"
+                 
                 >
                   <thead>
                     <tr>
                       <th style="width: 40px">S.NO</th>
                       <th style="width: 60px">Ticket No.</th>
                       <th style="width: 88px">Assigned By</th>
-                      <th>Description</th>
+                      <th style="width: 82px">Description</th>
                       <th style="width: 70px">Client Name</th>
                       <th style="width: 77px">Project Name</th>
                       <th style="width: 82px">Assigned To</th>
                       <th style="width: 56px">Category</th>
+                      <th style="width: 56px">Sub Category</th>
                       <th style="width: 60px">Priority</th>
                       <th style="width: 58px">Status</th>
                       <th style="width: 62px">Start Date</th>
                       <th style="width: 62px">End Date</th>
+                      <th style="width: 62px">Total Date</th>
                       <th style="width: 82px">PM</th>
                       <th style="width: 35px">Edit</th>
                     </tr>
@@ -207,6 +213,7 @@
                       <td>{{ item.project_name }}</td>
                       <td>{{ item.assigned_to }}</td>
                       <td>{{ item.category_id }}</td>
+                      <td>{{ item.sub_category_id }}</td>
                       <td>
                         <span
                           *ngIf="item.priority == 0"
@@ -230,13 +237,16 @@
                           High
                         </span>
                       </td>
+                     
                       <td>{{ item.status_name }}</td>
                       <td>{{ item.start_date | date }}</td>
+                      <td>{{ item.end_date | date }}</td>
+                      <!-- <td>{{ getDiffDays() }}</td> -->
                       <td>{{ item.end_date | date }}</td>
                       <td>{{ item.pm }}</td>
                       <td>
                         <i
-                          *ngIf="item.status === 0 || item.status === 1 "
+                          *ngIf="item.status === 0 || item.status === 1 || item.status === 2 || item.status === 3 || item.status === 4 || item.status === 6 "
                           class="fa fa-edit"
                           data-toggle="modal"
                           data-target="#modal-fullscreen"
@@ -244,7 +254,7 @@
                           
                         ></i>
                         <i
-                          *ngIf="item.status !== 0 &&  item.status !== 1"
+                          *ngIf="item.status == 5 "
                           class="fa fa-edit"
                           style="color: red"
                         ></i>
@@ -253,7 +263,7 @@
                   </tbody>
                   <tbody>
                     <tr *ngIf="ticketDetailsData.length === 0">
-                      <td colspan="14" style="text-align: center">
+                      <td colspan="16" style="text-align: center">
                         No Data Found
                       </td>
                     </tr>

@@ -22,6 +22,7 @@ declare var $: any;
   styleUrls: ["./org-tickets.component.css"],
 })
 export class OrgTicketsComponent implements OnInit {
+  
   empTicket!: FormGroup;
   spinner = false;
   ticketDetailsData = [];
@@ -49,6 +50,8 @@ export class OrgTicketsComponent implements OnInit {
   role = sessionStorage.getItem("role");
   selectedProjects = "";
   ticketDetailsDataD = [];
+  ticketDetailsDataD1 = [];
+  ticketDetailsData1 = [];
   ticketId = "";
   customerName = "";
   empFilter = [];
@@ -100,6 +103,7 @@ export class OrgTicketsComponent implements OnInit {
     this.projectId = sessionStorage.getItem("projectId");
     this.get_customer();
     this.getSubCategory();
+    //this.getDays();
     this.getPratice();
     this.empTicket = this.fb.group({
       comments: ["", Validators.required],
@@ -645,7 +649,7 @@ export class OrgTicketsComponent implements OnInit {
       }
     );
   }
-
+ 
   categoryGet() {
     this.spinner = true;
     this.categoryService.get_category().subscribe(
@@ -784,4 +788,86 @@ export class OrgTicketsComponent implements OnInit {
     console.log(e);
     this.status = e;
   }
+  // getDays() {
+  //   this.ticketService.ticket_history().subscribe((data) => {
+  //     if (data["success"]) {
+  //       this.ticketDetailsData1 = data["data"];
+  //     } else {
+  //       this.ticketDetailsData1 = [];
+  //     }
+  //   });
+  // }
+
+  // getDiffDays(id) {
+  //   const data = _.filter(
+  //     this.ticketDetailsData1,
+  //     (item) => parseInt(item.id, 10) === parseInt(id, 10)
+  //   );
+
+  //   if (data.length > 0) {
+  //     return data[0].;
+  //   } else {
+  //     return "-";
+  //   }
+  // }
+
+//   getDays(id) {
+    
+//     this.ticketDetailsData1 = [];
+//     this.service
+//       .orgTickets(
+//         sessionStorage.getItem("companyId"),
+//         id,
+//         moment(this.date3).format("YYYY-MM-DD"),
+//         moment(this.date4).format("YYYY-MM-DD")
+//       )
+//       .subscribe(
+//         (data) => {
+//           if (data["success"]) {
+           
+//             console.log(data["data"]);
+//             const arr = data["data"].concat(data["others"]);
+            
+//             data["data"].forEach((ele) => {
+//               this.ticketDetailsData1.push({
+                
+//                 end_date: ele.end_date,
+//                 start_date: ele.start_date,
+//                 customer_id: this.getcustomerName(ele.customer_id)
+//               });
+//             });
+//             this.ticketDetailsDataD1 = this.ticketDetailsData1;
+//           } else {
+//             this.ticketDetailsData1 = [];
+//           }
+//         },
+//         (err) => {
+//           this.spinner = false;
+//         }
+//       );
+      
+//   }
+//   getDiffDays(id) {
+    
+//      const date1 = _.filter(
+//       this.ticketDetailsData1,
+    
+//       (item) => parseInt(item. end_date, 10) === parseInt(id, 10)
+//     );
+//     const date2 = _.filter(
+//       this.ticketDetailsData1,
+      
+//       (item) => parseInt(item.start_date, 10) === parseInt(id, 10)
+//     );
+    
+    
+   
+//     var Time = date1.getTime() - date2.getTime();
+
+//     return Time / (1000 * 3600 * 24);
+    
+
+//   }
+
+    
 }
