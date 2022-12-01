@@ -191,7 +191,7 @@
                       <th style="width: 58px">Status</th>
                       <th style="width: 62px">Start Date</th>
                       <th style="width: 62px">End Date</th>
-                      <th style="width: 62px">Total Date</th>
+                      <th style="width: 62px">Total Days</th>
                       <th style="width: 82px">PM</th>
                       <th style="width: 35px">Edit</th>
                     </tr>
@@ -241,8 +241,8 @@
                       <td>{{ item.status_name }}</td>
                       <td>{{ item.start_date | date }}</td>
                       <td>{{ item.end_date | date }}</td>
-                      <!-- <td>{{ getDiffDays() }}</td> -->
-                      <td>{{ item.end_date | date }}</td>
+                      <td>{{ item.total_days }}</td>
+                      <!-- <td>{{ item.end_date | date }}</td> -->
                       <td>{{ item.pm }}</td>
                       <td>
                         <i
