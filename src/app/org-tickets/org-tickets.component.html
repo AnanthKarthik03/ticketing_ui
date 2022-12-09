@@ -37,13 +37,13 @@
           </div>
         </div>
         <div class="row mb-4">
-          <div class="col-lg-12 col-md-12 p-0"   >
-            <div class="card" style="overflow-x:scroll">
-              <div class="card-header card-heade-em-deshboard" >
+          <div class="col-lg-12 col-md-12 p-0">
+            <div class="card" style="overflow-x: scroll">
+              <div class="card-header card-heade-em-deshboard">
                 <!--Size dropdown menu-->
-                <div class="col-md-12" >
+                <div class="col-md-12">
                   <div class="row">
-                    <div class="col-auto text-left view-port" >
+                    <div class="col-auto text-left view-port">
                       <div class="row">
                         <div class="font-size-1 mar_t pr-2">From:</div>
                         <div class="mobile-v">
@@ -57,22 +57,21 @@
                         </div>
 
                         <div class="font-size-1 ml-2 mar_t px-2">To:</div>
-                        <div class="mobile-v" >
+                        <div class="mobile-v">
                           <p-calendar
                             [(ngModel)]="date4"
                             [showIcon]="true"
                             inputId="icon"
                             (onSelect)="doSomething(date4)"
                             class="lineHeight"
-                            
                             appendTo="body"
                           ></p-calendar>
                         </div>
 
-                        <div class="font-size-1 ml-2 mar_t px-2" >
+                        <div class="font-size-1 ml-2 mar_t px-2">
                           <span>Project : </span>
                         </div>
-                        <div class="mobile-v pr-1" >
+                        <div class="mobile-v pr-1">
                           <p-multiSelect
                             (onChange)="projectReport($event.value)"
                             [options]="selectProject"
@@ -82,7 +81,6 @@
                             name="test"
                             [maxSelectedLabels]="2"
                             appendTo="body"
-                           
                             [style]="{
                               overflow: 'hidden',
                               width: '100%'
@@ -171,11 +169,7 @@
                 </div> -->
               </div>
               <div class="card-body p-1">
-                <table
-                  class="table-bordered table_style"
-                  width="100%"
-                 
-                >
+                <table class="table-bordered table_style" width="100%">
                   <thead>
                     <tr>
                       <th style="width: 40px">S.NO</th>
@@ -188,9 +182,12 @@
                       <th style="width: 56px">Category</th>
                       <th style="width: 56px">Sub Category</th>
                       <th style="width: 60px">Priority</th>
+                      <th style="width: 82px">Comment</th>
                       <th style="width: 58px">Status</th>
+                      <th style="width: 62px">Creation Date</th>
+                      <th style="width: 62px">Expected Delivery Date</th>
                       <th style="width: 62px">Start Date</th>
-                      <th style="width: 62px">End Date</th>
+                      <th style="width: 62px">Actual End Date</th>
                       <th style="width: 62px">Total Days</th>
                       <th style="width: 82px">PM</th>
                       <th style="width: 35px">Edit</th>
@@ -201,15 +198,18 @@
                       <td>{{ i + 1 }}</td>
                       <td>{{ item.ticket_no }}</td>
                       <td>{{ item.assigned_by }}</td>
-                      <td style="
-                      white-space: nowrap;
-                      overflow: hidden;
-                      text-overflow: ellipsis;
-                      padding: 2px;" 
-                      title="{{ item.ticket_desc }}">
+                      <td
+                        style="
+                          white-space: nowrap;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          padding: 2px;
+                        "
+                        title="{{ item.ticket_desc }}"
+                      >
                         {{ item.ticket_desc }}
                       </td>
-                      <td> {{ item.customer_id }}</td>
+                      <td>{{ item.customer_id }}</td>
                       <td>{{ item.project_name }}</td>
                       <td>{{ item.assigned_to }}</td>
                       <td>{{ item.category_id }}</td>
@@ -237,24 +237,88 @@
                           High
                         </span>
                       </td>
-                     
+                      <td
+                        style="
+                          white-space: nowrap;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          padding: 2px;
+                        "
+                        title="{{ item.comments }}"
+                      >
+                        <div
+                          *ngIf="
+                            item.status === 1 ||
+                            item.status === 2 ||
+                            item.status === 3 ||
+                            item.status === 4 ||
+                            item.status === 5 ||
+                            item.status === 6
+                          "
+                        >
+                          {{ item.comments }}
+                        </div>
+                        <div *ngIf="item.status == 0">
+                          {{ "-" }}
+                        </div>
+                      </td>
                       <td>{{ item.status_name }}</td>
                       <td>{{ item.start_date | date }}</td>
                       <td>{{ item.end_date | date }}</td>
-                      <td>{{ item.total_days }}</td>
+                      <td>{{ item.created_at | date }}</td>
+                      <td>
+                        <div *ngIf="item.status == 5">
+                          {{ item.updated_at | date }}
+                        </div>
+                        <div
+                          *ngIf="
+                            item.status === 0 ||
+                            item.status === 1 ||
+                            item.status === 2 ||
+                            item.status === 3 ||
+                            item.status === 4 ||
+                            item.status === 6
+                          "
+                        >
+                          {{ "-" }}
+                        </div>
+                      </td>
+                      <td>
+                        <div *ngIf="item.status == 5">
+                          {{ item.total_days }}
+                        </div>
+                        <div
+                          *ngIf="
+                            item.status === 0 ||
+                            item.status === 1 ||
+                            item.status === 2 ||
+                            item.status === 3 ||
+                            item.status === 4 ||
+                            item.status === 6
+                          "
+                        >
+                          {{ "-" }}
+                        </div>
+                      </td>
                       <!-- <td>{{ item.end_date | date }}</td> -->
                       <td>{{ item.pm }}</td>
                       <td>
                         <i
-                          *ngIf="item.status === 0 || item.status === 1 || item.status === 2 || item.status === 3 || item.status === 4 || item.status === 6 "
+                          *ngIf="
+                            item.status === 0 ||
+                            item.status === 1 ||
+                            item.status === 2 ||
+                            item.status === 3 ||
+                            item.status === 4 ||
+                            item.status === 6
+                          "
                           class="fa fa-edit"
                           data-toggle="modal"
                           data-target="#modal-fullscreen"
                           (click)="viewTicket(item)"
-                          
                         ></i>
                         <i
-                          *ngIf="item.status == 5 "
+                          *ngIf="item.status == 5"
                           class="fa fa-edit"
                           style="color: red"
                         ></i>
@@ -323,14 +387,12 @@
                     <div class="col-md-12">
                       <span class="mr-4"
                         ><i class="fa fa-user-o" aria-hidden="true"></i
-                        ><span class="ml-2"
-                          >By {{ bugView.assigned_by }}</span
-                        >
+                        ><span class="ml-2">By {{ bugView.assigned_by }}</span>
                       </span>
                       <span>
                         <i class="fa fa-clock-o" aria-hidden="true"></i
                         ><span class="ml-2">{{
-                          bugView.created_at | date: "short"
+                          bugView.created_at | date : "short"
                         }}</span>
                       </span>
                     </div>
@@ -497,7 +559,9 @@
                                               let i = index
                                             "
                                           >
-                                          {{ i + 1 }}.  {{ items.created_at | date }} - {{ items.comments }}
+                                            {{ i + 1 }}.
+                                            {{ items.created_at | date }} -
+                                            {{ items.comments }}
                                           </div>
                                           <b
                                             *ngIf="historyData.length === 0"
@@ -544,7 +608,12 @@
                                               >
                                                 <div class="form-group">
                                                   <select
-                                                  (change)="reAssignChange($event.target.value)"                                                    class="form-control"
+                                                    (change)="
+                                                      reAssignChange(
+                                                        $event.target.value
+                                                      )
+                                                    "
+                                                    class="form-control"
                                                   >
                                                     <option
                                                       *ngFor="
@@ -563,7 +632,7 @@
                                               <div class="col-6 py-1">
                                                 {{
                                                   bugView.created_at
-                                                    | date: "short"
+                                                    | date : "short"
                                                 }}
                                               </div>
                                               <div class="col-6 py-1">
@@ -626,25 +695,19 @@
                                                 <strong>Practice:</strong>
                                               </div>
                                               <div class="col-6 py-1">
-                                                {{
-                                                    bugView.practice_id
-                                                }}
+                                                {{ bugView.practice_id }}
                                               </div>
                                               <div class="col-6 py-1">
                                                 <strong>Category:</strong>
                                               </div>
                                               <div class="col-6 py-1">
-                                                {{
-                                                    bugView.category_id
-                                                }}
+                                                {{ bugView.category_id }}
                                               </div>
                                               <div class="col-6 py-1">
                                                 <strong> Sub Category:</strong>
                                               </div>
                                               <div class="col-6 py-1">
-                                                {{
-                                                    bugView.sub_category_id
-                                                }}
+                                                {{ bugView.sub_category_id }}
                                               </div>
                                               <!-- <div class="col-5 py-1">
                                                 <strong>Flag:</strong>
@@ -842,7 +905,6 @@
                 <h4>
                   Are you sure you want to work on this ticket ?
                   <br />
-                  
                 </h4>
               </div>
             </div>

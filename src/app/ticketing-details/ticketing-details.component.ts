@@ -28,6 +28,7 @@ export class TicketingDetailsComponent implements OnInit {
   date3 = new Date();
   date4 = new Date();
   role = sessionStorage.getItem('role');
+  userType = sessionStorage.getItem('user_type');
   selectedProjects = '';
   ticketDetailsDataD = [];
   constructor(
@@ -194,6 +195,7 @@ export class TicketingDetailsComponent implements OnInit {
     // });
     this.spinner = true;
     if (this.role === 'Pm') {
+      console.log("working this PM")
       this.projectService1
         .getPMProjectsList(sessionStorage.getItem('id'))
         .subscribe(
@@ -202,6 +204,7 @@ export class TicketingDetailsComponent implements OnInit {
               this.spinner = false;
               this.projectListData = data['data'];
               const filterDataById = _.uniq(data['data'], 'id');
+              console.log(filterDataById)
               filterDataById.forEach((item) => {
                 this.selectProject.push({
                   label: item.project_name,
@@ -219,7 +222,34 @@ export class TicketingDetailsComponent implements OnInit {
           }
 
         );
+    } else if(this.userType === 'E') {
+      console.log("working this Client")
+      this.empService.getEmpProjectsList(sessionStorage.getItem("id")).subscribe(
+        (data) => {
+          if (data['success']) {
+            this.spinner = false;
+            this.projectListData = data['data'];
+            console.log(data['data'][0].customer_id)
+            const filterDataById = _.uniq(data['data'], 'id');
+            console.log(filterDataById)
+            filterDataById.forEach((item) => {
+              this.selectProject.push({
+                label: item.project_name,
+                value: item.id,
+              });
+            });
+        
+            this.ticketDetails(this.projectListData[0].id);
+          } else {
+            this.spinner = false;
+          }
+        },
+        (err) => {
+          this.spinner = false;
+        }
+      );
     } else {
+      console.log("working this admin")
       this.projectService1.get_project(
         sessionStorage.getItem('companyId'),
         sessionStorage.getItem('customerId')
@@ -229,6 +259,7 @@ export class TicketingDetailsComponent implements OnInit {
             this.spinner = false;
             this.projectListData = data['data'];
             const filterDataById = _.uniq(data['data'], 'id');
+            console.log(filterDataById)
             filterDataById.forEach((item) => {
               this.selectProject.push({
                 label: item.project_name,

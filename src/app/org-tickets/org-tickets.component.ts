@@ -416,6 +416,7 @@ export class OrgTicketsComponent implements OnInit {
                       : ele.priority === 2
                         ? "Medium"
                         : "Medium",
+                comments: ele.comments,
                 start_date: ele.start_date,
                 created_at: ele.created_at,
                 updated_at: ele.updated_at,
@@ -438,7 +439,7 @@ export class OrgTicketsComponent implements OnInit {
                                 : "Reopen",
                 ticket_desc: ele.ticket_desc,
                 customer_id: this.getcustomerName(ele.customer_id),
-                total_days: this.calcDays(new Date(ele.start_date), new Date(ele.end_date))
+                total_days: this.calcDays(new Date(ele.created_at), new Date(ele.updated_at))
               });
             });
             this.ticketDetailsDataD = this.ticketDetailsData;
@@ -728,7 +729,7 @@ export class OrgTicketsComponent implements OnInit {
               : ele.priority === 2
                 ? "Medium"
                 : "Medium",
-        //start_date: ele.start_date,
+        comments: ele.comments,
         start_date: ele.start_date
           ? moment(ele.start_date).format("YYYY-MM-DD")
           : moment(ele.start_date).format("YYYY-MM-DD"),
@@ -795,7 +796,7 @@ export class OrgTicketsComponent implements OnInit {
     console.log(e);
     this.status = e;
   }
-  
+
   calcDays(startDate, endDate) {
     if (endDate < startDate)
       return 0;

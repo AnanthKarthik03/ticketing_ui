@@ -248,11 +248,12 @@
                         <div class="col-sm-4">
                           <div class="form-group">
                             <label
-                              >Start Date
+                              >Creation Date
                               <span style="color: red">*</span></label
                             >
                             <p-calendar
                               formControlName="start_date"
+                              [disabled]="true" 
                               [yearNavigator]="true"
                               yearRange="1900:2030"
                               [inputStyle]="{ width: '90%' }"
@@ -268,7 +269,7 @@
                               class="invalid-feedback"
                             >
                               <div *ngIf="f.start_date.errors.required">
-                                Start Date is required
+                                Creation Date is required
                               </div>
                             </div>
                           </div>
@@ -276,7 +277,7 @@
                         <div class="col-sm-4">
                           <div class="form-group">
                             <label
-                              >End Date <span style="color: red">*</span></label
+                              >Expected Delivery Date<span style="color: red">*</span></label
                             >
                             <p-calendar
                               formControlName="end_date"
@@ -295,7 +296,7 @@
                               class="invalid-feedback"
                             >
                               <div *ngIf="f.end_date.errors.required">
-                                End Date is required
+                                Expected Delivery Date is required
                               </div>
                             </div>
                           </div>
