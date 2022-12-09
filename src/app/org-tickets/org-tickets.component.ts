@@ -22,6 +22,7 @@ declare var $: any;
   styleUrls: ["./org-tickets.component.css"],
 })
 export class OrgTicketsComponent implements OnInit {
+
   empTicket!: FormGroup;
   spinner = false;
   ticketDetailsData = [];
@@ -43,12 +44,18 @@ export class OrgTicketsComponent implements OnInit {
   excelData = [];
   othersList = [];
   praticeList = [];
+  startList = [];
+  startData = [];
+  endList = [];
+  endData = [];
   date3 = new Date();
   date4 = new Date();
   editId = "";
   role = sessionStorage.getItem("role");
   selectedProjects = "";
   ticketDetailsDataD = [];
+  ticketDetailsDataD1 = [];
+  ticketDetailsData1 = [];
   ticketId = "";
   customerName = "";
   empFilter = [];
@@ -73,6 +80,7 @@ export class OrgTicketsComponent implements OnInit {
   subcategory = [];
   assignedToEmp = [];
   assignedToEmpDummy = [];
+  totalDay = 0;
   constructor(
     public service: TicketingDetailsService,
     public projectService: ProjectReportService,
@@ -86,7 +94,8 @@ export class OrgTicketsComponent implements OnInit {
     public routers: Router, public router: ActivatedRoute,
     private fb: FormBuilder,
     public ticketService: TicketingAddService,
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.getEmpLinking();
@@ -100,6 +109,7 @@ export class OrgTicketsComponent implements OnInit {
     this.projectId = sessionStorage.getItem("projectId");
     this.get_customer();
     this.getSubCategory();
+    //this.getDays();
     this.getPratice();
     this.empTicket = this.fb.group({
       comments: ["", Validators.required],
@@ -271,7 +281,7 @@ export class OrgTicketsComponent implements OnInit {
 
   get_customer() {
     this.selectClient = [];
-    
+
     this.customerService
       .get_customer(sessionStorage.getItem('companyId'))
       .subscribe(
@@ -280,7 +290,7 @@ export class OrgTicketsComponent implements OnInit {
             console.log(data["data"]);
             this.customerData = data["data"];
           }
-           else {
+          else {
             this.spinner = false;
           }
         },
@@ -291,7 +301,7 @@ export class OrgTicketsComponent implements OnInit {
   }
   getcustomerName(id) {
     const data = _.filter(
-      this.customerData,(item) => parseInt(item.id, 10) === parseInt(id, 10)
+      this.customerData, (item) => parseInt(item.id, 10) === parseInt(id, 10)
     );
     if (data.length > 0) {
       return data[0].customer_name_first;
@@ -402,10 +412,11 @@ export class OrgTicketsComponent implements OnInit {
                   ele.priority === 0
                     ? "Lower"
                     : ele.priority === 1
-                    ? "High"
-                    : ele.priority === 2
-                    ? "Medium"
-                    : "Medium",
+                      ? "High"
+                      : ele.priority === 2
+                        ? "Medium"
+                        : "Medium",
+                comments: ele.comments,
                 start_date: ele.start_date,
                 created_at: ele.created_at,
                 updated_at: ele.updated_at,
@@ -414,20 +425,21 @@ export class OrgTicketsComponent implements OnInit {
                   ele.status === 0
                     ? "Open"
                     : ele.status === 1
-                    ? "In-Progress"
-                    : ele.status === 2
-                    ? "Resolved"
-                    : ele.status === 3
-                    ? "Awaiting Information"
-                    : ele.status === 4
-                    ? "Approved"
-                    : ele.status === 5
-                    ? "Closed"
-                    : ele.status === 6
-                    ? "Hold"
-                    : "Reopen",
+                      ? "In-Progress"
+                      : ele.status === 2
+                        ? "Resolved"
+                        : ele.status === 3
+                          ? "Awaiting Information"
+                          : ele.status === 4
+                            ? "Approved"
+                            : ele.status === 5
+                              ? "Closed"
+                              : ele.status === 6
+                                ? "Hold"
+                                : "Reopen",
                 ticket_desc: ele.ticket_desc,
-                customer_id: this.getcustomerName(ele.customer_id)
+                customer_id: this.getcustomerName(ele.customer_id),
+                total_days: this.calcDays(new Date(ele.created_at), new Date(ele.updated_at))
               });
             });
             this.ticketDetailsDataD = this.ticketDetailsData;
@@ -544,7 +556,7 @@ export class OrgTicketsComponent implements OnInit {
       return "-";
     }
   }
- 
+
 
   projectReport(id) {
     this.selectedProjects = id;
@@ -609,7 +621,7 @@ export class OrgTicketsComponent implements OnInit {
                   value: item.id,
                 });
               });
-             // console.log(data["data"]);
+              // console.log(data["data"]);
             } else {
               this.spinner = false;
             }
@@ -713,11 +725,11 @@ export class OrgTicketsComponent implements OnInit {
           ele.priority === 0
             ? "Lower"
             : ele.priority === 1
-            ? "High"
-            : ele.priority === 2
-            ? "Medium"
-            : "Medium",
-        //start_date: ele.start_date,
+              ? "High"
+              : ele.priority === 2
+                ? "Medium"
+                : "Medium",
+        comments: ele.comments,
         start_date: ele.start_date
           ? moment(ele.start_date).format("YYYY-MM-DD")
           : moment(ele.start_date).format("YYYY-MM-DD"),
@@ -725,18 +737,18 @@ export class OrgTicketsComponent implements OnInit {
           ele.status === 0
             ? "Open"
             : ele.status === 1
-            ? "In-Progress"
-            : ele.status === 2
-            ? "Resolved"
-            : ele.status === 3
-            ? "Awaiting Information"
-            : ele.status === 4
-            ? "Approved"
-            : ele.status === 5
-            ? "Closed"
-            : ele.status === 6
-            ? "Hold"
-            : "Reopen",
+              ? "In-Progress"
+              : ele.status === 2
+                ? "Resolved"
+                : ele.status === 3
+                  ? "Awaiting Information"
+                  : ele.status === 4
+                    ? "Approved"
+                    : ele.status === 5
+                      ? "Closed"
+                      : ele.status === 6
+                        ? "Hold"
+                        : "Reopen",
         ticket_desc: ele.ticket_desc,
       });
     });
@@ -783,5 +795,35 @@ export class OrgTicketsComponent implements OnInit {
   statusChange(e) {
     console.log(e);
     this.status = e;
+  }
+
+  calcDays(startDate, endDate) {
+    if (endDate < startDate)
+      return 0;
+
+    var millisecondsPerDay = 86400 * 1000;
+    startDate.setHours(0, 0, 0, 1);
+    endDate.setHours(23, 59, 59, 999);
+    var diff = endDate - startDate;
+    var days = Math.ceil(diff / millisecondsPerDay);
+
+    var weeks = Math.floor(days / 7);
+    days = days - (weeks * 2);
+
+    var startDay = startDate.getDay();
+    var endDay = endDate.getDay();
+
+    if (startDay - endDay > 1)
+      days = days - 2;
+
+    if (startDay == 0 && endDay != 6) {
+      days = days - 1;
+    }
+
+    if (endDay == 6 && startDay != 0) {
+      days = days - 1;
+    }
+
+    return days;
   }
 }

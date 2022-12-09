@@ -42,7 +42,7 @@ export class ProjectEmployeesComponent implements OnInit {
     public companyService: CompanyService,
     public customerService: CustomerService,
     public projectService: ProjectService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.role = sessionStorage.getItem("role");
@@ -207,6 +207,12 @@ export class ProjectEmployeesComponent implements OnInit {
             data["data"],
             (item) => item.role.toUpperCase() === "PM"
           );
+          const UserType = _.filter(
+            data["data"],
+            (item) => item.user_type === "I"
+          );
+          console.log(UserType.user_type = "I")
+
 
           this.projectManager.unshift({
             label: "Select Project Manager",
@@ -224,12 +230,23 @@ export class ProjectEmployeesComponent implements OnInit {
             value: null,
             disabled: true,
           });
-          data["data"].forEach((pmd) => {
-            this.employeeName.push({
-              label: pmd.emp_code + "-" + pmd.name,
-              value: pmd.id,
+          if (this.projectId === "28") {
+            UserType.forEach((pmd) => {
+              this.employeeName.push({
+                label: pmd.emp_code + "-" + pmd.name,
+                value: pmd.id,
+              });
             });
-          });
+            console.log("Hello", UserType)
+          } else {
+            data["data"].forEach((pmd) => {
+              this.employeeName.push({
+                label: pmd.emp_code + "-" + pmd.name,
+                value: pmd.id,
+              });
+            });
+            console.log("bye",data["data"])
+          }
 
           this.spinner = false;
         } else {

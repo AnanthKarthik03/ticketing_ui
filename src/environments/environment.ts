@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
- // apiUrl: 'http://127.0.0.1:9979/',
+  apiUrl: 'http://127.0.0.1:9979/',
   // apiUrl: 'https://rostan.rostantechnologies.com:9978/',
   // apiUrl: 'https://rostan.rostantechnologies.com:9979/',
-  apiUrl: 'https://rostan.rostantechnologies.com:9980/', // live
+  // apiUrl: 'https://rostan.rostantechnologies.com:9980/', // live
   // // apiUrl: 'https://rstapi.rostantechnologies.com:9992/',
   // company_logo: 'https://rostan.rostantechnologies.com/ticketing_tool/server/company_logo/',
   // employee_logo: 'https://rostan.rostantechnologies.com/ticketing_tool/server/employee_logo/',
