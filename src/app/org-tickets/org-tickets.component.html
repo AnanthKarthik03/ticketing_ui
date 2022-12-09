@@ -186,7 +186,7 @@
                       <th style="width: 58px">Status</th>
                       <th style="width: 62px">Creation Date</th>
                       <th style="width: 62px">Expected Delivery Date</th>
-                      <th style="width: 62px">Start Date</th>
+                      <th style="width: 62px">Actual Start Date</th>
                       <th style="width: 62px">Actual End Date</th>
                       <th style="width: 62px">Total Days</th>
                       <th style="width: 82px">PM</th>
@@ -263,9 +263,27 @@
                         </div>
                       </td>
                       <td>{{ item.status_name }}</td>
-                      <td>{{ item.start_date | date }}</td>
-                      <td>{{ item.end_date | date }}</td>
                       <td>{{ item.created_at | date }}</td>
+                      <td>{{ item.end_date | date }}</td>
+                      <td>
+                        <div
+                          *ngIf="
+                            item.status === 1 ||
+                            item.status === 2 ||
+                            item.status === 3 ||
+                            item.status === 4 ||
+                            item.status === 5 ||
+                            item.status === 6
+                          "
+                        >
+                          {{ item.updated_at | date }}
+                        </div>
+                        <div
+                          *ngIf="item.status === 0 "
+                        >
+                          {{ "-" }}
+                        </div>
+                      </td>
                       <td>
                         <div *ngIf="item.status == 5">
                           {{ item.updated_at | date }}
