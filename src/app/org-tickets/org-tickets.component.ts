@@ -423,6 +423,7 @@ export class OrgTicketsComponent implements OnInit {
                         : "Medium",
                 comments: ele.comments,
                 start_date: ele.start_date,
+                history_comment: ele.history_comment,
                 created_at: ele.created_at,
                 updated_at: ele.updated_at,
                 status: ele.status,
@@ -444,7 +445,7 @@ export class OrgTicketsComponent implements OnInit {
                                 : "Reopen",
                 ticket_desc: ele.ticket_desc,
                 customer_id: this.getcustomerName(ele.customer_id),
-                total_days: this.calcDays(new Date(ele.created_at), new Date(ele.updated_at))
+                total_days: this.calcDays(new Date(ele.history_comment), new Date(ele.updated_at))
               });
             });
             this.ticketDetailsDataD = this.ticketDetailsData;
