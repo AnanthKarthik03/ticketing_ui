@@ -81,6 +81,7 @@ export class OrgTicketsComponent implements OnInit {
   assignedToEmp = [];
   assignedToEmpDummy = [];
   totalDay = 0;
+  arr_length:number;
   constructor(
     public service: TicketingDetailsService,
     public projectService: ProjectReportService,
@@ -389,6 +390,10 @@ export class OrgTicketsComponent implements OnInit {
             // this.ticketDetailsData = data['data'];
             console.log(data["data"]);
             const arr = data["data"].concat(data["others"]);
+            if(arr.length>0) {
+              console.log(arr.length);
+              this.arr_length = arr.length;
+            }
             data["data"].forEach((ele) => {
               this.ticketDetailsData.push({
                 //ticket_no: ele.ticket_no,
