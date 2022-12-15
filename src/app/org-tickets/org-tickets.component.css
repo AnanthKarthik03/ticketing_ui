@@ -118,6 +118,7 @@ table tbody {
   display: grid;
   align-items: center;
   border-color: #e6e9ed;
+  
 }
 
 .lineHeight {
@@ -635,3 +636,66 @@ a:hover {
 .tab-content {
   text-align: initial;
 }
+.table1 {
+overflow-x: scroll;
+  height: auto;
+ }
+.fixed{
+  position: sticky; right: 0; z-index: 1;background:rgb(232, 232, 234);
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+  }
+
+.table2 {
+  overflow-y: scroll;
+  height: 400px;
+  
+}
+.table2 thead{
+  position: sticky;
+  top:0;
+  border-bottom: 2px solid #dee2e6 !important;
+}
+th {
+    border: 1px solid #dee2e6;
+    background: #fff;
+   
+    right: 0;
+  }
+
+  td {
+    border: 1px solid #dee2e6;
+    text-align: center;
+    padding: 8px;
+
+  }
+
+  .table2::-webkit-scrollbar {
+    width: 8px;
+    
+  }
+
+  .table2::-webkit-scrollbar-track {
+    background: rgb(232, 232, 234);
+   
+}
+
+.table2::-webkit-scrollbar-thumb {
+    background: rgb(136, 136, 136);
+   
+  }
+
+  .table2::-webkit-scrollbar-thumb:hover {
+    background: rgb(100, 100, 100);
+    
+  }
+
+  .table2::-webkit-scrollbar-thumb:active {
+    background: rgb(68, 68, 68);
+    
+  }
+  /* tr:nth-child(even, odd) {
+
+    background-color: #dddddd;
+
+  } */

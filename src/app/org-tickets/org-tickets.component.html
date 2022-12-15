@@ -38,7 +38,7 @@
         </div>
         <div class="row mb-4">
           <div class="col-lg-12 col-md-12 p-0">
-            <div class="card" style="overflow-x: scroll">
+            <div class="card" >
               <div class="card-header card-heade-em-deshboard">
                 <!--Size dropdown menu-->
                 <div class="col-md-12">
@@ -168,7 +168,7 @@
                   </div>
                 </div> -->
               </div>
-              <div class="card-body p-1">
+              <div class="card-body p-0" [ngClass]="arr_length > 0 ? 'table2' : 'table1'">
                 <table class="table-bordered table_style" width="100%">
                   <thead>
                     <tr>
@@ -190,7 +190,7 @@
                       <th style="width: 62px">Actual End Date</th>
                       <th style="width: 62px">Total Days</th>
                       <th style="width: 82px">PM</th>
-                      <th style="width: 35px">Edit</th>
+                      <th style="width: 38px ;" class="fixed" >Edit</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -320,7 +320,7 @@
                       </td>
                       <!-- <td>{{ item.end_date | date }}</td> -->
                       <td>{{ item.pm }}</td>
-                      <td>
+                      <td class="fixed">
                         <i
                           *ngIf="
                             item.status === 0 ||
