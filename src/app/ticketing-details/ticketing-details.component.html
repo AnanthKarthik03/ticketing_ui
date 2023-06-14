@@ -89,16 +89,16 @@
                         </div>
                       </div>
                     </div>
-                     <div class="col">
+                    <div class="col">
                       <a
-                      class="addButton float-right btn btn-primary"
-                      (click)="excelDownload()"
-                    >
-                      <span class="css-button-icon"
-                        ><i class="fa fa-download" aria-hidden="true"></i>
-                      </span>
-                    </a>
-                    </div> 
+                        class="addButton float-right btn btn-primary"
+                        (click)="excelDownload()"
+                      >
+                        <span class="css-button-icon"
+                          ><i class="fa fa-download" aria-hidden="true"></i>
+                        </span>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -142,8 +142,10 @@
                         <col style="width: 150px" />
                         <col style="width: 150px" />
                         <col style="width: 150px" />
-                        <col style="width: 200px" />
+                        <col style="width: 180px" />
                         <col style="width: 120px" />
+                        <col style="width: 180px" />
+                        <col style="width: 180px" />
                       </colgroup>
                     </ng-template>
                     <ng-template pTemplate="header">
@@ -246,6 +248,16 @@
                             ></p-columnFilter>
                           </div>
                         </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Cause
+                          </div>
+                        </th>
+                        <th>
+                          <div class="p-d-flex p-jc-between p-ai-center">
+                            Resolution
+                          </div>
+                        </th>
                       </tr>
                     </ng-template>
                     <ng-template
@@ -264,7 +276,15 @@
                           {{ ticketDetailsDataD.pm }}
                         </td>
 
-                        <td>
+                        <td
+                          style="
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            padding: 5px;
+                          "
+                          title="{{ ticketDetailsDataD.ticket_desc }}"
+                        >
                           {{ ticketDetailsDataD.ticket_desc }}
                         </td>
                         <td>
@@ -303,6 +323,20 @@
 
                         <td>
                           {{ ticketDetailsDataD.status_name }}
+                        </td>
+                        <td>
+                          {{
+                            ticketDetailsDataD.cause
+                              ? ticketDetailsDataD.cause
+                              : "-"
+                          }}
+                        </td>
+                        <td>
+                          {{
+                            ticketDetailsDataD.resolution
+                              ? ticketDetailsDataD.resolution
+                              : "-"
+                          }}
                         </td>
                       </tr>
                     </ng-template>

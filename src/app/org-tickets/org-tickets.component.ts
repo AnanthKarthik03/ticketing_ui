@@ -81,7 +81,7 @@ export class OrgTicketsComponent implements OnInit {
   assignedToEmp = [];
   assignedToEmpDummy = [];
   totalDay = 0;
-  arr_length:number;
+  arr_length: number;
   constructor(
     public service: TicketingDetailsService,
     public projectService: ProjectReportService,
@@ -390,7 +390,7 @@ export class OrgTicketsComponent implements OnInit {
             // this.ticketDetailsData = data['data'];
             console.log(data["data"]);
             const arr = data["data"].concat(data["others"]);
-            if(arr.length>0) {
+            if (arr.length > 0) {
               console.log(arr.length);
               this.arr_length = arr.length;
             }
@@ -444,6 +444,8 @@ export class OrgTicketsComponent implements OnInit {
                                 ? "Hold"
                                 : "Reopen",
                 ticket_desc: ele.ticket_desc,
+                cause: ele.cause,
+                resolution: ele.resolution,
                 customer_id: this.getcustomerName(ele.customer_id),
                 total_days: this.calcDays(new Date(ele.history_comment), new Date(ele.updated_at))
               });

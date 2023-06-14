@@ -50,19 +50,19 @@ export class TicketingDetailsComponent implements OnInit {
   getEmps() {
     this.empService.get_employee(this.companyId).subscribe((data) => {
       if (data['success']) {
-       
+
         this.empData = data['data'];
       }
     });
   }
-  
+
 
   getEmpName(id) {
     const data = _.filter(
       this.empData,
       (item) => parseInt(item.id, 10) === parseInt(id, 10)
     );
-   
+
     if (data.length > 0) {
       return data[0].name;
     }
@@ -82,7 +82,7 @@ export class TicketingDetailsComponent implements OnInit {
           this.othersList = data['data'];
           this.spinner = false;
         } else {
-         
+
           this.spinner = false;
         }
       },
@@ -98,8 +98,8 @@ export class TicketingDetailsComponent implements OnInit {
       (item) =>
         parseInt(item.id, 10) === parseInt(id, 10)
     );
-   
-    if (othersNameFilter.length > 0 ) {
+
+    if (othersNameFilter.length > 0) {
       return othersNameFilter[0].others;
     } else {
       return '-';
@@ -120,8 +120,8 @@ export class TicketingDetailsComponent implements OnInit {
         (data) => {
           if (data['success']) {
             // this.ticketDetailsData = data['data'];
-           
-            
+
+
             const arr = data['data'].concat(data['others']);
 
             data['data'].forEach((ele) => {
@@ -167,11 +167,13 @@ export class TicketingDetailsComponent implements OnInit {
                                 ? 'Hold'
                                 : 'Reopen',
                 ticket_desc: ele.ticket_desc,
+                cause: ele.cause,
+                resolution: ele.resolution,
               });
             });
             this.ticketDetailsDataD = this.ticketDetailsData;
 
-           
+
           } else {
             this.ticketDetailsData = [];
           }
@@ -183,7 +185,7 @@ export class TicketingDetailsComponent implements OnInit {
   }
 
   projectReport(id) {
-   
+
     this.selectedProjects = id;
     this.ticketDetails(id);
   }
@@ -211,7 +213,7 @@ export class TicketingDetailsComponent implements OnInit {
                   value: item.id,
                 });
               });
-             
+
               this.ticketDetails(this.projectListData[0].id);
             } else {
               this.spinner = false;
@@ -222,7 +224,7 @@ export class TicketingDetailsComponent implements OnInit {
           }
 
         );
-    } else if(this.userType === 'E') {
+    } else if (this.userType === 'E') {
       console.log("working this Client")
       this.empService.getEmpProjectsList(sessionStorage.getItem("id")).subscribe(
         (data) => {
@@ -238,7 +240,7 @@ export class TicketingDetailsComponent implements OnInit {
                 value: item.id,
               });
             });
-        
+
             this.ticketDetails(this.projectListData[0].id);
           } else {
             this.spinner = false;
@@ -266,7 +268,7 @@ export class TicketingDetailsComponent implements OnInit {
                 value: item.id,
               });
             });
-        
+
             this.ticketDetails(this.projectListData[0].id);
           } else {
             this.spinner = false;
@@ -283,7 +285,7 @@ export class TicketingDetailsComponent implements OnInit {
     this.categoryService.get_category().subscribe((data) => {
       if (data['success']) {
         this.categoryList = data['data'];
-       
+
       } else {
         this.categoryList = [];
       }
@@ -295,7 +297,7 @@ export class TicketingDetailsComponent implements OnInit {
       this.categoryList,
       (item) => parseInt(item.id, 10) === parseInt(id, 10)
     );
-   
+
     if (data.length > 0) {
       return data[0].category;
     } else {
@@ -329,8 +331,8 @@ export class TicketingDetailsComponent implements OnInit {
                 : 'Medium',
         //start_date: ele.start_date,
         start_date: ele.start_date
-        ? moment(ele.start_date).format('YYYY-MM-DD')
-        : moment(ele.start_date).format('YYYY-MM-DD'),
+          ? moment(ele.start_date).format('YYYY-MM-DD')
+          : moment(ele.start_date).format('YYYY-MM-DD'),
         status:
           ele.status === 0
             ? 'Open'
@@ -348,6 +350,8 @@ export class TicketingDetailsComponent implements OnInit {
                         ? 'Hold'
                         : 'Reopen',
         ticket_desc: ele.ticket_desc,
+        cause: ele.cause,
+        resolution: ele.resolution,
       });
     });
     this.excelService.exportAsExcelFile(

@@ -183,6 +183,8 @@
                       <th style="width: 56px">Sub Category</th>
                       <th style="width: 60px">Priority</th>
                       <th style="width: 82px">Comment</th>
+                      <th style="width: 82px">Cause</th>
+                      <th style="width: 82px">Resolution</th>
                       <th style="width: 58px">Status</th>
                       <th style="width: 62px">Creation Date</th>
                       <th style="width: 62px">Expected Delivery Date</th>
@@ -257,6 +259,46 @@
                           "
                         >
                           {{ item.comments }}
+                        </div>
+                        <div *ngIf="item.status == 0">
+                          {{ "-" }}
+                        </div>
+                      </td>
+                      <td
+                        style="
+                          white-space: nowrap;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          padding: 2px;
+                        "
+                        title="{{ item.cause }}"
+                      >
+                        <div
+                          *ngIf="
+                            item.status === 5
+                          "
+                        >
+                          {{ item.cause }}
+                        </div>
+                        <div *ngIf="item.status == 0">
+                          {{ "-" }}
+                        </div>
+                      </td>
+                      <td
+                        style="
+                          white-space: nowrap;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          padding: 2px;
+                        "
+                        title="{{ item.resolution }}"
+                      >
+                        <div
+                          *ngIf="
+                            item.status === 5
+                          "
+                        >
+                          {{ item.resolution }}
                         </div>
                         <div *ngIf="item.status == 0">
                           {{ "-" }}
